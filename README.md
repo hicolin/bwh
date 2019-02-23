@@ -1,4 +1,4 @@
-# bawanghua
+# 霸王花
 
 #### 介绍
 现金贷系统
@@ -7,9 +7,5 @@
 WeTouch + ThinkPHP
 
 
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
+#### 界面展示
 
