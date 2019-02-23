@@ -1,0 +1,63 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" method="post">
+        <div id="tools" class="tools">
+            {:W('RolePerm/RolePermTop')}
+        </div>
+        <div id="search" class="search">
+            <table border="0" class="SearchTable" cellpadding="3">
+                <thead>
+                    <tr>
+                        <td width="70" align="right">按钮名称：</td>
+                        <td width="180">
+                            <input id="Name" name="Name" type="text" />
+                        </td>
+                        <td width="70" align="right">按钮状态：</td>
+                        <td width="100">
+                            <select id="Status" name="Status">
+                                <option value="-5">全部</option>
+                                <option value="1">正常</option>
+                                <option value="0">隐藏</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 询">
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="tabelContent" class="tabelContent">
+            <table id="DataList"></table>
+        </div>
+        <input name="__RequestVerificationToken" type="hidden" value="O4xBctaQJIHAc4XDhzLhTfnYRNIidYs6GCIyh_hGwH30K_ZnOp2Pxm2itzlsyZJS70BJmedeg91fORNxM5Qj-b_rJ7SR59NvMLJ5mpJx5hA1" />
+    </form>
+
+    <script type="text/javascript">
+	
+        $(function () {
+        	 var frozenColumns = [
+        	                      { field: 'ID', checkbox: true },
+        	                      { field: 'Name', title: '按钮名称', width: 150 }
+        	                 ];
+        	                 var columns = [
+        	                         { field: 'EName', title: '英文名称', width: 100 },
+        	                         { field: 'Val', title: '权限值', width: 100, sortable: true },
+        	                         { field: 'Icon', title: '按钮图标', width: 70 },
+        	                         { field: 'Sort', title: '排序', width: 70, sortable: true, formatter: $.XB.JSSortInt },
+        	                         { field: 'Status', title: '状态', width: 70, sortable: true },
+        	                         { field: 'IsToken', title: '是否带令牌', width: 100, sortable: true },
+                                     { field: 'OperatorID', title: '操作者', width: 100, sortable: true },
+                                     { field: 'UpdateTime', title: '更新时间', width: 150, sortable: true }
+        	                 ];
+            $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns });
+            $.XB.enter();
+			
+        });
+    </script>
+        {:W('RolePerm/RolePermBottom')}
+	</body>
+<include file="Shared:Footer" />
+
+
+

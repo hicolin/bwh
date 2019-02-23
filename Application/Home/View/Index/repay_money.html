@@ -1,0 +1,178 @@
+<include file="Shared:Header" />
+<body class="bg_white">
+
+<!--head-->
+<div class="head">
+    <span>自助还款</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+
+
+<div class="renewal_nav">
+
+    <div class="renewal_nav_con">
+        <a href="repay_money.html" class="active">我要还款</a>
+        <a href="renewal.html" >我要续期</a>
+        <div class="clear"></div>
+
+    </div>
+
+</div>
+
+
+<!--main-->
+<div class="repay_main" style="margin-top: 0;">
+
+    <div class="repay_main_text">
+        <p>暂不支持信用卡还款</p>
+        <p>还款金额<span>1355.00</span>元</p>
+        <p>支付方式：</p>
+    </div>
+
+    <div class="repay_main_bank">
+        <div class="rmb_left fl">
+            招商银行（尾号5859）
+        </div>
+        <div class="rmb_right tc fl">
+            <i class="iconfont icon-jiantouxia"></i>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+    <div class="repay_main_btn">
+
+        <p>
+            <button class="sure">确定</button>
+        </p>
+
+        <p>
+            <a href="javascript:history.go(-1)">
+                <button class="close">取消</button>
+            </a>
+        </p>
+
+
+
+    </div>
+
+</div>
+<!--main end-->
+
+
+
+
+
+<!--遮罩层-->
+<div id="cover"></div>
+
+
+<!--下拉框1-->
+<div class="date_list animated bounceInUp">
+
+    <div class="dl_head">
+        <button class="dl_close fl">取消</button>
+        <button class="dl_sure fr">确定</button>
+    </div>
+
+    <div class="dl_list_list">
+        <p class="active">招商银行（尾号5859）</p>
+        <p>支付宝支付</p>
+        <p>微信支付</p>
+        <p>工商银行</p>
+        <p>其他银行支付</p>
+
+    </div>
+
+
+</div>
+
+
+
+<!--确认框-->
+<div class="sure_box animated bounceInLeft">
+
+    <div class="sure_box_head">
+        支付宝转账
+    </div>
+
+    <div class="sure_box_list">
+        <ul>
+            <li>
+                <span>官方账户：</span>
+                <i>evan@qq.com</i>
+            </li>
+            <li>
+                <span>转账金额：</span>
+                <i>2000.00元</i>
+            </li>
+            <li>
+                <span>转账备注：</span>
+                <i>哈哈哈哈哈哈哈</i>
+            </li>
+            <li>
+                <span>官方账户：</span>
+                <img src="images/ewm.png"/>
+            </li>
+        </ul>
+        <p class="know">我知道了</p>
+    </div>
+
+
+</div>
+
+
+
+<script>
+    //    选择期限
+    $(function(){
+        $(".rmb_right").click(function(){
+            $("#cover").show();
+            $(".date_list").show();
+        });
+
+        $(".dl_list_list p").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".dl_close").click(function(){
+            $("#cover").hide();
+            $(".date_list").hide();
+        });
+
+        $(".dl_sure").click(function(){
+
+            var _text = $(".dl_list_list .active").text();
+            $(".rmb_left").text(_text);
+            $(".sure_box_head").text(_text);
+            $("#cover").hide();
+            $(".date_list").hide();
+        });
+    })
+
+
+    $(function(){
+        $(".sure").click(function(){
+            $("#cover").show();
+            $(".sure_box").show();
+        })
+
+        $(".know").click(function(){
+            $("#cover").hide();
+            $(".sure_box").hide();
+        })
+    })
+
+
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+
+<include file="Shared:Header" /><body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>内容：</td>
+            <td>
+                <textarea id="Lead" name="Lead" rows="5"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right">审核：</td>
+            <td>
+                        <select id="Icheck" name="Icheck" class="easyui-combobox easyui-validatebox" >
+                            <option value="1" >是</option>
+                            <option value="0" >否</option>
+                        </select>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- @Html.AntiForgeryToken() -->
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+<script>
+
+    $(function () {
+        $('#FF').form('load', '__URL__/loadajax?ID='+{$ID}+'&_=' + Math.random() + '');
+    });
+
+
+</script>
+</body>
+<include file="Shared:Footer" />

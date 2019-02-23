@@ -1,0 +1,34 @@
+<include file="Shared:Header" />
+<style>
+    .layout-panel-west {
+        border-right: 1px solid #ccc;
+    }
+</style>
+<body class="easyui-layout">
+    <div data-options="region:'west',collapsible:false,border:false,width:200,title:''">
+        <ul id="LeftTree"></ul>
+    </div>
+    <div data-options="region:'center',border:false" style="overflow:hidden;">        
+        <iframe name="iframe" id="iframe" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#iframe").attr("src", "list/");
+            $('#LeftTree').tree({
+                url: 'DataTree',
+                animate: true,
+                lines: true,
+                onClick: function (node) {
+                    if (node.attributes.category == 'C') {
+
+                        $("#iframe").attr("src", "{:U('System/Contentmanagement/list')}?CategoriesID=" + node.id + "");
+
+                    }else if (node.attributes.category == 'N') {
+                        $("#iframe").attr("src", "__URL__/single/?CategoriesID=" + node.id + "");
+                    }
+                }
+            });
+        })
+    </script>
+</body>
+<include file="Shared:Footer" />

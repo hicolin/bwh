@@ -1,0 +1,35 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    <form id="FF" method="post">
+        <div id="tabelContent" class="tabelContent">
+            <table id="getuserData"></table>
+        </div>
+    </form>
+    <script type="text/javascript">
+        var IDs="{$ids}";
+        var frozenColumns = [
+            { field: 'ID', title: '用户ID', width: 50 },
+        ];
+        var columns = [
+            { field: 'UserName', title: '用户名', width: 150 },
+            { field: 'TrueName', title: '用户姓名', width: 100 },
+            { field: 'Mobile', title: '手机号码', width: 120 },
+        ];
+        $.XB.datagrid({
+            "loadsuccess": function () {
+                $(this).datagrid('resize', {
+                    height: $(window).height() -5
+                });
+            },
+            "frozenColumns": frozenColumns, "columns": columns, "url": "__APP__/Juan/Coupans/getuserData?IDs="+IDs,"pagesize": "10", "datalist": "#getuserData","del":"del"
+        });
+
+        function Cell_remove(id){
+            window.location.href="{:U('Juan/Coupans/ajax')}?IDs={$ids}&rid="+id
+        }
+    </script>
+</body>
+<include file="Shared:Footer" />
+
+
+

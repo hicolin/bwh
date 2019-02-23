@@ -1,0 +1,107 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg',footer:'#ft'">
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>功能说明：</td>
+            <td>
+                <input id="Title" name="Title" type="text" class="easyui-textbox" style="width: 380px;"/>
+                <span class="Hui">如：获取服务器时间戳</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="right"><span class="Red">*</span> 分类：</td>
+            <td>
+                <select id="Cid" name="Cid" class="easyui-combotree" data-options="required:true,panelHeight:150,editable:false,url:'{:U('Api/Categories/add')}'"></select>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right"><span class="Red">*</span>提交网址：</td>
+            <td>
+                <input id="Url" name="Url" type="text" class="easyui-textbox" style="width: 380px;"/>
+                <span class="Hui">如：/core/tool/timestamp</span>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right">提交方式：</td>
+            <td>
+                <select id="Submission" name="Submission" onchange="methodpg(this.value)">
+                    <option value="1">POST</option>
+                    <option value="2">GET</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right">提交参数：</td>
+            <td>
+                <textarea id="Information" name="Information"  rows="5" class="easyui-validatebox"  data-options="required:true" style="width: 700px;"></textarea>
+                <div class="Hui" style="padding: 3px 0px">格式必须填写完整（如果是密文传输，json字段必须包括在data内），<br/>如：{"token":"b9QTd4+QWcXWv7N14TooigBmAyOT5EqnIY5aPO9FdjA=","client":"android","package":"11","version":"1.1","isaes":"0"}</div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">参数说明：</td>
+            <td>
+                <textarea id="Parameter" name="Parameter"  rows="5" class="easyui-validatebox"  style="width: 700px;"></textarea>
+
+            </td>
+        </tr>
+        <tr>
+            <td align="right">返回信息：</td>
+            <td>
+                <textarea id="messages" name="messages"  rows="5" class="easyui-validatebox"  ></textarea>
+                <div class="Hui">如：{'result'=>1,'message'=>'恭喜您，获取时间戳成功！','data'}</div>
+            </td>
+        </tr>
+        <tr>
+            <td align="right">错误返回信息：</td>
+            <td>
+                <textarea id="Error" name="Error"  rows="5" class="easyui-validatebox"  ></textarea>
+                <div class="Hui">如：{'result'=>0,'message'=>'Erro','data'}</div>
+            </td>
+        </tr>
+
+
+        </tbody>
+    </table>
+    <!-- @Html.AntiForgeryToken() -->
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+</div>
+
+<div id="ft" style="padding:4px;text-align:center;">
+    <input onclick="$.XB.pagesave({'isiframe':true,'isClose':true});" type="button" value=" 确 定 ">
+    <input onclick="$.XB.easyuireset();" type="button" style="margin-left:20px;" value=" 重 置 ">
+</div>
+
+{:load_editor_js('kindeditor')}
+<script>
+    $(function () {
+        $('#FF').form('load', '../shows?ID={$ID}&_=' + Math.random() + '').form({
+            onLoadSuccess: function (data) {
+                {:editor('kindeditor',1,'messages,Error')}
+            }
+        });
+    });
+
+    function methodpg(id){
+        if(id == 2){
+            $('tr.method1').hide();
+            if(!$('#Information').val()){
+                $('#Information').val('client=android&package=ceshi.app&ver=v1.1');
+            }
+
+        }else{
+            $('tr.method1').show();
+        }
+    }
+</script>
+</body>
+<include file="Shared:Footer" />

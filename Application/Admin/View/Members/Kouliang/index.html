@@ -1,0 +1,53 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="form1">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">渠道名称：</td>
+                    <td width="180">
+                        <select id="Tgadmin" name="Tgadmin" type="text" class="easyui-combobox" data-options="required:true,editable:false,url:'{:U('Members/Kouliang/getCate')}',valueField:'id',textField:'text'"></select>
+                    </td>
+                    <td width="70" align="right">是否启用：</td>
+                    <td width="180">
+                        <select id="Status" name="Status">
+                            <option value="-5">全部</option>
+                            <option value="1">启用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'ID', checkbox: true }
+    ];
+    var columns = [
+        { field: 'Tgadmin', title: '平台名称', width: 120  },
+        { field: 'Kouliang', title: '扣量比例', width: 80  },
+        { field: 'Status', title: '状态', width: 80, sortable:true,formatter:Common.StatusFormatter },
+        { field: 'AddTime', title: '创建时间', width: 150 ,sortable:true}
+
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+    {:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

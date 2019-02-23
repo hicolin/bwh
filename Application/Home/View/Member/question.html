@@ -1,0 +1,55 @@
+<include file="Shared:Header" />
+<body class="user_body">
+
+<!--head-->
+<div class="head">
+    <span>常见问题</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+
+<!--main -->
+<div class="ques_main">
+    <ul>
+        <volist name="articles" id="vo">
+            <li>
+                <h1 class="qm_title">{$vo['Title']}<i class="iconfont icon-jiantouxia fr"></i></h1>
+                <div class="qm_text" style="margin: .1rem 0;color:#999">
+                    {$vo['Lead']}
+                </div>
+            </li>
+        </volist>
+    </ul>
+</div>
+<!--main end-->
+
+<script>
+
+    $(".ques_main .qm_title").click(function(){
+        $(".qm_text").slideUp();
+        $(".qm_title i").removeClass("iconRotate");
+        $(".qm_title").removeClass("on");
+        if($(this).next().is(":hidden")){
+            $(this).next().slideDown();
+            $(this).find("i").addClass("iconRotate");
+            $(this).addClass("on");
+        }
+    });
+
+//    $(function() {
+//        $(".ques_main li:first-child .qm_title").trigger("click");//触发第一个点击事件
+//    });
+</script>
+
+
+
+
+
+
+
+
+</body>
+</html>

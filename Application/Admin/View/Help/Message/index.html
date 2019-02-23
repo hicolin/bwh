@@ -1,0 +1,77 @@
+
+<include file="Shared:Header" /><body class="Bodybg">
+<form id="FF" method="post">
+    <div id="tools" class="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div id="search" class="search">
+        <table border="0" class="SearchTable" cellpadding="3">
+            <thead>
+            <tr>
+                <td align="right">手机号：</td>
+                <td>
+                    <input id="Mobile" Name="Mobile" type="text" />
+                </td>
+                <td align="right">昵称：</td>
+                <td>
+                    <input id="NickName" name="NickName" type="text" />
+                </td>
+                <td align="right">状态：</td>
+                <td>
+                    <select name="States" id="States">
+                        <option value="-5">全部</option>
+                        <option value="0">未查看</option>
+                        <option value="1">已查看</option>
+                    </select>
+                </td>
+                <td>
+                    <input id="btnSearch" onClick="$.XB.search();" type="button" value="查 询">
+                </td>
+                <td>
+                    <input id="MoreSearch" onclick="$.XB.moresearch()" type="button" value="更多条件">
+                </td>
+            </tr>
+
+            </thead>
+            <tbody id="stbody">
+            <tr>
+                <td align="right">内容：</td>
+                <td>
+                    <input id="Lead" name="Lead" type="text" />
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <div id="tabelContent" class="tabelContent">
+        <table id="DataList"></table>
+    </div>
+    
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        var frozenColumns = [
+            { field: 'ID', checkbox: true },
+            { field: 'NickName', title: '昵称', width: 150 },
+            { field: 'Mobile', title: '手机号', width: 120 },
+        ];
+        var columns = [
+            { field: 'Addtime', title: '留言时间', width: 150 },
+
+            { field: 'States', title: '状态', width: 80 },
+            { field: 'OperatorID', title: '查看人', width: 120 },
+
+            { field: 'UpdateTime', title: '查看时间', width: 150 },
+            { field: 'Lead', title: '内容', width: 350 },
+            { field: 'StatesDes', title: '处理描述', width: 350 },
+        ];
+
+        $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns });
+        $.XB.enter();
+    });
+</script>
+{:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />

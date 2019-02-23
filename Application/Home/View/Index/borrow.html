@@ -1,0 +1,238 @@
+<include file="Shared:Header" />
+<body class="bg_white">
+
+<!--head-->
+<div class="head">
+    <span>我要借贷</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--main-->
+<div class="borrow_main">
+
+
+
+
+        <ul class="borrow_main_list">
+
+            <li>
+                <a>
+                    <span>借款金额</span>
+                    <em class="fr"><span class="text mon_btn">{$money?:0}</span>元<i class="iconfont icon-youjiantou"></i></em>
+                </a>
+            </li>
+
+            <li>
+                <a>
+                    <span>借款期限</span>
+                    <em class="fr"><span class="text date_btn">{$loanterm['Day']}</span>天<i class="iconfont icon-youjiantou"></i></em>
+                </a>
+            </li>
+
+        </ul>
+
+
+        <ul class="borrow_main_money">
+            <li>
+                快速申请费：<span>{$loanterm['Fastmoney']}</span>元
+            </li>
+            <li>
+                息费：<span>{$loanterm['Interest']}</span>元
+            </li>
+            <li>
+                用户管理费：<span>{$loanterm['GuanliCost']}</span>元
+            </li>
+            <li>
+                实际放款：<span>{$money-($loanterm['Fastmoney']+$loanterm['Interest']+$loanterm['GuanliCost'])}</span>元
+            </li>
+            <div class="clear"></div>
+        </ul>
+
+        <div class="borrow_main_total">
+            到期应还：<span><i>{$money?$money:'0'}</i>元</span>
+        </div>
+
+        <div class="borrow_main_bot">
+            <label>
+                <input type="checkbox">我已阅读并同意
+            </label>
+            <a href="{:U('index/borrowdetail')}">《使用条款隐私协议》</a>
+
+            <p>
+                <button  onclick="sub();">提交</button>
+            </p>
+        </div>
+
+
+
+
+
+
+
+
+</div>
+<!--main end-->
+
+
+<!--遮罩层-->
+<div id="cover"></div>
+
+
+<!--下拉框1-->
+<div class="money_list animated bounceInUp">
+
+    <div class="ml_head">
+        <button class="ml_close fl">取消</button>
+        <button class="ml_sure fr">确定</button>
+    </div>
+
+    <div class="ml_list_list">
+        <span>500</span>
+        <span class="active">1000</span>
+        <span>2000</span>
+        <span>3000</span>
+        <span>5000</span>
+        <span>8000</span>
+        <span>10000</span>
+    </div>
+
+
+</div>
+
+
+
+<!--下拉框2-->
+<div class="date_list animated bounceInUp">
+
+    <div class="dl_head">
+        <button class="dl_close fl">取消</button>
+        <button class="dl_sure fr">确定</button>
+    </div>
+
+    <div class="dl_list_list">
+        <span>3</span>
+        <span class="active">7</span>
+        <span>15</span>
+        <span>30</span>
+        <span>60</span>
+        <span>90</span>
+        <span>180</span>
+    </div>
+
+
+</div>
+
+
+<script>
+    //    选择钱
+    $(function(){
+        $(".mon_btn").click(function(){
+            $("#cover").show();
+            $(".money_list").show();
+        });
+
+        $(".ml_list_list span").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".ml_close").click(function(){
+            $("#cover").hide();
+            $(".money_list").hide();
+        });
+
+        $(".ml_sure").click(function(){
+
+            var _text = $(".ml_list_list .active").text();
+            $(".mon_btn").text(_text);
+            $("#cover").hide();
+            $(".money_list").hide();
+        });
+    })
+
+    //    选择期限
+    $(function(){
+        $(".date_btn").click(function(){
+            $("#cover").show();
+            $(".date_list").show();
+        });
+
+        $(".dl_list_list span").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".dl_close").click(function(){
+            $("#cover").hide();
+            $(".date_list").hide();
+        });
+
+        $(".dl_sure").click(function(){
+
+            var _text = $(".dl_list_list .active").text();
+            $(".date_btn").text(_text);
+            $("#cover").hide();
+            $(".date_list").hide();
+        });
+    })
+
+    function valmoney() {
+        var money = $('.mon_btn').html();
+        if(money==0 ){
+            layer.msg("借款金额不得为0！");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function valcheck() {
+        var checkbox = $("input[type='checkbox']").is(':checked');
+        if(checkbox==false){
+            layer.msg("请勾选使用条款！");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+     //生成订单
+     function sub() {
+         if(valmoney() && valcheck()){
+         var money = $('.mon_btn').html();
+         var day = {$loanterm['Day']};
+         var usefor = {$usefor?:'1'};
+         var total = $('.borrow_main_total span i').html();
+             $.ajax({
+                 type: 'POST',
+                 url: '{:U("index/applylist")}',
+                 data: {'money': money, 'day': day,'usefor':usefor, 'total': total},
+                 dataType: 'json',
+                 success: function (data) {
+                     if (data.result == 1) {
+                         layer.msg(data.message, {time: 2000}, function () {
+                             window.location.href = "{:U('member/loanrecord')}";
+                         })
+                     } else {
+                         layer.msg(data.message, {time: 3000}, function () {
+                             window.location.reload();
+                         })
+                     }
+                 }
+             })
+
+         }
+
+
+     }
+
+</script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,181 @@
+<include file="Shared:Header" />
+<body class="user_body">
+
+<!--head-->
+<div class="head">
+    <span>基本信息</span>
+    <a href="javascript:history.back()">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+
+<!--main -->
+<div class="per_main">
+    <ul>
+        <li>
+            <a>
+                <span>头像</span>
+                <img src="<php>echo $member['HeadImg'] ? : '__PUBLIC__/images/default_avatar.png'</php>" class="tx fr" id="avatar"/>
+                <form action="" id="uploadForm" style="display: none">
+                    <input type="file" name="file" id="file" accept="image/png,image/gif,image/jpg,image/jpeg">
+                </form>
+            </a>
+        </li>
+        <li>
+            <a>
+                <span>昵称</span>
+                <em class="fr">{$member['NickName']}</em>
+            </a>
+        </li>
+        <li>
+            <a class="">
+                <span>手机</span>
+                <em class="fr">{$member['Mobile']}</em>
+            </a>
+        </li>
+        <!--<li>-->
+            <!--<a>-->
+                <!--<span>职业</span>-->
+                <!--<em class="fr"><button class="text btn1">网页设计</button><i class="iconfont icon-youjiantou"></i></em>-->
+            <!--</a>-->
+        <!--</li>-->
+        <!--<li>-->
+            <!--<a>-->
+                <!--<span>收入水平</span>-->
+                <!--<em class="fr"><button class="text btn2">2000</button><i class="iconfont icon-youjiantou"></i></em>-->
+            <!--</a>-->
+        <!--</li>-->
+        <li>
+            <a>
+                <span>身份证号</span>
+                <if condition="$member.IDCard neq null">
+                    <em class="fr">{$member['IDCard']}</em>
+                    <else/>
+                    <em class="fr" style="color: #c71422;" onclick="window.location.href='{:U('certification/idcer')}'">点击前往实名认证</em>
+                </if>
+            </a>
+        </li>
+        <li>
+            <a>
+                <span>真实姓名</span>
+                <if condition="$member.TrueName neq null">
+                    <em class="fr">{$member['TrueName']}</em>
+                    <else/>
+                    <em class="fr" style="color: #c71422;" onclick="window.location.href='{:U('certification/idcer')}'">点击前往实名认证</em>
+                </if>
+            </a>
+        </li>
+        <li>
+            <a >
+                <span>银行卡号</span>
+                <if condition="$myBank.BankNo neq null">
+                    <em class="fr"><i class="text">{$myBank['BankNo']}</i></em>
+                    <else/>
+                    <em class="fr"><i class="text" style="color: #c71422;" onclick="window.location.href='{:U('certification/bankcer')}'">点击前往银行卡认证{$myBank['BankNo']}</i><i class="iconfont icon-youjiantou"></i></em>
+                </if>
+            </a>
+        </li>
+    </ul>
+
+</div>
+<!--main end-->
+
+<!--遮罩层-->
+<div id="cover"></div>
+
+
+<!--下拉框1-->
+<div class="choose_list choose_list1 animated bounceInUp">
+
+    <div class="cl_head">
+        <button class="cl_close fl">取消</button>
+        <button class="cl_sure fr">确定</button>
+    </div>
+
+    <ul class="cl_list cl_list1">
+        <li class="active">网页设计</li>
+        <li>平面设计</li>
+        <li>安卓开发</li>
+        <li>PHP开发</li>
+        <li>前端开发</li>
+    </ul>
+</div>
+
+
+<!--下拉框2-->
+<div class="choose_list choose_list2 animated bounceInUp">
+    <div class="cl_head">
+        <button class="cl_close fl">取消</button>
+        <button class="cl_sure fr">确定</button>
+    </div>
+    <ul class="cl_list cl_list2">
+        <li class="active">2000-4000元</li>
+        <li>4000-6000元</li>
+        <li >6000-8000元</li>
+        <li>8000-10000元</li>
+        <li>10000元以上</li>
+    </ul>
+</div>
+
+<script>
+    //    职业
+    $(function(){
+        $(".btn1").click(function(){
+            $("#cover").show();
+            $(".choose_list1").show();
+        });
+
+        $(".cl_list1 li").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".cl_close").click(function(){
+            $("#cover").hide();
+            $(".choose_list1").hide();
+        });
+
+        $(".cl_sure").click(function(){
+            var _text = $(".cl_list1 .active").text();
+            $(".btn1").text(_text);
+            $("#cover").hide();
+            $(".choose_list1").hide();
+        });
+    });
+
+    //    薪水
+    $(function(){
+        $(".btn2").click(function(){
+            $("#cover").show();
+            $(".choose_list2").show();
+        });
+
+        $(".cl_list2 li").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".cl_close").click(function(){
+            $("#cover").hide();
+            $(".choose_list2").hide();
+        });
+
+        $(".cl_sure").click(function(){
+            var _text = $(".cl_list2 .active").text();
+            $(".btn2").text(_text);
+            $("#cover").hide();
+            $(".choose_list2").hide();
+        });
+    });
+
+    // 头像上传
+    var url = "{:U('member/uploadHeadImg')}";
+    $('#avatar').click(function () {
+        $('#file').click().change(function () {
+            uploadPic('#avatar',url);
+        });
+    })
+</script>
+
+</body>
+</html>

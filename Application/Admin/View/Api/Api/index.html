@@ -1,0 +1,29 @@
+<include file="Shared:Header" />
+<style>
+    .panel-title {
+        height: 24px;
+        line-height: 24px;
+    }
+</style>
+<body class="easyui-layout" style="margin-left:1px;margin-top:1px;">
+    <div data-options="region:'west',collapsible:false,border:true,width:180,title:'栏目分类'">
+        <ul id="LeftTree"></ul>
+    </div>
+    <div data-options="region:'center',border:false" style="overflow:hidden;">        
+        <iframe name="iframe" id="iframe" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            $("#iframe").attr("src", "__URL__/lists/");
+            $('#LeftTree').tree({
+                url: 'DataTree',
+                animate: true,
+                lines: true,
+                onClick: function (node) {
+                    $("#iframe").attr("src", "__URL__/lists/?Cid=" + node.id + "");
+                }
+            });
+        })
+    </script>
+</body>
+<include file="Shared:Footer" />

@@ -1,0 +1,53 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填同父级分类下，分类名称不能重复；</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="100" align="right"><span class="Red">*</span> 分类名称：</td>
+                    <td>
+                        <input id="Name" name="Name" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="right"><span class="Red">*</span> 父级分类：</td>
+                    <td>
+                        <select id="ParentID" name="ParentID" class="easyui-combotree" data-options="required:true,panelHeight:150,editable:false,url:'{:U('Api/Categories/add')}',queryParams: {'Add': '[{&quot;id&quot;:0,&quot;text&quot;:&quot;设为父级分类&quot;}]'}"></select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="right">排序：</td>
+                    <td>
+                        <input id="Sort" name="Sort" class="easyui-numberspinner" type="text" value="999" data-options="width:150,min:1,suffix:'',increment:10,prompt:''" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">状态：</td>
+                    <td>
+                        <select id="Status" name="Status">
+                            <option value="1">正常</option>
+                            <option value="0">隐藏</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="hidden" id="ID" name="ID" />
+    </form>
+    <script>
+    </script>
+    <script>
+    $(function () {
+        $('#FF').form('load', '../shows?ID='+{$id}+'&_=' + Math.random() + '');
+    });
+    </script>
+</body>
+<include file="Shared:Footer" />

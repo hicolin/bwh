@@ -1,0 +1,134 @@
+<include file="Shared:Header" />
+
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <!-- <tr>
+            <td colspan="6">说明：带<span class="Red">*</span>必填.</td>
+        </tr> -->
+        </thead>
+        <tbody>
+        <tr>
+            <td width="100" align="right">劵介绍：</td>
+            <td width="100" colspan="3">
+                {$juanInfo.Title}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                劵金额为:&nbsp;&nbsp;￥{$juanInfo.Money}&nbsp;元
+            </td>
+        </tr>
+        <tr>
+            <td width="100" align="right"><span class="Red">*</span>使用条件：</td>
+            <td width="100" colspan="3">
+                满&nbsp;<input type="text" name="StartMoney" id="StartMoney" style="width:75px;"/>&nbsp;元立减&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="Red">*</span>有效期
+                <input type="text" id="StartTime" name="StartTime" class="easyui-datebox" data-options="width:92,min:0,editable:false" /> 至
+                <input type="text" id="EndTime" name="EndTime" class="easyui-datebox" data-options="width:92,min:0,editable:false" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+		<tr>
+            <td align="right" valign="top"><div style="padding-top:10px;">发放会员：</div></td>
+            <td colspan="5">
+                <table width="99%">
+                    <tr>
+                        <td width="200" align="left">
+                            <span style="width: 48%">用户名：</span>
+                            <input id="UserName" name="UserName" type="text" style="width:48%;" value=""/>
+                        </td>
+                        <td width="200" align="left">
+                            <span style="width: 48%">手机号码：</span>
+                            <input id="Mobile" name="Mobile" type="text" style="width:48%;"/>
+                        </td>
+                        <td width="90" colspan="2">
+                            <input type="button" name="Submit" onclick="search()" value="搜索会员" />
+                        </td>
+                    </tr>
+                </table>
+
+                <table width="99%">
+                    <tr>
+                        <td width="440">信息列表</td>
+                        <td width="70"></td>
+                        <td width="440">选中的会员(选中对应的会员，双击即可取消)</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td valign="top" class="codehidden">
+                            <iframe name="code_iframe" id="code_iframe" width="100%" height="100%" frameborder="0" scrolling="auto" src="{:U('Juan/Coupans/userlist')}"></iframe>
+                        </td>
+                        <td valign="top">
+                            <div style="padding-bottom: 15px;">请先选中再点击下面操作</div>
+                            <span id="add" style="color: #f00; cursor: pointer">选中的会员批量添加到右边&gt;&gt;</span>
+                        </td>
+                        <td valign="top" class="codehidden">
+                            <iframe name="ajax_iframe" id="ajax_iframe" width="100%" height="100%" frameborder="0" scrolling="auto" src="{:U('Juan/Coupans/ajax')}"></iframe>
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <!-- @Html.AntiForgeryToken() -->
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+
+<div id="ft" style="padding:4px;text-align:center;height:40px;">
+    <input onclick="fn_fafang()" type="button" id="saveb" value=" 开始发放 ">
+    <input type="text" id="nums" class="easyui-numberbox" style="height: 25px;width: 100px"  data-options="required:true,prompt:'发放数量'">
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        var height = $(window).height()-208;
+        $('.codehidden').css('height',height);
+
+        $('#add').click(function () {
+            var ids = gallrowid();
+            $('#ajax_iframe').attr('src', "{:U('Juan/Coupans/ajax')}?IDs="+ids);
+        });
+
+        $(document).keyup(function(event){
+            if(event.keyCode ==13){
+                search();
+            }
+        });
+    })
+
+    function search(){
+        var UserName    = $('input#UserName').val();
+        var Mobile      = $('input#Mobile').val();
+
+        $('#code_iframe').attr('src', "{:U('Juan/Coupans/userlist')}?UserName="+UserName+"&Mobile="+Mobile);
+    }
+
+    function gallrowid() {
+        var checkedItems = code_iframe.$("#UserData").datagrid('getChecked');
+        var rows = [];
+        $.each(checkedItems, function (index, item) {
+            rows.push(item['ID']);
+        });
+        if (rows.length == 0) {
+            $.XB.warning({ "message": "请选择用户" }); return false;
+        }
+        else {
+            return rows.join(",");
+        }
+    }
+    //开始发放优惠劵
+    function fn_fafang(){
+        var num=$('#nums').val();
+        var StartMoney=$('#StartMoney').val();
+        var StartTime=$('input[name="StartTime"]').val();
+        var EndTime=$('input[name="EndTime"]').val();
+        var id="{$ID}";
+        if(num<=0){
+            $.XB.warning({ "message": "请输入发放数量" }); return false;
+        }
+        $.XB.pagesave({'isiframe':false,'isClose':true,'url':"__URL__/sendjuan?id="+id+"&num="+num });
+    }
+</script>
+
+<include file="Shared:Footer" />

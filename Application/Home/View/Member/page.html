@@ -1,0 +1,20 @@
+<include file="Shared:Header" />
+<body class="user_body">
+
+<!--head-->
+<div class="head">
+    <span>{$article.Title}</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--main -->
+<div class="per_main">
+    <php>echo htmlspecialchars_decode($article['Contents'])</php>
+</div>
+<!--main end-->
+
+</body>
+</html>

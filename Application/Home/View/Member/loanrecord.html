@@ -1,0 +1,151 @@
+<include file="Shared:Header" />
+<body>
+
+<!--head-->
+<div class="head">
+    <span>借款记录</span>
+    <a href="{:U('member/index')}">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--nav -->
+<div class="loan_record_nav">
+    <ul>
+        <li>
+            <a href="{:U('member/loanRecord')}">全部</a>
+        </li>
+        <li>
+            <a href="{:U('member/loanRecord',['LoanStatus'=>-1])}">申请中</a>
+        </li>
+        <li>
+            <a href="{:U('member/loanRecord',['LoanStatus'=>2])}">已通过</a>
+        </li>
+        <li>
+            <a href="{:U('member/loanRecord',['LoanStatus'=>3])}">已完成</a>
+        </li>
+        <li>
+            <a href="{:U('member/loanRecord',['LoanStatus'=>5])}">已拒绝</a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+</div>
+<!--nav end-->
+
+<!--main -->
+<div class="loan_record_main">
+    <div id="data-list">
+        <if condition="$records eq null">
+            <div style="margin: 0 auto;margin-top: 60px;text-align: center">
+            <img src="__PUBLIC__/images/no_content.png" style="width: 158px">
+            </div>
+        </if>
+        <volist name="records" id="vo">
+            <div class="lrm_item">
+                <ul>
+                    <li>
+                        <span>借款类型</span>
+                        <i>
+                            <php>$type = [0=>'普通',1=>'续借',2=>'分期'];echo $type[$vo["LoanType"]];</php>
+                        </i>
+                    </li>
+                    <li>
+                        <span>申请时间</span>
+                        <i>
+                            <php>echo date('Y-m-d H:i',strtotime($vo["ApplyTime"]))</php>
+                        </i>
+                    </li>
+                    <li>
+                        <span>借款编号</span>
+                        <i>{$vo.OrderSn}</i>
+                    </li>
+                    <li>
+                        <span>申请金额</span>
+                        <i>{$vo.ApplyMoney} 元</i>
+                    </li>
+                    <li>
+                        <span>到期应还</span>
+                        <i>{$vo.BackM} 元</i>
+                    </li>
+                    <li>
+                        <span>期限</span>
+                        <i>{$vo.ApplyDay} 天</i>
+                    </li>
+                    <!--<li>-->
+                        <!--<span>打款日</span>-->
+                        <!--<i></i>-->
+                    <!--</li>-->
+                    <li>
+                        <span>约定还款日</span>
+                        <i>
+                            <php>echo $vo["YyFkTime"] ? date('Y-m-d H:i',strtotime($vo["YyFkTime"])) : ''</php>
+                        </i>
+                    </li>
+                    <li>
+                        <span>借款状态</span>
+                        <i class="active">
+                            <php>$status = [0=>'申请中',1=>'放款中',2=>'已放款',3=>'已完成',4=>'已取消',5=>'已拒绝'];echo
+                                $status[$vo["LoanStatus"]];
+                            </php>
+                        </i>
+                    </li>
+                </ul>
+            </div>
+        </volist>
+
+    </div>
+    <if condition="$total gt $pageSize">
+    <div class="load-tip" style="display: none"><i class="fa fa-spinner fa-spin"></i> 加载中...</div>
+    </if>
+</div>
+<!--main end-->
+<script type="text/javascript">
+    tabSwitch('.loan_record_nav li a');
+
+    // 加载更多
+    var pageSize = '{$pageSize}';
+    var total = '{$total}';
+    var isLoading = false;
+    var page = 1;
+    var scroll = new auiScroll({
+        listen:true,
+        distance:100
+    },function (res) {
+        if(res.isToBottom && (total > pageSize) && !isLoading){
+            isLoading = true;
+            page++;
+            $('.load-tip').show();
+            loadMore(page);
+        }
+    });
+    function loadMore(){
+        $.post('{:U("member/loanRecord")}',{page:page},function (res) {
+            if(res.result === 200){
+                var content = '';
+                res.des.forEach(function (val) {
+                    content += '<div class="lrm_item">';
+                        content += '<ul>';
+                            content += '<li><span>借款类型</span><i>'+val.LoanType+'</i></li>';
+                            content += '<li><span>申请时间</span><i>'+val.ApplyTime+'</i></li>';
+                            content += '<li><span>借款编号</span><i>'+val.OrderSn+'</i></li>';
+                            content += '<li><span>金额</span><i>'+val.ApplyMoney+' 元</i></li>';
+                            content += '<li><span>期限</span><i>'+val.ApplyDay+' 天</i></li>';
+                            content += '<li><span>打款日</span><i>'+''+'</i></li>';
+                            content += '<li><span>约定还款日</span><i>'+val.YyFkTime+'</i></li>';
+                            content += '<li><span>借款状态</span><i class="active">'+val.LoanStatus+'</i></li>';
+                        content += '</ul>';
+                    content += '</div>';
+                });
+                $('#data-list').append(content);
+                isLoading = false;
+                $('.load-tip').hide();
+            }else{
+                $('.load-tip').html('─ 没有数据啦 ─');
+            }
+        },'json');
+    }
+</script>
+</body>
+</html>
+

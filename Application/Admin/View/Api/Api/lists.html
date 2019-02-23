@@ -1,0 +1,64 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" method="post">
+        <div id="tools" class="tools">
+            {:W('RolePerm/RolePermTop')}
+        </div>
+        <div id="search" class="search">
+            <table border="0" class="SearchTable" cellpadding="3">
+                <thead>
+                    <tr>
+
+                        <td align="right">分类：</td>
+                        <td>
+                            <select id="Cid" name="Cid" class="easyui-combotree" data-options="required:true,panelHeight:150,editable:false,url:'{:U('Api/Categories/add')}',queryParams: {'Add': '[{&quot;id&quot;:0,&quot;text&quot;:&quot;全部&quot;}]'}"></select>
+                        </td>
+
+                        <td align="right">功能说明：</td>
+                        <td >
+                            <input id="Title" Name="Title" type="text" />
+                        </td>
+                        <td align="right">提交网址：</td>
+                        <td>
+                            <input id="Url" name="Url" type="text" />
+                        </td>
+                        <td>
+                            <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 询">
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div id="tabelContent" class="tabelContent">
+            <table id="DataList"></table>
+        </div>
+    </form>
+    <script type="text/javascript">
+
+        $(function () {
+
+            var frozenColumns = [
+                 { field: 'ID', checkbox: true },
+                 { field: 'Title', title: '功能说明', width: 280 },
+                { field: 'Cid', title: '分类', width: 180,sortable: true,align:'center'},
+
+            ];
+            var columns = [
+                { field: 'Submission', title: '提交方式', width: 80,align:'center' },
+                { field: 'Url', title: '提交网址', width: 180 },
+                //{ field: 'Format', title: '传输格式', width: 200 },
+                { field: 'Information', title: '提交信息', width: 650 },
+
+                { field: 'Addtime', title: '更新时间', width: 140,sortable: true,align:'center'}
+            ];
+            $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns ,"url": "__URL__/DataList?Cid={:I('get.Cid')}"});
+            $.XB.enter();
+        });
+    </script>
+        {:W('RolePerm/RolePermBottom')}
+	</body>
+<include file="Shared:Footer" />
+
+
+

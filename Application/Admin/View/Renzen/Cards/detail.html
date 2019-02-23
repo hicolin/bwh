@@ -1,0 +1,141 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div id="tt" class="easyui-tabs" >
+    <div title="基本信息" style="padding: 20px; background-color: #f4f4f4">
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">认证照片</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td colspan="3">
+                       <table width="100%" border="0" cellpadding="3" cellspacing="0">
+                           <tr>
+                               <td>正面:</td>
+                               <td><a href="javascript:void(0);"><img src="{$infos.CardFace}" style="width:180px;height:120px;" onclick="bigview(this,0)"/></a></td>
+                               <td>反面:</td>
+                               <td><a href="javascript:void(0);"><img src="{$infos.CardSide}" style="width:180px;height:120px;" onclick="bigview(this,1)"/></a></td>
+                               <td>手持照:</td>
+                               <td><a href="javascript:void(0);"><img src="{$infos.Cardschi}" style="width:180px;height:120px;" onclick="bigview(this,2)"/></a></td>
+                           </tr>
+                       </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">风险模型得分</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">评估模型得分：</td>
+                    <td width="200">
+                        {$infos['Yddatas']['score_detail']['score']}
+                    </td>
+                    <td width="120" align="right">风险等级：</td>
+                    <td width="200">
+                        {$infos['Yddatas']['score_detail']['risk_evaluation']}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">认证结果</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">手机号码：</td>
+                    <td width="200">
+                        {$infos['Mobile']}
+                    </td>
+                    <td width="120" align="right">真实姓名：</td>
+                    <td width="200">
+                        {$infos['TrueName']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">身份证号：</td>
+                    <td width="200">
+                        {$infos['IDCard']}
+                    </td>
+                    <td width="120" align="right">状态：</td>
+                    <td width="200">
+                        <?php
+                          if($infos['Status']=='0'){
+                             echo '待审核';
+                          }elseif($infos['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                          }elseif($infos['Status']=='2'){
+                             echo '<span style="color:red;">认证失败</span>';
+                          }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">认证时间：</td>
+                    <td width="200">
+                        {$infos['RenzTime']}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+    </div>
+    <div title="审核记录"  style="padding: 20px; background-color: #f4f4f4">
+        <div class="TabelContent">
+            <table id="shenhelist"></table>
+        </div>
+    </div>
+</div>
+<div style="text-align:center;margin:20px 0px;">
+    <input name="Btn" type="button" value=" 关闭  " onclick="parent.$('#W1').window('close');" />
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var frozenColumns = [
+            //{ field: 'ID', checkbox: true }
+        ];
+        var columns = [
+            { field: 'OperatorID', title: '审核人', width: 120 },
+            { field: 'UserID', title: '会员姓名', width: 100 },
+            { field: 'Codes', title: '认证类型', width: 120 },
+            { field: 'Descs', title: '描述', width: 150 },
+            { field: 'Intro', title: '备注', width: 150 },
+            { field: 'UpdateTime', title: '审核时间', width: 150 },
+        ];
+        $.XB.datagrid({
+            "loadsuccess": function () {
+                $(this).datagrid('resize', {
+                    height: 260
+                });
+            }, "frozenColumns": frozenColumns, "columns": columns, "url": "__APP__/Renzen/Cards/shenhelist", "u": "RenZenID={$infos['ID']}", "pagesize": "10", "datalist": "#shenhelist"
+        });
+    });
+
+    function bigview(obj,num) {
+        var imsArr=<?php echo json_encode($cardimgArr);?>;
+        $(".docs-pictures" , parent.parent.parent.document).remove();
+        $(".viewer-container" , parent.parent.parent.document).remove();
+        var ulHtml='';
+        ulHtml+='<ul style="display: none" class="docs-pictures">';
+        for(var i=0;i<imsArr.length;i++){
+            ulHtml+='<li style="float:left;padding-left:20px;cursor: pointer"><img src="'+imsArr[i]+'" data-original="'+imsArr[i]+'"></li>'
+        }
+        ulHtml+='<div class="clear"></div></ul>';
+        if($("body" , parent.parent.parent.document).append(ulHtml)){
+//                    var num=$(obj).attr('data-num');
+            window.parent.parent.parent.bigPopup(num);
+        }else{
+            $.XB.warning({'message':"请刷新后重试"});
+        }
+    }
+
+    $('input[name="Btn"]').click(function () {
+        $(".docs-pictures" , parent.parent.parent.document).remove();
+        $(".viewer-container" , parent.parent.parent.document).remove();
+    });
+</script>
+</body>
+<include file="Shared:Footer" />

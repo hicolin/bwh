@@ -1,0 +1,36 @@
+<include file="Shared:Header" />
+<body>
+
+<!--head-->
+<div class="head">
+    <span>我的银行卡</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+
+    <a href="{:U('certification/bankcer')}" class="right">修改</a>
+</div>
+<!--head end-->
+
+<!--main -->
+<div class="bank_main">
+    <if condition="$banks eq null">
+        <div style="margin: 0 auto;margin-top: 60px;text-align: center">
+            <img src="__PUBLIC__/images/no_content.png" style="width: 158px">
+        </div>
+    </if>
+    <ul>
+            <li>
+                <h1>
+                    <i class="iconfont icon-shuaqiaqiapianyinhangqia"></i>
+                   {$banks.BankName}
+                </h1>
+                <p><php>echo $banks['TrueName'];</php><p>
+                <h2><php>echo substr($banks['BankCode'],0,3).' ****** '.substr($banks['BankNo'],-4)</php></h2>
+            </li>
+    </ul>
+</div>
+<!--main end-->
+
+</body>
+</html>

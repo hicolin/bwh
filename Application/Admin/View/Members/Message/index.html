@@ -1,0 +1,64 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" method="post">
+    <div id="tools" class="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div id="search" class="search">
+        <table border="0" class="SearchTable" cellpadding="3">
+            <thead>
+            <tr>
+                <td width="90" align="right">发送对象号码：</td>
+                <td width="180">
+                    <input id="Mobile" name="Mobile" type="text" />
+                </td>
+                <td width="90" align="right">发送的内容：</td>
+                <td width="180">
+                    <input type="text" id="Contents" name="Contents" style="width:300px" />
+                </td>
+                <td>
+                    <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 询">
+                </td>
+                <td>
+                    <input id="MoreSearch" onclick="$.XB.moresearch()" type="button" value="更多条件">
+                </td>
+
+            </tr>
+            </thead>
+            <tbody id="stbody">
+            <td width="90" align="right">消息发送类型：</td>
+            <td width="100">
+                <select id="Type" name="Type">
+                    <option value="-5">选择发送类型</option>
+                    <option value="0">手机</option>
+                    <option value="1">通知</option>
+                </select>
+            </td>
+            </tbody>
+        </table>
+    </div>
+    <div id="tabelContent" class="tabelContent">
+        <table id="DataList"></table>
+    </div>
+    
+</form>
+
+<script type="text/javascript">
+    $(function () {
+        var frozenColumns = [
+            { field: 'ID', checkbox: true },
+            { field: 'Mobile', title: '消息接受者', width: 150 }
+        ];
+        var columns = [
+            { field: 'Type', title: '消息发送类型', width: 100 },
+            { field: 'Contents', title: '发送的内容', width: 500 },
+            { field: 'SendTime', title: '发送时间', width: 150 }
+        ];
+
+        $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns });
+        $.XB.enter();
+    });
+</script>
+{:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />

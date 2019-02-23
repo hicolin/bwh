@@ -1,0 +1,90 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+            <tr>
+                <td colspan="2">说明：设置好权限后，请仔细检查下菜单和按钮选中情况，以免手误让角色下用户权限越权。</td>
+            </tr>
+        </thead>
+    </table>
+    <div id="aa" class="easyui-accordion" data-options="border:false">
+        <volist name="menulist" id="val">
+            <div title="{$val.Name}" data-options="iconCls:'{$val.IconCls}'">
+                <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+                    <tbody>
+
+                        <volist name="val.children" id="vo">
+                            <tr>
+                                <td width="120" align="right">
+                                    <label for="C{$vo.ID}">
+                                        <input type="checkbox" id="C{$vo.ID}" name="MBID[]"  onclick="Select(this)" <if condition="$vo.Select eq 1"> checked="checked"</if> value="{$val.ID}:{$vo.ID}:0" /> {$vo.Name}
+                                    </label>
+                                </td>
+                                <td>
+                                    <if condition="$vo['children'] and !$vo['OperationButton']">
+                                        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+                                            <tbody>
+                                            <volist name="vo.children" id="v1">
+                                                <tr>
+                                                    <td width="120" align="right">
+                                                    <label for="C{$v1.ID}">
+                                                        <input type="checkbox" id="C{$v1.ID}" name="MBID[]"  onclick="Select(this)" <if condition="$v1.Select eq 1"> checked="checked"</if> value="{$vo.ID}:{$v1.ID}:{$val.ID}" /> {$v1.Name}
+                                                    </label>
+                                                </td>
+                                                    <td>
+                                                        <foreach name="v1.OperationButton" item="v2">
+
+                                                            <if condition="$v2.ButtonID eq 1">
+                                                                <input type="checkbox" id="C{$v1.ID}c{$v2.ButtonID}c1"  name="MBID[]" value="{$vo.ID}:{$v1.ID}:{$v2.ButtonID}" <if condition="$v2.select eq 1"> checked="checked"</if>/> {$v2.Name}
+                                                                <else/>
+                                                                <label for="C{$v1.ID}c{$v2.ButtonID}">
+                                                                    <input type="checkbox" id="C{$v1.ID}c{$v2.ButtonID}"  name="MBID[]" value="{$vo.ID}:{$v1.ID}:{$v2.ButtonID}" <if condition="$v2.select eq 1">checked="checked"</if>/>{$v2.Name}
+                                                                </label>
+                                                            </if>
+                                                        </foreach>
+                                                    </td>
+                                                </tr>
+                                            </volist>
+                                            </tbody>
+                                        </table>
+                                        <else/>
+                                        <volist name="vo.OperationButton" id="v">
+                                            <if condition="$v.ButtonID eq 1">
+                                                <input type="checkbox" id="C{$vo.ID}c{$v.ButtonID}c1"  name="MBID[]" value="{$val.ID}:{$vo.ID}:{$v.ButtonID}" <if condition="$v.select eq 1"> checked="checked"</if>/> {$v.Name}
+                                                <else/>
+                                                <label for="C{$vo.ID}c{$v.ButtonID}">
+                                                    <input type="checkbox" id="C{$vo.ID}c{$v.ButtonID}"  name="MBID[]" value="{$val.ID}:{$vo.ID}:{$v.ButtonID}" <if condition="$v.select eq 1">checked="checked"</if>/>{$v.Name}
+                                                </label>
+                                            </if>
+                                        </volist>
+                                    </if>
+
+
+                                </td>
+                            </tr>
+                        </volist>
+
+                    </tbody>
+                </table>
+            </div>
+        </volist>
+    </div>
+    <input name="__RequestVerificationToken" type="hidden" value="EcX545l0zDnRcaFj4HEHY4flfo_w3GFwlvhk6Xb2AJxdCiGDDBr-iYCvQuWBKDGo46_AOk2Z37drRGJ2SI8MecrIKnGKH9vILOTKRryFdXw1" />
+    <input type="hidden" id="ID" name="ID" value="{$roleID}" />
+</form>
+
+<script>
+    function Select(T) {
+        var $T = $(T);
+        if ($T.is(":checked")) {
+            $T.parent().parent().parent().find("input").prop('checked', 'checked');
+        }
+        else {
+            $T.parent().parent().parent().find("input").removeAttr('checked');
+        }
+    }
+</script>
+</body>
+<include file="Shared:Footer" />

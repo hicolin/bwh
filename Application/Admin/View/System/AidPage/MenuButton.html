@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html><head>
+    <meta name="viewport" content="width=device-width">
+    <title>MenuButton</title>
+    <link href="__PUBLIC__/Admin/images/H/Main.css" rel="stylesheet">
+</head>
+<body>
+{:W('OpButton/opbutton')}
+<script src="__PUBLIC__/Admin/JS/jquery.min.js"></script>
+<script src="__PUBLIC__/Admin/JS/XB.js"></script>
+<script>
+    $(function () {
+        $(".panelcheck").on("click", function () {
+            var $this = $(this);
+            if ($this.hasClass("checkbuttonNo") || $this.attr("id") == "1") {
+                $this.removeClass("checkbuttonNo").addClass("checkbuttonOk");
+                $this.find(".yesno").removeClass("triangleNo").addClass("triangleOk");
+                AddButton($this, $this.attr("id"), "Add");
+            }
+            else {
+                $this.removeClass("checkbuttonOk").addClass("checkbuttonNo");
+                $this.find(".yesno").removeClass("triangleOk").addClass("triangleNo");
+                $.XB.findiframe().mbdel(".B" + $this.attr("id") + "");
+            }
+        })
+    });
+
+    function AddButton(T, ID, Type) {
+        var P = $.XB.findiframe().$("#mb");
+        var span = $(T).find("span");
+        if (ID == 1 || ID == 2) {
+            var html = '<tr class="B' + ID + '">\r\n';
+            html += '<td>' + ((ID == "1") ? '<div class="Separator"></div>' : '<a href="javascript:void(0);" class="ToolBtn"><span class="' + span.eq(0).attr('class') + '"></span><b>' + span.eq(1).text() + '</b></a>') + '</td>\r\n';
+            html += '<td><input name="ButtonID[]" type="hidden" value="' + ID + '" /><input name="ButtonURL[]" type="hidden" /></td>\r\n';
+            html += '<td><input name="ButtonSaveURL[]" type="hidden" /></td>\r\n';
+            html += '<td><input name="JsFunction[]" type="hidden" /></td>\r\n';
+            html += '<td><input name="Width[]"  type="hidden" value="0" /></td>\r\n';
+            html += '<td><input name="Height[]" type="hidden" value="0" /></td>\r\n';
+            html += '<td><input name="OpenMode[]" type="hidden" value="2" /></td>\r\n';
+            html += '<td><span class="icon310 ButtonSort" onclick="mbdel(\'.B' + ID + '\',this);"></span><span class="icon207 ButtonSort" onclick="UP(this)"></span><span class="icon204 ButtonSort" onclick="Down(this)"></span></td>\r\n';
+            html += '</tr>\r\n';
+        }
+        else {
+            var html = '<tr class="B' + ID + '">\r\n';
+            html += '<td><a href="javascript:void(0);" class="ToolBtn"><span class="' + span.eq(0).attr('class') + '"></span><b>' + span.eq(1).text() + '</b></a></td>\r\n';
+            html += '<td><input name="ButtonID[]" type="hidden" value="' + ID + '" /><input name="ButtonURL[]" type="text" style="width:120px;" /></td>\r\n';
+            html += '<td><input name="ButtonSaveURL[]" type="text" style="width:120px;" /></td>\r\n';
+            html += '<td><input name="JsFunction[]" type="text" style="width:45px;" /></td>\r\n';
+            html += '<td><input name="Width[]" type="text" value="0" style="width:35px;" />px</td>\r\n';
+            html += '<td><input name="Height[]" type="text" value="0" style="width:35px;" />px</td>\r\n';
+            html += '<td><select name="OpenMode[]" style="width:70px;">\r\n';
+            html += '<option value="0">有交互窗口</option>\r\n';
+            html += '<option value="1">无交互的窗口</option>\r\n';
+            html += '<option value="2">无窗口打开</option>\r\n';
+            html += '<option value="3">带确认的无窗口</option>\r\n';
+            html += '<option value="4">打开新标签</option>\r\n';
+            html += '<option value="5">地址栏打开</option>\r\n';
+            html += '<option value="6">表单提交打开</option>\r\n';
+            html += '<option value="7">打开后台返回链接</option>\r\n';
+            html += '</select>\r\n';
+            html += '</td>\r\n';
+            html += '<td><span class="icon310 ButtonSort" onclick="mbdel(\'.B' + ID + '\');"></span><span class="icon207 ButtonSort" onclick="UP(this)"></span><span class="icon204 ButtonSort" onclick="Down(this)"></span></td>\r\n';
+            html += '</tr>\r\n';
+        }
+        P.append(html);
+    }
+</script>
+
+
+</body></html>

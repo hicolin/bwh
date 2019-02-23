@@ -1,0 +1,191 @@
+<include file="Shared:Header" />
+<body>
+
+<!--head-->
+<div class="head">
+    <span>社交认证</span>
+    <a href="javascript:history.back();">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--main-->
+<div class="id_cer_main main">
+        <div style="background: #fff;">
+            <div class="id_cer_m_list social_list">
+                <ul>
+                    <li class="getContact" >
+                        <span>姓名：</span>
+                        <input type="text" value="<?php echo $social['Contents']['name'] ?>" name="name" placeholder="填写姓名" class="cer_ba" readonly>
+                    </li>
+
+                    <li class="getContact">
+                        <span>电话：</span>
+                        <img src="__PUBLIC__/images/certificate/my_phoneNum.png" class="fr my_phoneNum"/>
+                        <input type="text" value="<?php echo $social['Contents']['tel'] ?>" name="tel" placeholder="填写电话" class="cer_ylp" readonly>
+                    </li>
+
+                    <li>
+                        <span>与本人关系：</span>
+                        <em class="btn1">
+                            <i class="iconfont icon-youjiantou fr"></i>
+                            <input type="text" name="guanxi" class="btn1_input" placeholder="请选择" value="<?php echo $social['Contents']['guanxi'] ?>" readonly>
+
+                        </em>
+                    </li>
+                    <li>
+                        <span>本人QQ：</span>
+                        <input type="number" name="QQ" placeholder="请输入本人QQ" class="cer_ba" value="<?php echo $social['QQ'] ?>" >
+                    </li>
+                    <li>
+                        <span>本人微信：</span>
+                        <input type="text" name="WeChat" value="<?php echo $social['WeChat'] ?>" placeholder="填写本人微信" class="cer_ba">
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="id_cer_m_btn tc">
+            <button onclick="SocialRen()">提交</button>
+        </div>
+</div>
+<!--main end-->
+
+
+<!--遮罩层-->
+<div id="cover"></div>
+
+
+<!--下拉-->
+<div class="choose_list animated bounceInUp">
+
+    <div class="cl_head">
+        <button class="cl_close fl">取消</button>
+        <button class="cl_sure fr">确定</button>
+    </div>
+
+    <ul class="cl_list1 cl_list">
+        <li class="active">父母</li>
+        <li>朋友</li>
+        <li>同事</li>
+    </ul>
+</div>
+<input type="hidden" id="Tel" value="1">
+<script>
+    var is = '<?=$cao?>';
+    // 获取联系人
+    function getContact(){
+        if(is==2){ //苹果操作系统
+            // // alert('苹果单个')
+            window.webkit.messageHandlers.getContact.postMessage(null);
+        }
+        if(window.app){
+            window.app.getContact();
+        }else{
+            // // alert("非官方APP，不支持获取手机联系人");
+        }
+    }
+
+    // app回调接口，该方法不能改名，返回数据为JSON格式，phoneNumber:手机号码，name:姓名
+    function getContact_callback(result){
+        // // alert(result);
+        var obj = JSON.parse(result);
+        $('input[name="name"]').val(obj.name);
+        $('input[name="tel"]').val(obj.phoneNumber);
+    }
+
+    // 获取所有联系人
+    function getAllContact(){
+        if(is==2){ //苹果操作系统
+            // // alert('苹果全部联系人')
+            window.webkit.messageHandlers.getAllContact.postMessage(null);
+        }
+        if(window.app){
+            window.app.getAllContact();
+        }else{
+            // // alert("非官方APP，不支持获取手机联系人");
+        }
+    }
+
+    // app回调接口，该方法不能改名，返回数据为JSON格式，phoneNumber:手机号码，name:姓名
+    function getAllContact_callback(result){
+         // // alert(result);
+        $.post('{:U("certification/phonelist")}',{s:result},function (data) {
+              // // alert(data)
+        })
+    }
+
+</script>
+
+<script>
+    //    关系
+    $(function(){
+        $(".btn1").click(function(){
+            $("#cover").show();
+            $(".choose_list").show();
+        });
+
+        $(".cl_list li").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".cl_close").click(function(){
+            $("#cover").hide();
+            $(".choose_list").hide();
+        });
+
+        $(".cl_sure").click(function(){
+            var _text = $(".cl_list1 .active").text();
+            $(".btn1_input").val(_text);
+            $("#cover").hide();
+            $(".choose_list").hide();
+        });
+        getAllContact();
+        $('.getContact').click(function () {
+            getContact();
+        })
+    });
+
+    function SocialRen() {
+        var QQ = $('input[name="QQ"]').val();
+        var WeChat = $('input[name="WeChat"]').val();
+        var name = $('input[name="name"]').val();
+        var guanxi = $('input[name="guanxi"]').val();
+        var tel = $('input[name="tel"]').val();
+        var hz = /^[\u4e00-\u9fa5]{2,25}$/; //验证汉字
+        var regTel1 = /^(([0\+]\d{2,3})?(0\d{2,3}))(\d{7,8})(-(\d{3,}))?$/; //带区号的固定电话
+        var regTel2 = /^(\d{7,8})(-(\d{3,}))?$/; //不带区号的固定电话
+        var reg =  /^1\d{10}$/;
+        if(!QQ){
+            layer.msg('请填写正确的QQ');return;
+        }
+        if(!WeChat){
+            layer.msg('请填写正确的微信');return;
+        }
+        // if(!hz.test(name)){
+        //     layer.msg('请填写正确的姓名');return;
+        // }
+        if(!hz.test(guanxi)){
+            layer.msg('请填写正确的关系');return;
+        }
+        // if(!regTel1.test(tel)&&!regTel2.test(tel)&&!reg.test(tel)){
+        //     layer.msg('请输入正确的电话');return;
+        // }
+        $.post('{:U("certification/socialcer")}',{QQ:QQ,WeChat:WeChat,name:name,guanxi:guanxi,tel:tel},function (data) {
+            if(data.result==1){
+                layer.msg(data.message,{icon:6,time:1500},function () {
+                    window.location.href = '{:U("certification/index")}';
+                })
+            }else {
+                layer.msg(data.message,{icon:5,time:1500});
+            }
+        },'json')
+
+    }
+</script>
+
+
+</body>
+</html>

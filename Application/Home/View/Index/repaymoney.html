@@ -1,0 +1,266 @@
+<include file="Shared:Header" />
+<body class="bg_white">
+
+<!--head-->
+<div class="head">
+    <span>自助还款</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+
+
+<div class="renewal_nav">
+
+    <div class="renewal_nav_con">
+        <a href="{:U('index/repaymoney')}" class="active">我要还款</a>
+        <a href="{:U('index/renewal')}" >我要续期</a>
+        <div class="clear"></div>
+
+    </div>
+
+</div>
+
+
+<!--main-->
+<div class="repay_main" style="margin-top: 0;">
+
+    <div class="repay_main_text">
+        <p>暂不支持信用卡还款</p>
+        <p>还款金额<span class="hk_money">：{$loan['BackM']}</span>元</p>
+        <p>支付方式：</p>
+    </div>
+
+    <div class="repay_main_bank">
+        <div class="rmb_left fl">
+            微信支付
+        </div>
+        <div class="rmb_right tc fl">
+            <i class="iconfont icon-jiantouxia"></i>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+    <div class="repay_main_btn">
+
+        <p>
+            <button class="sure">确定</button>
+        </p>
+
+        <p>
+            <a href="javascript:history.go(-1)">
+                <button class="close">取消</button>
+            </a>
+        </p>
+
+
+
+    </div>
+
+</div>
+<!--main end-->
+
+
+
+
+
+<!--遮罩层-->
+<div id="cover"></div>
+
+
+<!--下拉框1-->
+<div class="date_list animated bounceInUp">
+
+    <div class="dl_head">
+        <button class="dl_close fl">取消</button>
+        <button class="dl_sure fr">确定</button>
+    </div>
+
+    <div class="dl_list_list">
+
+        <p class="active">微信支付</p>
+        <p>支付宝支付</p>
+        <p>银联支付</p>
+
+    </div>
+
+
+</div>
+
+
+
+<!--确认框-->
+<div class="sure_box animated bounceInLeft">
+
+    <div class="sure_box_head">
+        <span class="sure_box_head_text">微信转账</span>
+        <img src="__PUBLIC__/images/close.png" class="close_sureBox"/>
+    </div>
+
+    <div class="sure_box_list">
+        <ul>
+            <li>
+                <span >官方账户：</span>
+                <i class="zz_account">{$wxpay['account']}</i>
+            </li>
+            <li>
+                <span>转账金额：</span>
+                <i  class="zz_money">{$loan['BackM']}元</i>
+            </li>
+            <li>
+                <span >转账备注：</span>
+                <i class="zz_note">{$wxpay['note']}</i>
+            </li>
+            <li>
+                <span >官方账户二维码：</span>
+                <img class="zz_img" src="{$wxpay['img']}"/>
+            </li>
+        </ul>
+        <p class="know" onclick="zzcomfirm();">点击确认转账</p>
+    </div>
+
+
+</div>
+
+
+
+<script>
+    //    选择期限
+    $(function(){
+        $(".rmb_right").click(function(){
+            $("#cover").show();
+            $(".date_list").show();
+        });
+
+        $(".dl_list_list p").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".dl_close").click(function(){
+            $("#cover").hide();
+            $(".date_list").hide();
+        });
+
+        $(".dl_sure").click(function(){
+            var _text = $(".dl_list_list .active").text();
+            var wx_account = '{$wxpay['account']}';
+            var wx_note = '{$wxpay['note']}';
+            var wx_img = '{$wxpay['img']}';
+            var ali_account = '{$alipay['account']}';
+            var ali_img = '{$alipay['img']}';
+            $(".rmb_left").text(_text);
+            $(".sure_box_head_text").text(_text);
+            if(_text=="微信支付"){
+                $(".zz_account").html(wx_account);
+                $(".zz_note").html(wx_note);
+                $(".zz_img").html(wx_img);
+            }else if(_text=="支付宝支付"){
+                $(".zz_account").html(ali_account);
+                $(".zz_note").html(wx_note);
+                $(".zz_img").html(ali_img);
+            }else if(_text=="银联支付"){
+
+            }
+            $("#cover").hide();
+            $(".date_list").hide();
+        });
+    })
+
+
+    $(function(){
+        $(".sure").click(function(){
+            var _text = $(".rmb_left").text();
+            if(_text.indexOf('微信')>-1 || _text.indexOf('支付宝')>-1){
+                $("#cover").show();
+                $(".sure_box").show();
+            }else{
+                zzcomfirm();
+            }
+
+        })
+
+        $(".know").click(function(){
+            $("#cover").hide();
+            $(".sure_box").hide();
+        });
+        $(".close_sureBox").click(function(){
+            $("#cover").hide();
+            $(".sure_box").hide();
+        })
+    })
+
+
+</script>
+<script>
+    function zzcomfirm() {
+        var uid = '{$uid}';
+        var LoanNo = '{$loan["LoanNo"]}';
+        var _text = $(".rmb_left").text();
+        if(_text.indexOf('微信')>-1){
+            var paytype = 2;
+        }else if(_text.indexOf('支付宝')>-1){
+            var paytype = 1;
+        }else if(_text.indexOf('银联')>-1){
+            var paytype = 3;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '{:U("index/hklist")}',
+            data: {'uid': uid,'LoanNo':LoanNo,'paytype':paytype},
+            dataType: 'json',
+            success: function (data) {
+                if (data.result == 0) {
+                    layer.msg(data.message,{icon:1,time:2000},function () {
+                        window.location.href='/';
+                    })
+                }else if(data.result == 1) {
+                    layer.msg(data.message,{icon:1,time:2000},function () {
+                        // window.location.href='/';
+                    })
+                }else if(data.result == 2) {
+                    layer.msg(data.message,{icon:1,time:2000},function () {
+                        window.location.href='{:U('member/hkrecord')}';
+                    })
+                }else if(data.result == 100) {
+                    layer.msg(data.message,{icon:1,time:2000},function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '{:U("fuyoupay/xieyi")}',
+                            data: {'id': data.des},
+                            dataType: 'json',
+                            success: function (data) {
+                                if (data.result == 0) {
+                                    layer.msg(data.message,{icon:1,time:2000},function () {
+                                        window.location.href="{:U('certification/bankcer')}";
+                                    })
+                                }else if(data.result == 2) {
+                                    layer.msg(data.message,{icon:1,time:2000},function () {
+                                        return false;
+                                    })
+                                }else if(data.result == 1){
+                                    layer.msg(data.message,{icon:1,time:2000},function () {
+                                        window.location.href="{:U('member/hklist')}";
+                                    })
+                                }
+
+                            }
+                        })
+                    })
+                }else{
+                    layer.msg("数据有误！");
+                    return false;
+                }
+
+            }
+        })
+    }
+</script>
+
+
+
+
+</body>
+</html>

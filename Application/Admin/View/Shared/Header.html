@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{:get_basic_info('SystemName')}</title>
+    <meta http-equiv=”X-UA-Compatible” content=”IE=edge,chrome=1″ />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <link href="__PUBLIC__/Admin/JS/EasyUI/easyui.css" rel="stylesheet" />
+    <link href="__PUBLIC__/Admin/images/H/Main.css" rel="stylesheet" />
+    <link href="https://at.alicdn.com/t/font_945748_64cl7hjnuzi.css" rel="stylesheet" />
+    <link rel="stylesheet" href="__PUBLIC__/Admin/imgviewer/css/viewer.css">
+    <script src="__PUBLIC__/Admin/JS/jquery.min.js"></script>
+    <script src="__PUBLIC__/Admin/JS/EasyUI/jquery.easyui.min.js"></script>
+
+    <script src="__PUBLIC__/Admin/JS/XB.js"></script>
+    <script src="__PUBLIC__/Admin/imgviewer/js/viewer.js"></script>
+    <script src="__PUBLIC__/Admin/Js/layer/layer.js"></script>
+
+
+    <link href="__PUBLIC__/Admin/images/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<form action="" id="uploadForm" style="display: none">
+    <input type="file" name="file" id="file">
+</form>
+<script>
+    function Upload(type){
+        type_file = type;
+        $('#file').click();
+    }
+    $('#file').click().unbind().change(function () {
+        $.ajax({
+            url: '{:U("Attachment/File/uploadNew")}',
+            type: 'post',
+            cache: false,
+            data:new FormData($('#uploadForm')[0]),
+            dataType: 'json',
+            processData: false,
+            contentType: false
+        }).done(function (res) {
+            if(res.result === 200){
+                $('#'+type_file).val(res.des);
+            }else{
+                layer.msg(res.message,{time:1500});
+            }
+        })
+    })
+</script>

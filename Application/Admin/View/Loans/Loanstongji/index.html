@@ -1,0 +1,51 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="FF">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">日期：</td>
+                    <td width="200">
+                        <input id="StartTime" name="StartTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                        -
+                        <input id="EndTime" name="EndTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'Times', title: '日期', width: 150  },
+        { field: 'Regists', title: '注册人数', width: 100  },
+    ];
+    var columns = [
+    	{ field: 'Applynumbs', title: '借款单数', width: 100  },
+    	{ field: 'Applymoney', title: '借款金额', width: 100  },
+        { field: 'Downs', title: '放款单数', width: 100  },
+        { field: 'Downsmoney', title: '放款金额', width: 100  },
+        { field: 'Hkcouonts', title: '还款单数', width: 100  },
+        { field: 'Hkmoney', title: '还款金额', width: 100  },
+        { field: 'Xjcouonts', title: '续期单数', width: 100  },
+        { field: 'Xjmoney', title: '续期金额', width: 100  },
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+    {:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

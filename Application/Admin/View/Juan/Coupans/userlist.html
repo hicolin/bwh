@@ -1,0 +1,32 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    <form id="FF" method="post">
+        <div id="tabelContent" class="tabelContent">
+            <table id="UserData"></table>
+        </div>
+    </form>
+    <script type="text/javascript">
+        var UserName="{$UserName}";
+        var Mobile="{$Mobile}";
+        var frozenColumns = [
+            { field: 'ID', title: '用户ID', width: 50 },
+        ];
+        var columns = [
+            { field: 'UserName', title: '用户名', width: 150 },
+            { field: 'TrueName', title: '用户姓名', width: 100 },
+            { field: 'Mobile', title: '手机号码', width: 120 },
+        ];
+        $.XB.datagrid({
+            "frozenColumns": frozenColumns, "columns": columns, "url": "__APP__/Juan/Coupans/userdatas?UserName="+UserName+"&Mobile="+Mobile,"pagesize": "10", "datalist": "#UserData","del":"del",
+            "loadsuccess": function () {
+                $(this).datagrid('resize', {
+                    height: $(window).height() -5
+                });
+            },
+        });
+    </script>
+</body>
+<include file="Shared:Footer" />
+
+
+

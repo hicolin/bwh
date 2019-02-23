@@ -1,0 +1,84 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填；排序数字越小越靠前 排序范围：1-9999，默认值：9999</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span> 名称：</td>
+                    <td>
+                        <input id="Name" name="Name" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"> 行政区划代码：</td>
+                    <td>
+                        <input id="Code" name="Code" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"> 英文名称：</td>
+                    <td>
+                        <input id="En" name="En" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"> 英文简称：</td>
+                    <td>
+                        <input id="ShortEn" name="ShortEn" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"> 邮政编码：</td>
+                    <td>
+                        <input id="Zip" name="Zip" type="text" class="easyui-validatebox" data-options="validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"> 电话区号：</td>
+                    <td>
+                        <input id="Tel" name="Tel" type="text" class="easyui-validatebox" data-options="validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="Red">*</span>所属区域：</td>
+                    <td>
+                        <select id="Pid" name="Pid" style="width:226px;" class="easyui-combotree" data-options="onBeforeLoad:function(){var Arr=[{'id':1,'text':'中国'}];$.XB.combotreedata($('#Pid'),Arr,'','__URL__/getarea');},onSelect:function(rec){}"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">排序：</td>
+                    <td>
+                        <input id="Sort" name="Sort" type="text" class="easyui-numberbox" data-options="min:1,max:9999">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">状态：</td>
+                    <td>
+                        <select id="Status" name="Status">
+                            <option value="1">正常</option>
+                            <option value="0">隐藏</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input name="__RequestVerificationToken" type="hidden" value="nZWwdxkYMW7vgcg-1jhcIU5slOkD9dt_JrX14c7WXQANwDUkLi-BpikKTAZhOaLGtag517FBoBj0RfYXrpb1TIl149ClABr-v18fq-MbB9Q1" />
+        <input type="hidden" id="ID" name="ID" value="{$id}" />
+    </form>
+
+    <script>
+            $(function () {
+                var id=$("#ID").val();
+                if(id) {
+                    $('#FF').form('load', '../shows?ID='+id+'&_=' + Math.random() + '');
+                }
+            });
+        
+    </script>
+</body>
+<include file="Shared:Footer" />

@@ -1,0 +1,59 @@
+<include file="Shared:Header" />
+<style>
+    .contentcls img{width:40%;}
+</style>
+<body class="Bodybg">
+<div id="tt" class="easyui-tabs">
+    <div title="基本信息" style="padding: 20px; background-color: #f4f4f4">
+        <fieldset style="border: 1px solid #D2D1D1">
+            <legend style="color: #00a0e9">基本信息</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+                <tbody>
+                    <tr>
+                        <td width="120" align="right"><span class="Red"></span> <label for="SalePrice">借款金额：</label></td>
+                        <td>
+                            {$info['SalePrice']}
+                        </td>
+                        <td width="120" align="right"><span class="Red"></span> <label for="IsShelves">是否上架：</label></td>
+                        <td>
+                            <?php echo $info['IsShelves']? '上架' : '下架';?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" align="right"><span class="Red"></span> <label for="Interest">利息：</label></td>
+                        <td>
+                            ￥<?php echo number_format($info['Interest'],2);?>元
+                        </td>
+                        <td width="120" align="right"><span class="Red"></span> <label for="Fastmoney">快速申请费：</label></td>
+                        <td>
+                            ￥<?php echo number_format($info['Fastmoney'],2);?>元
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" align="right"><span class="Red"></span> <label for="GuanliCost">用户管理费：</label></td>
+                        <td>
+                            ￥<?php echo number_format($info['GuanliCost'],2);?>元
+                        </td>
+                        <td width="120" align="right"><span class="Red"></span> <label for="ServiceCost">续借服务费：</label></td>
+                        <td>
+                            ￥<?php echo number_format($info['ServiceCost'],2);?>元
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" align="right"><span class="Red"></span> <label for="GuanliCost">解锁额度：</label></td>
+                        <td>
+                            ￥<?php echo number_format($info['JSMoney'],2);?>元
+                        </td>
+                        <td width="120" align="right"><span class="Red"></span> <label for="Desname">描述：</label></td>
+                        <td>
+                            {$info['Desname']}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </div>
+</div>
+     
+</body>
+<include file="Shared:Footer" />

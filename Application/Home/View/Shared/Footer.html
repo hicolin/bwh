@@ -1,0 +1,78 @@
+<div class="foot">
+    <ul>
+        <li >
+            <a href="{:U('/')}">
+                <img src="__PUBLIC__/images/foot/icon11.png" class="img1"/>
+                <img src="__PUBLIC__/images/foot/icon12.png" class="img2"/>
+                <p>借款</p>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('certification/index')}">
+                <img src="__PUBLIC__/images/foot/icon31.png" class="img1"/>
+                <img src="__PUBLIC__/images/foot/icon32.png" class="img2"/>
+                <p>认证</p>
+            </a>
+        </li>
+        <li>
+            <a onclick="huankuan();">
+                <img src="__PUBLIC__/images/foot/icon21.png" class="img1"/>
+                <img src="__PUBLIC__/images/foot/icon22.png" class="img2"/>
+                <p>还款</p>
+            </a>
+        </li>
+
+        <li>
+            <a href="{:U('member/index')}">
+                <img src="__PUBLIC__/images/foot/icon41.png" class="img1"/>
+                <img src="__PUBLIC__/images/foot/icon42.png" class="img2"/>
+                <p>我的</p>
+            </a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+</div>
+<script>
+    function huankuan() {
+        $.ajax({
+            type: 'POST',
+            url: '{:U("index/repaymoney")}',
+            // data: {'mobile': mobile, 'code': code, 'psd': psd, 'Referee': Referee},
+            dataType: 'json',
+            success: function (data) {
+                if (data.result == 0) {
+                    layer.msg(data.message, {time: 1500}, function () {
+                        window.location.href = '{:U("register/login")}';
+                    })
+                }else if(data.result == -1){
+                    layer.msg(data.message, {time: 1500}, function () {
+                        window.location.href = '/';
+                    })
+                }else if(data.result == 1){
+                    layer.msg(data.message, {time: 1500}, function () {
+                        // window.location.reload();
+                    })
+                }else if(data.result == 3){
+                    layer.msg(data.message, {time: 1500}, function () {
+                        // window.location.reload();
+                    })
+                }else if(data.result == 2){
+                    window.location.href = '{:U("index/repaymoney")}';
+                }else{
+                    window.location.reload();
+                }
+            }
+        })
+    }
+</script>
+<script type="text/javascript">
+    /*顶部切换效果*/
+    $(document).ready(function () {
+        $(".foot li a").each(function(k,v){
+            if ($(this)[0].href == String(window.location) && $(this).attr('href')!="") {
+                $(this).parent().addClass("active");
+                $(this).parent().siblings().removeClass("active");
+            }
+        });
+    });
+</script>

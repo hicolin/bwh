@@ -1,0 +1,703 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div id="tt" class="easyui-tabs" >
+
+    <div title="认证详情"  style="padding: 10px; background-color: #f4f4f4">
+        <div  class="TabelContent">
+            <fieldset style="border: 1px solid #ccc;margin:5px; ">
+                <legend  style="color: #0092DC">身份证认证</legend>
+                <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                    <tbody>
+                    <tr>
+                        <td colspan="4">
+                           <table width="100%" border="0" cellpadding="3" cellspacing="0">
+                               <tr>
+                                   <td>正面:</td>
+                                   <if condition="$cardinfos['CardFace'] eq null">
+                                       <td><a href="javascript:void(0);"><img src="__PUBLIC__/Admin/images/H/nohead.png" style="width:180px;height:120px;" onclick="bigview(this,0)"/></a></td>
+                                       <else />
+                                       <td><a href="javascript:void(0);"><img src="{$cardinfos.CardFace}" style="width:180px;height:120px;" onclick="bigview(this,0)"/></a></td>
+                                   </if>
+                                   <td>反面:</td>
+                                   <if condition="$cardinfos['CardSide'] eq null">
+                                       <td><a href="javascript:void(0);"><img src="__PUBLIC__/Admin/images/H/nohead.png" style="width:180px;height:120px;" onclick="bigview(this,0)"/></a></td>
+                                       <else />
+                                       <td><a href="javascript:void(0);"><img src="{$cardinfos.CardSide}" style="width:180px;height:120px;" onclick="bigview(this,0)"/></a></td>
+                                   </if>
+                                   <td>手持照:</td>
+                                   <if condition="$cardinfos['Cardschi'] eq null">
+                                       <td><a href="javascript:void(0);"><img src="__PUBLIC__/Admin/images/H/nohead.png" style="width:180px;height:120px;" onclick="bigview(this,0)"/></a></td>
+                                       <else />
+                                       <td><a href="javascript:void(0);"><img src="{$cardinfos.Cardschi}" style="width:180px;height:120px;" onclick="bigview(this,0)"/></a></td>
+                                   </if>
+                               </tr>
+                           </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" align="right">手机号码：</td>
+                        <td width="200">
+                            {$cardinfos['Mobile']}
+                        </td>
+                        <td width="120" align="right">真实姓名：</td>
+                        <td width="200">
+                            {$cardinfos['TrueName']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" align="right">身份证号：</td>
+                        <td width="200">
+                            {$cardinfos['IDCard']}
+                        </td>
+                        <td width="120" align="right">状态：</td>
+                        <td width="200">
+                            <?php
+                              if($cardinfos['Status']=='0'){
+                                 echo '待审核';
+                              }elseif($cardinfos['Status']=='1'){
+                                 echo '<span style="color:green;">已认证</span>';
+                              }elseif($cardinfos['Status']=='2'){
+                                 echo '<span style="color:red;">认证失败</span>';
+                              }
+                            ?>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" align="right">认证时间：</td>
+                        <td width="200">
+                            {$cardinfos['RenzTime']}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </fieldset>
+            <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">手机认证</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">手机号码：</td>
+                    <td width="200">
+                        {$mobileinfos['Mobile']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">真实姓名：</td>
+                    <td width="200">
+                        {$mobileinfos['TrueName']}
+                    </td>
+                    <td width="120" align="right">抓取姓名：</td>
+                    <td width="200">
+                        {$mobileinfos['ZUserName']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">入网时间：</td>
+                    <td width="200">
+                        {$mobileinfos['OpenDate']}
+                    </td>
+                    <td width="120" align="right">余额：</td>
+                    <td width="200">
+                        {$mobileinfos['AccountBalance']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">状态：</td>
+                    <td width="200">
+                        <?php
+                          if($mobileinfos['Status']=='0'){
+                             echo '待审核';
+                          }elseif($mobileinfos['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                          }elseif($mobileinfos['Status']=='2'){
+                             echo '<span style="color:red;">认证失败</span>';
+                          }
+                        ?>
+                    </td>
+                    <td width="120" align="right">认证时间：</td>
+                    <td width="200">
+                        {$mobileinfos['RenzTime']}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">支付宝认证</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">真实姓名：</td>
+                    <td width="200">
+                        {$alipayinfos['TrueName']}
+                    </td>
+                    <td width="120" align="right">淘宝会员名：</td>
+                    <td width="200">
+                        {$alipayinfos['TaobaoName']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">总资产：</td>
+                    <td width="200">
+                        {$alipayinfos['Balance']}
+                    </td>
+                    <td width="120" align="right">花呗可用余额：</td>
+                    <td width="200">
+                        {$alipayinfos['HuabeiBalance']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">余额宝：</td>
+                    <td width="200">
+                        {$alipayinfos['HuabeiLimit']}
+                    </td>
+                    <td width="120" align="right">花呗可用额度：</td>
+                    <td width="200">
+                        {$alipayinfos['HuabeiRet']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">绑定号码：</td>
+                    <td width="200">
+                        {$alipayinfos['ZFBMobile']}
+                    </td>
+                    <td width="120" align="right">邮箱：</td>
+                    <td width="200">
+                        {$alipayinfos['Email']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">认证时间：</td>
+                    <td width="200">
+                        {$alipayinfos['RenzTime']}
+                    </td>
+                    <td width="120" align="right">状态：</td>
+                    <td width="200">
+                        <?php
+                          if($alipayinfos['Status']=='0'){
+                             echo '待审核';
+                          }elseif($alipayinfos['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                          }elseif($alipayinfos['Status']=='2'){
+                             echo '<span style="color:red;">认证失败</span>';
+                          }
+                        ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">淘宝认证</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">绑定号码：</td>
+                    <td width="200">
+                        {$taobaoinfos['BDMobile']}
+                    </td>
+                    <td width="120" align="right">等级：</td>
+                    <td width="200">
+                        {$taobaoinfos['Levels']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">余额：</td>
+                    <td width="200">
+                        {$taobaoinfos['Balance']}
+                    </td>
+                    <td width="120" align="right">金融账号余额：</td>
+                    <td width="200">
+                        {$taobaoinfos['JBalance']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">用户名：</td>
+                    <td width="200">
+                        {$taobaoinfos['UserName']}
+                    </td>
+                    <td width="120" align="right">消费额度：</td>
+                    <td width="200">
+                        {$taobaoinfos['XFQuote']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">信用额度：</td>
+                    <td width="200">
+                        {$taobaoinfos['XYQuote']}
+                    </td>
+                    <td width="120" align="right">芝麻分：</td>
+                    <td width="200">
+                        {$taobaoinfos['ZmScore']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">借呗：</td>
+                    <td width="200">
+                        {$taobaoinfos['JieBei']}
+                    </td>
+                    <td width="120" align="right">验证状态：</td>
+                    <td width="200">
+                        <?php
+                          if($taobaoinfos['YZStatus']=='0'){
+                             echo '<span style="color:red;">失败</span>';
+                          }elseif($taobaoinfos['YZStatus']=='1'){
+                             echo '<span style="color:green;">通过</span>';
+                          }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">认证时间：</td>
+                    <td width="200">
+                        {$taobaoinfos['RenzTime']}
+                    </td>
+                    <td width="120" align="right">状态：</td>
+                    <td width="200">
+                        <?php
+                          if($taobaoinfos['Status']=='0'){
+                             echo '待审核';
+                          }elseif($taobaoinfos['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                          }elseif($taobaoinfos['Status']=='2'){
+                             echo '<span style="color:red;">认证失败</span>';
+                          }
+                        ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">银行卡认证</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">真实姓名：</td>
+                    <td width="200">
+                        {$bankinfos['TrueName']}
+                    </td>
+                    <td width="120" align="right">身份证号：</td>
+                    <td width="200">
+                        {$bankinfos['IDCard']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">开户银行：</td>
+                    <td width="200">
+                        {$bankinfos['OpenBankName']}
+                    </td>
+                    <td width="120" align="right">银行卡号：</td>
+                    <td width="200">
+                        {$bankinfos['BankNo']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">开户行地址：</td>
+                    <td width="200">
+                        {$bankinfos['Address']}
+                    </td>
+                    <td width="120" align="right">预留手机：</td>
+                    <td width="200">
+                        {$bankinfos['YMobile']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">认证时间：</td>
+                    <td width="200">
+                        {$bankinfos['RenzTime']}
+                    </td>
+                    <td width="120" align="right">状态：</td>
+                    <td width="200">
+                        <?php
+                          if($bankinfos['Status']=='0'){
+                             echo '待审核';
+                          }elseif($bankinfos['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                          }elseif($bankinfos['Status']=='2'){
+                             echo '<span style="color:red;">认证失败</span>';
+                          }
+                        ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">基本信息认证</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">会员id：</td>
+                    <td width="200">
+                        {$jibeninfos['UserID']}
+                    </td>
+                    <td width="120" align="right">昵称：</td>
+                    <td width="200">
+                        {$jibeninfos['NickName']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">性别：</td>
+                    <td width="200">
+                        <?php
+                            if($jibeninfos['Sex']=='0'){
+                                echo '保密';
+                             }elseif($jibeninfos['Sex']=='1'){
+                                echo '男';
+                             }elseif($jibeninfos['Sex']=='2'){
+                                echo '女';
+                             }
+                        ?>
+                    </td>
+                    <td width="120" align="right">号码：</td>
+                    <td width="200">
+                        {$jibeninfos['Mobile']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">收入：</td>
+                    <td width="200">
+                        {$jibeninfos['InCome']}
+                    </td>
+                    <td width="120" align="right">学历：</td>
+                    <td width="200">
+                        {$jibeninfos['Education']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">职业：</td>
+                    <td width="200">
+                        {$jibeninfos['ZhiYe']}
+                    </td>
+                    <td width="120" align="right">状态：</td>
+                    <td width="200">
+                        <?php
+                          if($jibeninfos['Status']=='0'){
+                             echo '待审核';
+                          }elseif($jibeninfos['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                          }elseif($jibeninfos['Status']=='2'){
+                             echo '<span style="color:red;">认证失败</span>';
+                          }
+                        ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">家庭住址：</td>
+                    <td width="200">
+                        {$jibeninfos['JAddress']}
+                    </td>
+                    <td width="120" align="right">居住时长：</td>
+                    <td width="200">
+                        {$jibeninfos['JZTime']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">单位名称：</td>
+                    <td width="200">
+                        {$jibeninfos['CompanyName']}
+                    </td>
+                    <td width="120" align="right">单位地址：</td>
+                    <td width="200">
+                        {$jibeninfos['CompanyAddress']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">单位电话：</td>
+                    <td width="200">
+                        {$jibeninfos['CompanyMobile']}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">社交认证</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">QQ：</td>
+                    <td width="200">
+                        {$socialinfos['QQ']}
+                    </td>
+                    <td width="120" align="right">微信：</td>
+                    <td width="200">
+                        {$socialinfos['WeChat']}
+                    </td>
+                </tr>
+                <tr>
+                    <td  width="auto" colspan="4">
+                        <table>
+                            <!--<tr>-->
+                                <!--<td  width="120" align="right" rowspan="0">信息：</td>-->
+                                <!--<td colspan="2">亲属关系</td>-->
+                            <!--</tr>-->
+                          <!--<?php foreach($socialinfos['Contents']['qinshu'] as $k=>$v):?>-->
+                            <!--<tr>-->
+                                <!--<td width="100" align="right">与本人关系：</td>-->
+                                <!--<td>{$v.guanxi}</td>-->
+                                <!--<td width="100" align="right">电话：</td>-->
+                                <!--<td>{$v.tel}</td>-->
+                                <!--<td width="100" align="right">姓名：</td>-->
+                                <!--<td>{$v.name}</td>-->
+                            <!--</tr>-->
+                          <!--<?php endforeach;?>-->
+                            <tr>
+                                <td colspan="3">社会关系</td>
+                            </tr>
+
+                            <tr>
+                                <td width="120" align="right">姓名：</td>
+                                <td width="200">
+                                    {$socialinfos['Contents']['name']}
+                                </td>
+                                <td width="120" align="right">与本人关系：</td>
+                                <td width="200">
+                                    {$socialinfos['Contents']['guanxi']}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="120" align="right">电话：</td>
+                                <td width="200">
+                                    {$socialinfos['Contents']['tel']}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">状态：</td>
+                    <td width="200">
+                        <?php
+                          if($socialinfos['Status']=='0'){
+                             echo '待审核';
+                          }elseif($socialinfos['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                          }elseif($socialinfos['Status']=='2'){
+                             echo '<span style="color:red;">认证失败</span>';
+                          }
+                        ?>
+                    </td>
+                    <td width="120" align="right">时间：</td>
+                    <td width="200">
+                        {$socialinfos['RenzTime']}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+                <legend  style="color: #0092DC">黑名单认证</legend>
+                <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                    <tbody>
+                    <tr>
+                        <td width="120" align="right">是否命中：</td>
+                        <td width="200">
+                            <php>if(empty($blacklistInfo['Response'])):</php>
+                                未命中
+                            <php>else:</php>
+                                命中
+                            <php>endif;</php>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" align="right">状态：</td>
+                        <td width="200">
+                            <?php
+                          if($blacklistInfo['Status']=='0'){
+                             echo '待审核';
+                          }elseif($blacklistInfo['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                            }elseif($blacklistInfo['Status']=='2'){
+                            echo '<span style="color:red;">认证失败</span>';
+                            }
+                            ?>
+                        </td>
+                        <td width="120" align="right">时间：</td>
+                        <td width="200">
+                            {$blacklistInfo['UpdateTime']}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+                <legend  style="color: #0092DC">小额模型认证</legend>
+                <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                    <tbody>
+                    <tr>
+                        <td width="120" align="right">小额积分</td>
+                        <td width="200">
+                            {$pdscoreInfo['Response']['score']}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" align="right">状态：</td>
+                        <td width="200">
+                            <?php
+                          if($pdscoreInfo['Status']=='0'){
+                             echo '待审核';
+                          }elseif($pdscoreInfo['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                            }elseif($pdscoreInfo['Status']=='2'){
+                            echo '<span style="color:red;">认证失败</span>';
+                            }
+                            ?>
+                        </td>
+                        <td width="120" align="right">时间：</td>
+                        <td width="200">
+                            {$pdscoreInfo['UpdateTime']}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </fieldset>
+        </div>
+    </div>
+
+</div>
+<div style="text-align:center;margin:20px 0px;">
+    <input name="Btn" type="button" value=" 关闭  " onclick="parent.$('#W1').window('close');" />
+</div>
+<!--通讯记录-->
+<script type="text/javascript">
+    $(function () {
+        var frozenColumns = [
+            //{ field: 'ID', checkbox: true }
+        ];
+        var columns = [
+            { field: 'tel', title: '通信号码', width: 120 },
+            { field: 'times', title: '通信时间', width: 150 },
+            { field: 'conways', title: '通信方式', width: 90 },
+            { field: 'contype', title: '通信类型', width: 100 },
+            { field: 'longs', title: '通话时长/秒', width: 100 },
+            { field: 'consite', title: '通话地点', width: 100 },
+        ];
+        $.XB.datagrid({
+            "loadsuccess": function () {
+                $(this).datagrid('resize', {
+                    height: 260
+                });
+            }, "frozenColumns": frozenColumns, "columns": columns, "url": "__APP__/Members/MemInfo/CallBill", "u": "UID={$Info['ID']}", "pagesize": "10", "datalist": "#CallBill"
+        });
+    });
+</script>
+
+<!--通讯录-->
+<script type="text/javascript">
+    $(function () {
+        var frozenColumns = [
+            //{ field: 'ID', checkbox: true }
+        ];
+        var columns = [
+            { field: 'name', title: '姓名', width: 120 },
+            { field: 'tel', title: '电话', width: 120 },
+            { field: 'sums', title: '次数', width: 100,sortable:true },
+            { field: 'updatetime', title: '更新时间', width: 150 }
+        ];
+        $.XB.datagrid({
+            "loadsuccess": function () {
+                $(this).datagrid('resize', {
+                    height: 260
+                });
+            }, "frozenColumns": frozenColumns, "columns": columns, "url": "__APP__/Members/MemInfo/Phonelist", "u": "UID={$Info['ID']}", "pagesize": "10", "datalist": "#Phonelist"
+        });
+    });
+</script>
+
+<!--借款申请-->
+<script type="text/javascript">
+    $(function () {
+        var frozenColumns = [
+            { field: 'LoanNo', title: '申请号', width: 150  },
+        ];
+        var columns = [
+            { field: 'ApplyMoney', title: '申请金额', width: 70  },
+            { field: 'AdoptMoney', title: '快速申请费', width: 80  },
+            { field: 'FJMoney', title: '用户管理费', width: 80  },
+            { field: 'Interest', title: '息费', width: 60  },
+            { field: 'CoMoney', title: '优惠劵金额', width: 70  },
+            { field: 'ApplyDay', title: '申请天数', width: 60  },
+            { field: 'ApplyTime', title: '申请时间', width: 130  },
+            { field: 'LoanStatus', title: '申请状态', width: 70  },
+            { field: 'BackM', title: '到期应还', width: 70  },
+            { field: 'OrderSn', title: '订单号', width: 150  },
+
+            { field: 'YyFkTime', title: '预约还款时间', width: 130  },
+            //{ field: 'RealFkTime', title: '实际还款时间', width: 130  },
+            //{ field: 'LoanSum', title: '续借次数', width: 70  },
+            { field: 'SqAdminID', title: '专属客服', width: 70  },
+            { field: 'LoanType', title: '申请类型', width: 70  },
+            { field: 'Status', title: '审核状态', width: 70  },
+            { field: 'ServiceID', title: '审核人', width: 70  },
+            { field: 'ShTime', title: '审核时间', width: 130  }
+        ];
+        $.XB.datagrid({
+            "loadsuccess": function () {
+                $(this).datagrid('resize', {
+                    height: 260
+                });
+            }, "frozenColumns": frozenColumns, "columns": columns, "url": "__APP__/Members/MemInfo/ApplyDetail", "u": "UID={$Info['ID']}", "pagesize": "10", "datalist": "#ApplyDetail"
+        });
+    });
+</script>
+
+
+<!--还款记录-->
+<script type="text/javascript">
+    $(function () {
+        var frozenColumns = [
+            { field: 'LoanNo', title: '申请号', width: 150  },
+        ];
+        var columns = [
+            { field: 'TotalMoney', title: '还款总金额', width: 100  },
+            { field: 'HkTime', title: '还款时间', width: 150  },
+            { field: 'CostPayable', title: '应还本金', width: 100  },
+            { field: 'RatePayable', title: '应还本息', width: 100  },
+            { field: 'SeviceCostPayable', title: '应还服务费', width: 120  },
+            { field: 'FinePayable', title: '应还罚金', width: 100  },
+            { field: 'Accounts', title: '收款账号', width: 150  },
+            { field: 'TradeNo', title: '交易流水号', width: 150  },
+            { field: 'TradeRemark', title: '交易备注信息', width: 250  },
+            { field: 'PayType', title: '还款方式', width: 100  },
+            { field: 'PayStatus', title: '支付状态', width: 100  },
+            { field: 'AdminID', title: '审核人', width: 100  },
+            { field: 'ShTime', title: '审核时间', width: 150  },
+            { field: 'Status', title: '审核状态', width: 100  }
+        ];
+        $.XB.datagrid({
+            "loadsuccess": function () {
+                $(this).datagrid('resize', {
+                    height: 260
+                });
+            }, "frozenColumns": frozenColumns, "columns": columns, "url": "__APP__/Members/MemInfo/RepayDetail", "u": "UID={$Info['ID']}", "pagesize": "10", "datalist": "#RepayDetail"
+        });
+    });
+</script>
+</body>
+<include file="Shared:Footer" />
+<script type="text/javascript">
+    function bigview(obj,num) {
+        var imsArr=<?php echo json_encode($cardimgArr);?>;
+        $(".docs-pictures" , parent.parent.parent.document).remove();
+        $(".viewer-container" , parent.parent.parent.document).remove();
+        var ulHtml='';
+        ulHtml+='<ul style="display: none" class="docs-pictures">';
+        for(var i=0;i<imsArr.length;i++){
+            ulHtml+='<li style="float:left;padding-left:20px;cursor: pointer"><img src="'+imsArr[i]+'" data-original="'+imsArr[i]+'"></li>'
+        }
+        ulHtml+='<div class="clear"></div></ul>';
+        if($("body" , parent.parent.parent.document).append(ulHtml)){
+//                    var num=$(obj).attr('data-num');
+            window.parent.parent.parent.bigPopup(num);
+        }else{
+            $.XB.warning({'message':"请刷新后重试"});
+        }
+    }
+
+    $('input[name="Btn"]').click(function () {
+        $(".docs-pictures" , parent.parent.parent.document).remove();
+        $(".viewer-container" , parent.parent.parent.document).remove();
+    });
+</script>

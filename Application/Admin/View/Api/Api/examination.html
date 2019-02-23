@@ -1,0 +1,136 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg'">
+
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>功能说明：</td>
+            <td>
+                <input id="Title" name="Title" type="text" class="easyui-textbox" value="{$Info.Title}" style="width: 380px;"/>
+                <span class="Hui">如：获取服务器时间戳</span>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right"><span class="Red">*</span>提交网址：</td>
+            <td>
+                <select id="Submission" name="Submission" onchange="methodpg(this.value)" style="width: 100px;">
+                    <option value="1" <if condition="$Info['Submission'] eq 1">selected</if>>POST</option>
+                    <option value="2" <if condition="$Info['Submission'] eq 2">selected</if>>GET</option>
+                </select>
+
+                <input id="Url" name="Url" type="text" class="easyui-textbox" value="{$Info.Url}" style="width: 380px;"/>
+                <span class="Hui">如：/core/tool/timestamp</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right">提交参数：</td>
+            <td>
+                <div class="format">
+                    <table width="100%" border="0" cellpadding="3" cellspacing="0" >
+                        <tbody>
+
+                        <if condition="$Info['FormaToken'] eq 2">
+                        <tr>
+                            <td width="120">账号</td>
+                            <td colspan="2"><input id="uname" name="uname" type="text" value="" style="width: 500px;"/></td>
+                        </tr>
+                        <tr>
+                            <td>密码</td>
+                            <td colspan="2"><input id="upass" name="upass" type="text" value="" style="width: 500px;"/></td>
+                        </tr>
+                        </if>
+
+                        <foreach name="format" item="item">
+                            <tr>
+                                <td width="120"><input id="format[]" name="format[]" type="text" value="{$key}" style="width: 120px;"/></td>
+                                <td colspan="2"><input id="formatVal[]" name="formatVal[]" type="text" value="{$item}" style="width: 500px;"/></td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                </div>
+
+                <textarea id="Information" name="Information"  rows="5" class="easyui-validatebox" readonly  data-options="required:true" style="width: 700px;">{$Info.Information}</textarea>
+                <div class="Hui" style="padding: 3px 0px">格式必须填写完整（如果是密文传输，json字段必须包括在dynamic内），<br/>如：{"token":"3182F49D44F72708AA00041EF2B0E5E1DEDD50FEC4E36FB12C85FFDA80DD","client":"pc","version":"1.1"}</div>
+                <div><input onclick="sub_format()" type="button" value=" 增加处理参数 "></div>
+
+            </td>
+        </tr>
+        <tr>
+            <td align="right">参数说明：</td>
+            <td>
+                <textarea id="Parameter" name="Parameter"  rows="5" class="easyui-validatebox"  style="width: 420px;">{$Info.Parameter}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="right">返回信息：</td>
+            <td>
+                <textarea id="messages" name="messages"  rows="5" class="easyui-validatebox"  ></textarea>
+                <div class="Hui">如：{'result'=>1,'message'=>'恭喜您，获取时间戳成功！','data'}</div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    </form>
+
+        <div style="padding:4px;text-align:left; padding-left: 138px;">
+            <input onclick="sub_tj()" type="button" value=" 提交验证 ">
+        </div>
+
+    <div id="htmlContent" style="padding-left: 138px; padding-top: 25px;word-wrap:break-word ; padding-right: 50px; padding-bottom: 25px;"><b class="Hui">参数返回值</b></div>
+
+</div>
+
+
+
+{:load_editor_js('kindeditor')}
+<script>
+    $(function () {
+        $('#FF').form('load', '../shows?ID={$ID}&_=' + Math.random() + '').form({
+            onLoadSuccess: function (data) {
+                {:editor('kindeditor',1,'messages,Error')}
+            }
+        });
+    });
+
+    function sub_format(){
+        $('<tr><td width="120"><input id="format[]" name="format[]" type="text" value="" style="width: 120px;"/></td><td><input id="formatVal[]" name="formatVal[]" type="text" value="" style="width: 480px;"/></td><td width="10"><span class="ButtonSort icon302" onclick="del(this)"></span></td></tr>').appendTo("div.format table>tbody");
+    }
+
+    function del(ths){
+        $(ths).parent().parent().remove();
+    }
+
+    function sub_tj(){
+        $.post("{:U('Api/Api/check')}", $('#FF').serialize(), function(data){
+            if(data){
+                $("div#htmlContent").empty();
+                $("div#htmlContent").append(" <div style='font-size: 14px; font-weight: bold'>"+ data +"</div>");
+            }else{
+                $.XB.warning({ "message": "没有返回值" });
+            }
+        });
+    }
+
+    function methodpg(id){
+        if(id == 2){
+            $('tr.method1').hide();
+            if(!$('#Information').val()){
+            }
+        }else{
+            $('tr.method1').show();
+        }
+    }
+</script>
+</body>
+<include file="Shared:Footer" />

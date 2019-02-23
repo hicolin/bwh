@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>推广</title>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/kouzi/css/style.css"/>
+	</head>
+	<style type="text/css">
+		.container{
+			margin-bottom: 1.8rem;
+		}
+		.dl-box{
+			width: 100%;
+			height: 1.8rem;
+			background: rgba(51,51,51,.8);
+			position: fixed;
+			bottom: 0;
+			padding: 0.25rem 0.5rem;
+		}
+		.dl-box .logo{
+			width: 1.29rem;
+			margin-right: 0.28rem;
+		}
+		.dl-box .p1{
+			color: white;
+			font-size: 0.48rem;
+		}
+		.dl-box .p2{
+			color: white;
+			font-size: 0.3rem;
+			margin-top: 0.12rem;
+		}
+		.dl-box a{
+			display: block;
+			width: 1.97rem;
+			height: 0.7rem;
+			background: #f6dc03;
+			font-size: 0.4rem;
+			color: #333333;
+			border-radius: 0.35rem;
+			text-align: center;
+			line-height: 0.7rem;
+			margin-top: 0.3rem;
+		}
+	</style>
+	<body>
+		<div class="container">
+			<!-- <header>
+				<div class="title"></div>
+				<a href="javascript:history.go(-1);" class="back-btn"></a>
+			</header> -->
+			<div class="">
+				<img src="__PUBLIC__/kouzi/images/tuiguang_bg.png" style="width: 100%;"/>
+			</div>
+			<div class="apply-box">
+			<?php foreach($itemlist as $k=>$v):?>
+				<div class="apply1 clearfix">
+					<div class="fl">
+						<img src="{$v.Logurl}" class="icon"/>
+					</div>
+					<div class="fl">
+						<p class="p1">{$v.Name}</p>
+						<p class="p2"><?php echo mb_substr($v['Intro'],'0','12','utf-8');?></p>
+					</div>
+					<div class="fr">
+						<a href="{$v.Url}">立即申请</a>
+					</div>
+				</div>
+			 <?php endforeach;?>
+			</div>
+			<div class="rule-box">
+				<div class="title2" style="padding-top: 0.22rem;margin-bottom: 0.68rem;">
+					<img src="__PUBLIC__/kouzi/images/title2.png" style="width:3.73rem;margin: 0 auto;display: block;"/>
+				</div>
+				<div class="rules">
+					<p>1.申请5家贷款产品：审核超过1小时，可至公众号发送“延时赔付”参加现金赔付</p>
+					<p>2.申请5家贷款产品未通过，可至公众号发送“抽奖”参加现金赔付</p>
+				</div>
+			</div>
+			<div class="payment">
+				去公众号领赔付红包
+				<img src="__PUBLIC__/kouzi/images/hongbao.png"/>
+				<a href=""></a>
+			</div>
+			<!--下载-->
+			<div class="dl-box">
+				<div class="fl"><img src="__PUBLIC__/kouzi/images/wudoumi.png" class="logo" /></div>
+				<div class="fl">
+					<p class="p1">五斗米</p>
+					<p class="p2">更多贷款产品选择</p>
+				</div>
+				<div class="fr">
+					<a href="{$GLOBALS['BasicInfo']['Downurl']}">立即打开</a>
+				</div>
+			</div>
+			<!--结束-->
+		</div>
+	</body>
+</html>

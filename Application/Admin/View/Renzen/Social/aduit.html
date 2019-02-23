@@ -1,0 +1,28 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <tbody>
+		<tr>
+			<td align="right">状态：</td>
+            <td>
+                <select id="Status" name="Status">
+                    <option value="0" <?php if($res['Status']=='0') echo 'selected';?> >待审核</option>
+                    <option value="1" <?php if($res['Status']=='1') echo 'selected';?> >已认证</option>
+                    <option value="2" <?php if($res['Status']=='2') echo 'selected';?> >认证失败</option>
+                </select>
+            </td>
+		</tr>
+		<tr>
+			<td align="right">原因:</td>
+			<td colspan="3">
+				<textarea name="Intro" id="Intro" style="width:400px;height:90px;"></textarea><br/>
+				<span style="color:red;">提示：认证失败需要填写原因</span>
+			</td>
+		</tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$res['ID']}"/>
+</form>
+</body>
+<include file="Shared:Footer" />

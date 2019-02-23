@@ -1,0 +1,38 @@
+
+<include file="Shared:Header" /><body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td  align="right" width="20%"><span class="Red">*</span>处理状态：</td>
+            <td>
+                <select id="States" name="States" class="easyui-combobox" data-options="editable:false,data:[{'id':0,'text':'待处理'},{'id':1,'text':'已处理'}],valueField:'id',textField:'text',onChange:function(newVal,oldVal){if(newVal==1){$('.trHtml').css('display','')}else{$('.trHtml').css('display','none');}}"></select>
+            </td>
+        </tr>
+        <tr style="display: none" class="trHtml">
+            <td width="20%" align="right"><span class="Red">*</span>处理描述：</td>
+            <td>
+                <textarea id="StatesDes" name="StatesDes" rows="5"></textarea>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <!-- @Html.AntiForgeryToken() -->
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+<script>
+
+    $(function () {
+        $('#FF').form('load', '__URL__/shows?ID='+{$ID}+'&_=' + Math.random() + '');
+    });
+
+
+</script>
+</body>
+<include file="Shared:Footer" />

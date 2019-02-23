@@ -1,0 +1,76 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填；权限值用于权限控制；是否带令牌：不打开新页面且与数据库有交互操作时必选，防止跨站请求伪造</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="100" align="right"><span class="Red">*</span> 按钮名称：</td>
+                    <td>
+                        <input id="Name" name="Name" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="Red">*</span> 英文名称：</td>
+                    <td>
+                        <input id="EName" name="EName" type="text" class="easyui-textbox" data-options="required:true,validType:['length[1,100]'],prompt:'用于JS中OPEN识别和C#中方法的名称'" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="Red">*</span> 权限值：</td>
+                    <td>
+                        <input id="Val" name="Val" type="text" class="easyui-numberbox" data-options="required:true,min:1,prompt:'只能填写2的倍数，最大值2^63'" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="Red">*</span> 按钮图标：</td>
+                    <td>
+                        <input type="text" id="Icon" name="Icon" class="easyui-textbox" data-options="required:true,buttonText: ' 点击选择 ',iconAlign:'left',editable: false,onClickButton: function () {$.XB.window({'url':'admin.php/System/AidPage/icon/?ID=Icon','title':'图标选择','width':590,'height':300});}">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">是否带令牌：</td>
+                    <td>
+                        <select id="IsToken" name="IsToken" class="easyui-combobox" data-options="editable:false,panelHeight:70">
+                            <option value="0">无令牌</option>
+                            <option value="1">带令牌</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">排序：</td>
+                    <td>
+                        <input id="Sort" name="Sort" type="text" value="999" class="easyui-numberbox" data-options="min:1,formatter: $.XB.JSSortInt,prompt:'越小越靠前'">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">状态：</td>
+                    <td>
+                        <select id="Status" name="Status">
+                            <option value="1">正常</option>
+                            <option value="0">隐藏</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="hidden" id="ID" name="ID" />
+    </form>
+     <script type="text/javascript">
+
+      var id={$ID};
+	 if(id!="0")
+        {
+        $(function () {
+            $('#FF').form('load', '../shows?ID='+id+'&_=' + Math.random() + '');
+        });
+
+        }
+    </script>
+</body>
+<include file="Shared:Footer" />

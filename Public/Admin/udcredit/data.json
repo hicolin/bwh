@@ -1,0 +1,155 @@
+{
+    "header": {
+        "req_time": " 2017-11-05 15:04:56",
+        "resp_time": " 2017-11-05 15:04:57",
+        "ret_code": "000000",
+        "version": " 4.1",
+        "ret_msg": "操作成功"
+    },
+     "body": {
+        "user_features": [
+            {
+                "user_feature_type": "11",
+                "last_modified_date": "2017-06-28"
+            },
+            {
+                "user_feature_type": "5",
+                "last_modified_date": "2017-07-04"
+            },
+            {
+                "user_feature_type": "17",
+                "last_modified_date": "2017-03-16"
+            },
+            {
+                "user_feature_type": "8",
+                "last_modified_date": "2017-07-26"
+            }
+        ],
+        "last_modified_time": "2017-07-26 15:44:51",
+        "id_detail": {
+            "birthday": "1974.12.04",
+            "address": "安徽省合肥市庐阳区濉溪路**室",
+            "names": "丁用,丁花 ",
+            "gender": "男",
+            "id_number_mask": "3401************14",
+            "nation": "汉",
+            "name_credible": "丁勇"
+        },
+        "graph_detail": {
+            "mobile_count": "1",
+            "link_user_count": "358",
+            "other_link_device_count": "2982",
+            "link_user_detail": {
+                "partner_mark_count": "0",
+                "court_dishonest_count": "0",
+                "online_dishonest_count": "3",
+                "living_attack_count": "2"
+            },
+            "user_have_bankcard_count": "1",
+            "other_link_device_detail": {
+                "other_frand_device_count": "3",
+                "other_living_attack_device_count": "3"
+            },
+            "partner_user_count": "0",
+            "bankcard_count": "157",
+            "link_device_detail": {
+                "frand_device_count": "0",
+                "living_attack_device_count": "2"
+            },
+            "link_device_count": "31"
+        },
+        "loan_detail": {
+            "actual_loan_platform_count": "3",
+            "actual_loan_platform_count_3m": "1",
+            "actual_loan_platform_count_1m": "1",
+            "actual_loan_platform_count_6m": "1",
+            "loan_platform_count": "5",
+            "repayment_times_count": "0",
+            "repayment_platform_count_3m": "0",
+            "loan_industry": [
+                {
+                    "actual_loan_platform_count": "0",
+                    "name": "小额现金贷",
+                    "loan_platform_count": "3",
+                    "repayment_times_count": "0",
+                    "repayment_platform_count": "0"
+                },
+                {
+                    "actual_loan_platform_count": "0",
+                    "name": "分期行业",
+                    "loan_platform_count": "0",
+                    "repayment_times_count": "0",
+                    "repayment_platform_count": "0"
+                },
+                {
+                    "name": "大学生分期",
+                    "loan_platform_count": "0"
+                },
+                {
+                    "name": "电商分期",
+                    "loan_platform_count": "0"
+                },
+                {
+                    "name": "旅游分期",
+                    "loan_platform_count": "0"
+                },
+                {
+                    "name": "教育分期",
+                    "loan_platform_count": "2"
+                },
+                {
+                    "name": "汽车分期",
+                    "loan_platform_count": "0"
+                },
+                {
+                    "name": "租房分期",
+                    "loan_platform_count": "0"
+                },
+                {
+                    "name": "农业消金",
+                    "loan_platform_count": "0"
+                },
+                {
+                    "name": "医美分期",
+                    "loan_platform_count": "0"
+                }
+            ],
+            "loan_platform_count_3m": "4",
+            "loan_platform_count_6m": "4",
+            "repayment_platform_count_1m": "4",
+            "repayment_platform_count": "10",
+            "repayment_platform_count_6m": "6",
+            "loan_platform_count_1m": "2"
+        },
+        "score_detail": {
+            "score": "99",
+            "risk_evaluation": "极高风险"
+        },
+        "devices_list": [
+            {
+                "device_name": "iPhone 6 Plus(A1522/A1524/A1593)",
+                "device_id": "97_e6469aff-0131-4b38-9fac-999bfa20b014",
+                "device_link_id_count": "6",
+                "device_last_use_date": "2017-05-27",
+                "device_detail": {
+                    "is_rooted": "0",
+                    "network_type": "Wifi"
+                }
+            },
+            {
+                "device_name": "OPPO OPPO R9s",
+                "device_id": "97_8dcbb789-5bb7-41c9-9de3-6a746c9ccd77",
+                "device_link_id_count": "1",
+                "device_last_use_date": "2017-06-15",
+                "device_detail": {
+                    "app_instalment_count": "33",
+                    "is_rooted": "0",
+                    "cheats_device": "0",
+                    "is_using_proxy_port": "0",
+                    "network_type": "WiFi"
+                }
+            }
+            ],
+        "ud_order_no": "212806438823985152"
+    }
+}

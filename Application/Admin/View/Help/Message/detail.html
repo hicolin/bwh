@@ -1,0 +1,74 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div id="tt" class="easyui-tabs" >
+    <div title="基本信息" style="padding: 20px; background-color: #f4f4f4">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+            <tbody>
+            <tr >
+                <td width="120" align="right"> 昵称：</td>
+                <td width="200">
+                    {$rec['NickName']}
+                </td>
+                <td width="120" align="right">手机号：</td>
+                <td colspan="3">
+                    {$rec['Mobile']}
+                </td>
+            </tr>
+
+            <tr>
+                <td width="120" align="right">图片:</td>
+                <td colspan="3">
+
+                    <volist name="rec['Images']" id="vo">
+                        <img src="{$vo}" style="width: 140px;border:5px solid #fff;">
+                    </volist>
+                </td>
+            </tr>
+
+            <tr >
+                <td width="120" align="right">留言内容：</td>
+                <td colspan="3">
+                    {$rec['Lead']}
+                </td>
+            </tr>
+            <tr >
+                <td width="120" align="right">留言时间：</td>
+                <td colspan="3">
+                    {$rec['Addtime']}
+                </td>
+            </tr>
+            <tr >
+                <td width="120" align="right">处理状态：</td>
+                <td colspan="3">
+                    <switch name="rec['States']">
+                        <case value="0">待处理</case>
+                        <case value="1">已处理</case>
+                    </switch>
+                </td>
+            </tr>
+            <if condition="$rec['States'] eq 1">
+                <tr >
+                    <td width="120" align="right">处理描述：</td>
+                    <td colspan="3">
+                        {$rec['StatesDes']}
+                    </td>
+                </tr>
+            </if>
+            <if condition="$rec['States'] eq 1">
+                <tr >
+                    <td width="120" align="right">处理人：</td>
+                    <td >
+                        {$rec['OperatorID']}
+                    </td>
+                    <td width="120" align="right">处理时间：</td>
+                    <td >
+                        {$rec['UpdateTime']}
+                    </td>
+                </tr>
+            </if>
+            </tbody>
+        </table>
+    </div>
+    </div>
+</body>
+<include file="Shared:Footer" />

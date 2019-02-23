@@ -1,0 +1,277 @@
+<include file="Shared:Header" />
+<style>
+    .tree-node {
+        padding: 3px 0px;
+    }
+
+    .tabs li a.tabs-inner {
+        border-radius: 3px 3px 0 0;
+    }
+
+    .panel-title {
+        font-size: 9pt;
+        height: 23px;
+        line-height: 23px;
+    }
+    .panel-with-icon {
+        padding-left: 22px;
+    }
+    .tree-node {
+        border-bottom: 1px solid #ccc;
+        height: 29px;
+    }
+
+    .tree-node .tree-title {
+        line-height: 29px;
+        font-size:9pt;
+    }
+
+    .tree-node .tree-icon {
+        margin-top: 7px;
+        padding-right: 5px;
+    }
+
+    .tree-node .tree-expanded {
+        background: url('__PUBLIC__/Admin/JS/EasyUI/images/accordion_arrows.png') no-repeat 0 0;
+    }
+
+    .tree-node .tree-collapsed {
+        background: url('__PUBLIC__/Admin/JS/EasyUI/images/accordion_arrows.png') no-repeat -16px 0;
+    }
+
+    .tree-node .tree-hit {
+        margin-top: 9px;
+        float: right;
+        margin-right: 6px;
+    }
+
+    .tree-node .tree-hit+span {
+        margin-left: 16px;
+    }
+    .viewer-container{
+        z-index: 10000000;
+    }
+    .bottom-bar-text{border-right:1px solid #ccc;color: #FFF}
+    #topnav a{height: 40px}
+    #topnav li{color: #fff}
+    #topnav i{font-size: 30px}
+</style>
+<body class="easyui-layout Father">
+<div data-options="region:'north',border:false,minWidth:1000" style="height: 48px;line-height: 48px">
+    <div class="Top" style=" background: linear-gradient(to right, rgb(107, 85, 203) , rgb(190, 81, 193));">
+        <a href="__APP__" style=";display:block;position: absolute;font-size: 20px;color:#fff;padding-left: 10px;cursor: pointer">
+            <span>{$sys.SystemName}</span>
+        </a>
+        <div id="TopRight" class="TopRight">
+            <ul id="topnav">
+                <li class="list">
+                    <a onclick="AddTag('更新缓存', '__APP__/System/Basicinfo/RefreshCache', 'icon289');" title="清除缓存">
+                        <i class="iconfont icon-qingchuhuancun1"></i>
+                    </a>
+                </li>
+                <li class="list">
+                    <a onclick="OpenWin('modifypwd');" title="更改密码">
+                        <i class="iconfont icon-xiugaimima1"></i>
+                    </a>
+                </li>
+                <li class="list">
+                    <a onclick="LoginOut();" title="退出">
+                        <i class="iconfont icon-tuichu"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div data-options="region:'south',border:false,height:'20px',minWidth:1000" style="height: 20px;line-height: 20px">
+    <div class="bottomBorder" style="background: linear-gradient(to right, rgb(72, 87, 207) , rgb(153, 82, 197));">
+        <div class="footer" style="float:right; text-align: right; margin-right:5px;">
+            <text>
+                <span class="bottom-bar-text">当前账号: {$LoginInfo.Admin}&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;&nbsp;
+                <span class="bottom-bar-text" style="border-right: none">所属角色: {$LoginInfo.RoleName}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            </text>
+        </div>
+    </div>
+</div>
+<div data-options="region:'west',collapsible:true,split:true,title:'全部菜单',width:'205px'">
+    <div class="easyui-accordion" data-options="fit:true,border:false">
+        <volist name="menu_list" id="row">
+            <div title='{$row.name}' data-options="iconCls:'{$row.icon}'" style="display:none;">
+                <ul class="easyui-tree" data-options="animate:true">
+                    <volist name="row.next_menu" id="val" >
+                        <if  condition="empty($val['next_menu'])  eq true">
+                            <li data-options="iconCls:'{$val.icon}',attributes:{url:'/admin.php/{$val.url}'}"><span>{$val.name}</span></li>
+                            <else/>
+                            <li data-options="iconCls:'{$val.icon}'"><span>{$val.name}</span>
+                                <ul class="easyui-tree" data-options="animate:true,state:'closed'">
+                                    <volist name="val.next_menu" id="v" >
+                                        <li data-options="iconCls:'{$v.icon}',attributes:{url:'/admin.php/{$v.url}'}"><span>{$v.name}</span></li>
+                                    </volist>
+                                </ul>
+                            </li>
+                        </if >
+                    </volist>
+                </ul>
+            </div>
+        </volist>
+    </div>
+
+</div>
+<div data-options="region:'center'">
+    <div id="MTabs" data-options="fit:true,tabHeight:32,scrollIncrement:200,border:false" class="easyui-tabs"></div>
+</div>
+
+<script>
+    function OpenWin(Type) {
+        switch (Type) {
+            case 'modifypwd':$.XB.open({ 'type':'add','openmode':'0', 'dialog': { 'url': 'admin.php/System/Index/modifypwd/', 'title': '修改密码' } });
+                break;
+
+        }}
+    $(function () {
+        var roleid="<?php echo $_SESSION['AdminInfo']['RoleID'];?>";
+        if(roleid=='2'){
+            //系统管理员
+            AddTag("后台首页", "/admin.php/system/Basicinfo/home", "icon314");
+        }else{
+            AddTag("后台首页", "/admin.php/system/Basicinfo/home2", "icon314");
+        }
+        
+        $('.easyui-tree').tree({
+            onClick: function (node) {
+                if (typeof (node.attributes) != "undefined") {
+                    AddTag(node.text, node.attributes.url, node.iconCls);
+                }
+            }
+        });
+    });
+
+    function AddTag(title, url, icon) {
+        if ($("#MTabs").tabs("exists", title)) {
+            $('#MTabs').tabs('update', {
+                tab: $('#MTabs').tabs('getTab', title),
+                options: {
+                    content: '<iframe name="iframe" src="' + url + '" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>'
+                }
+            }).tabs('select', title);
+        }
+        else {
+            $('#MTabs').tabs('add', {
+                title: title,
+                content: '<iframe name="iframe" src="' + url + '" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>',
+                closable: true,
+                selected: true,
+                iconCls: icon,
+                bodyCls: 'NoScroll'
+            });
+            TagMenu();
+        }
+    }
+    function TagMenu() {
+        /*为选项卡绑定右键*/
+        $(".tabs li").on('contextmenu', function (e) {
+            /*选中当前触发事件的选项卡 */
+            var subtitle = $(this).text();
+            $('#MTabs').tabs('select', subtitle);
+            //显示快捷菜单
+            $('#tab_menu').menu('show', {
+                left: e.pageX,
+                top: e.pageY
+            }).menu({
+                onClick: function (item) {
+                    closeTab(item.id);
+                }
+            });
+
+            return false;
+        });
+        $(".tabs-inner").dblclick(function () {
+            var subtitle = $(this).children("span").text();
+            $('#MTabs').tabs('close', subtitle);
+        })
+    }
+    function closeTab(action) {
+        var alltabs = $('#MTabs').tabs('tabs');
+        var currentTab = $('#MTabs').tabs('getSelected');
+        var allTabtitle = [];
+        $.each(alltabs, function (i, n) {
+            allTabtitle.push($(n).panel('options').title);
+        })
+        switch (action) {
+            case "refresh":
+                var iframe = $(currentTab.panel('options').content);
+                var src = iframe.attr("src");
+                $('#MTabs').tabs('update', {
+                    tab: currentTab,
+                    options: {
+                        content: '<iframe name="iframe" src="' + src + '" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>'
+                    }
+                })
+                break;
+            case "close":
+                var currtab_title = currentTab.panel('options').title;
+                $('#MTabs').tabs('close', currtab_title);
+                break;
+            case "closeall":
+                $.each(allTabtitle, function (i, n) {
+                    $('#MTabs').tabs('close', n);
+                });
+                break;
+            case "closeother":
+                var currtab_title = currentTab.panel('options').title;
+                $.each(allTabtitle, function (i, n) {
+                    if (n != currtab_title) {
+                        $('#MTabs').tabs('close', n);
+                    }
+                });
+                break;
+            case "closeright":
+                var tabIndex = $('#MTabs').tabs('getTabIndex', currentTab);
+                $.each(allTabtitle, function (i, n) {
+                    if (i > tabIndex) {
+                        $('#MTabs').tabs('close', n);
+                    }
+                });
+                break;
+            case "closeleft":
+                var tabIndex = $('#MTabs').tabs('getTabIndex', currentTab);
+                $.each(allTabtitle, function (i, n) {
+                    if (i < tabIndex) {
+                        $('#MTabs').tabs('close', n);
+                    }
+                });
+                break;
+            case "exit":
+                $('#tab_menu').menu('hide');
+                break;
+        }
+    }
+    function LoginOut() {
+        $.post("{:U('System/Login/logout')}", function (data) {
+            if (data.result) {
+                top.location.href = data.des;
+            }
+        }, "json");
+    }
+
+
+    function bigPopup(num) {
+        var $images = $('.docs-pictures');
+        $images.viewer("view", num);
+    }
+
+</script>
+<div id="tab_menu" class="easyui-menu" style="width: 150px;display:none;">
+    <div id="refresh">刷新标签</div>
+    <div class="menu-sep"></div>
+    <div id="close">关闭标签</div>
+    <div id="closeall">全部关闭</div>
+    <div id="closeother">关闭其他</div>
+    <div class="menu-sep"></div>
+    <div id="closeright">关闭右边</div>
+    <div id="closeleft">关闭左边</div>
+    <div class="menu-sep"></div>
+    <div id="exit">退出菜单</div>
+</div>
+</body>
+<include file="Shared:Footer" />

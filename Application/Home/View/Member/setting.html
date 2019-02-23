@@ -1,0 +1,81 @@
+<include file="Shared:Header" />
+<body class="user_body">
+
+<!--head-->
+<div class="head">
+    <span>设置</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+
+<!--main -->
+<div class="per_main">
+    <ul>
+        <li>
+            <a href="{:U('member/changepsd')}">
+                <span>修改登录密码</span>
+                <em class="fr"><i class="iconfont icon-youjiantou"></i></em>
+            </a>
+        </li>
+        <li style="display: none">
+            <a href="/admin.php/System/Basicinfo/RefreshCache">
+                <span>清除缓存</span>
+                <em class="fr">2.3MB</em>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('member/page',['id'=>7])}">
+                <span>关于我们</span>
+                <em class="fr"><i class="iconfont icon-youjiantou"></i></em>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('member/page',['id'=>34])}">
+                <span>版本介绍</span>
+                <em class="fr"><i class="iconfont icon-youjiantou"></i></em>
+            </a>
+        </li>
+    </ul>
+    <!--<div class="user_btn tc">-->
+        <!--<button onclick="window.location.href='{:U('register/logout')}'">退出登录</button>-->
+    <!--</div>-->
+</div>
+<!--main end-->
+
+<div id="cover"></div>
+
+<!--提示框-->
+<div class="notice_box animated bounceInDown">
+    <div class="notice_box_top">
+        <span>提示</span>
+        <em></em>
+        <i class="iconfont icon-guanbi notice_box_close"></i>
+    </div>
+    <div class="notice_box_text">
+        <p>确定要清理吗</p>
+    </div>
+    <div class="notice_box_bot">
+        <button class="notice_box_close">取消</button>
+        <button class="sure">确定</button>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<script>
+    $(function(){
+        $(".qingchu").click(function(){
+            $("#cover").show();
+            $(".notice_box").show();
+        });
+        $(".notice_box_close").click(function(){
+            $("#cover").hide();
+            $(".notice_box").hide();
+        });
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg',footer:'#ft'" >
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>功能说明：</td>
+            <td>{$Info.Title}</td>
+        </tr>
+        <tr>
+            <td  align="right"><span class="Red">*</span>提交网址：</td>
+            <td>【{$Info.Submission}】 {$Info.Url}</td>
+        </tr>
+        <tr>
+            <td align="right">参数说明：</td>
+            <td>{$Info.Parameter}</td>
+        </tr>
+        <tr>
+            <td align="right">返回信息：</td>
+            <td>{$Info.messages}</td>
+        </tr>
+        <tr>
+            <td align="right">错误返回信息：</td>
+            <td>{$Info.Error}</td>
+        </tr>
+
+
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+<include file="Shared:Footer" />

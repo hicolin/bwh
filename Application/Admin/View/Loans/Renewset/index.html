@@ -1,0 +1,51 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="form1">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">状态：</td>
+                    <td width="180">
+                        <select id="Status" name="Status">
+                            <option value="-5">全部</option>
+                            <option value="1">启用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'ID', checkbox: true }
+    ];
+    var columns = [
+        { field: 'Nums', title: '次数', width: 100  },
+        { field: 'Applyfee', title: '续租附加费', width: 100  },
+        { field: 'Status', title: '状态', width: 90},
+        { field: 'Sort', title: '排序', width: 70, sortable:true },
+        { field: 'OperatorID', title: '添加人', width: 100,sortable:true },
+        { field: 'UpdateTime', title: '添加时间', width: 150 ,sortable:true}
+
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+    {:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

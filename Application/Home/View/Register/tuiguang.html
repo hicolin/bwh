@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link type="text/css" href="__PUBLIC__/css/jquery-weui.min.css" rel="stylesheet">
+    <link type="text/css" href="__PUBLIC__/css/weui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="/Public/css/iconfont.css">
+    <link type="text/css" href="__PUBLIC__/css/app.css" rel="stylesheet"/>
+    <title>霸王花</title>
+    <style>
+        .w100 {
+            width: 80%;
+        }
+
+        .input_block {
+            height: 40px;
+            line-height: 40px;
+            border-radius: 40px;
+            border: 1px solid #ccc;
+        }
+
+        .input_block input {
+            height: 40px;
+            width: 100%;
+            border-radius: 40px;
+            padding: 0;
+            padding-left: 20px;
+            outline: 0;
+        }
+
+        .huo_yan {
+            height: 20px;
+            background: none;
+            top: 10px;
+            border-left: 1px solid #ccc;
+            line-height: 20px;
+            padding: 0 10px;
+            right: 10px;
+            color: #5086f0;
+        }
+
+        .input_block1 {
+            width: 80%;
+            display: block;
+            margin: auto;
+            font-size: 16px;
+            background: linear-gradient(to right, #59C3F0, #5086f0);
+            border: none;
+        }
+      .head{
+      height: 46px;
+    line-height: 46px;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background:#578df6;
+    padding: 0 5px;
+    z-index: 15;
+      }
+      .head span{
+          font-size:16px;
+    color: #fff;
+
+    letter-spacing: 3px;
+      }
+      .head i.icon-arrow-left{position: absolute;top:0;left: 5px;color: #fff;padding-right: 10px;}
+    </style>
+</head>
+<body style="background: #fff;">
+<div class="tui_bg" style="background: #fff;padding-bottom: 40px;">
+  <div class="head">
+    <span>霸王花</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+    <img src="__PUBLIC__/images/tuiguang_banner2.png" style="width: 100%;">
+    <!-- <section class="tui_span">
+        <span>微投入轻创业</span>
+        <span>个人专属贷款超市</span>
+        <span>信贷中介必备</span>
+    </section> -->
+    <form action="#" method="post" id="formf">
+        <section class="input_block">
+            <!--<input type="number" maxlength="11" name="mobile" id="Mobile" placeholder="请输入手机号" />-->
+            <input type="number" name="tel" class="width_120" oninput="if(value.length>11)value=value.slice(0,11)"
+                   style="ime-mode:Disabled" onKeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))"
+                   id="Mobile" placeholder="请输入手机号"/>
+
+        </section>
+
+        <!--<section class="input_block">-->
+        <!--<input name="ImgCode" id="ImgCode" type="text" value="" style="width: 60%;" placeholder="图形验证码">-->
+        <!--<img style="width:36%;display: inline-block;vertical-align: middle" src="<?php echo U('Common/selfverify');?>" id="imgValidateCode" onclick="this.src='<?php echo U('Common/selfverify');?>#'+Math.random();" height="38" width="100px">-->
+        <!--<div class="clear"></div>-->
+        <!--</section>-->
+
+        <section class="input_block">
+            <input id="MsgCode" name="code" type="text" placeholder="请输入短信验证码">
+            <a href="javascript:void(0);" id="getcode" onclick="getcode()" class="huo_yan"> 获取验证码</a>
+        </section>
+
+
+        <section class="input_block">
+            <input id="Password" name="pwd" type="password" placeholder="请输入至少6位的密码">
+        </section>
+        <input type="hidden" name="puser" id="puser" value="{$puser}">
+    </form>
+    <p class="xieyi" style="margin: 10px 50px;">
+        <label>
+            <input type="checkbox" checked>已阅读并同意
+        </label>
+        <a href="{:U('Register/regdetail')}">《使用条款服务协议》</a>
+    </p>
+    <a class="input_block input_block1 " href="javascript:void(0);" onclick="fnRegister()">马上申请</a>
+
+
+    <!--<p class="center" style="color:white;">-->
+    <!--点击按钮则视为同意<a href="{:U('News/pages',array('ID'=>5))}" style="color:#f02f2d;">{$Title}</a>-->
+    <!--</p>-->
+    <!--<p class="center" style="color:white;font-size:20px;padding-bottom:10px;">泰州市天铎网络科技有限公司</a>-->
+    <!--</p>-->
+</div>
+
+<script src="__PUBLIC__/js/jquery-2.1.4.js"></script>
+<script src="__PUBLIC__/js/layer/layer.js"></script>
+<script src="__PUBLIC__/js/jquery-weui.min.js"></script>
+<script src="__PUBLIC__/js/common.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+    //启用倒计时
+    function times() {
+        var setTime;
+        var time = 60;
+        setTime = setInterval(function () {
+            if (time <= 0) {
+                clearInterval(setTime);
+                //添加事件
+                $("#getcode").attr("onclick", "getcode()");
+                $("#getcode").text('发送验证码');
+                return;
+            }
+            time--;
+            msgs = time + "s后重发";
+            $("#getcode").text(msgs);
+        }, 1000);
+    }
+
+    //获取验证码
+    function getcode() {
+        var mobile = $.trim($("#Mobile").val());
+        var code = $.trim($("#ImgCode").val());
+
+        if (mobile == '') {
+            layer.msg("手机号码不能为空！");
+            return false;
+        }
+        if (!mobile.match(/^((1[3-9][0-9]{1})+\d{8})$/)) {
+            layer.msg("手机号码格式不正确！");
+            return;
+        }
+        /*if (code == '') {
+            $.alert("请输入图形验证码！");
+            return;
+        }*/
+        $.ajax({
+            type: 'post',
+            url: '{:U("Common/getYun")}',
+            data: {mobile: mobile, code: code, check: 1},
+            dataType: 'json',
+            success: function (res) {
+                if (res.result == 1) {
+                    times();
+                    $("#getcode").removeAttr("onclick");
+                    //XB.Success(res.message);
+                } else if (res.result == 2) {
+
+                    $.alert(res.message, "", function () {
+                        var u = navigator.userAgent;
+                        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        if (isiOS) {
+                            window.location.href = "http://bwh.feiyuandai.com/#/pages/member/appDownload";
+                        } else {
+                            window.location.href = "<?php echo $Downurl;?>";
+                            // window.location.href = "<?php echo $GLOBALS['BasicInfo']['Downurl'];?>";
+                        }
+                        //点击确认后的回调函数
+                        // window.location.href = "/apk/1.apk";
+                        // window.location.href = "{:U('Index/down')}";
+                        // window.location.href = "<?php echo $GLOBALS['BasicInfo']['Downurl'];?>";
+                    });
+                } else {
+                    $.alert(res.message);
+                    $('#imgValidateCode').attr('src', "{:U('Common/selfverify')}?" + Math.random());
+                }
+            }
+        });
+    }
+
+    //注册
+    function fnRegister() {
+        var Mobile = $.trim($('#Mobile').val());
+        var Password = $.trim($("#Password").val());
+        var MsgCode = $.trim($('#MsgCode').val());
+
+        if (Mobile == '') {
+            layer.msg("请输入手机号码");
+            return false;
+        }
+        if (!Mobile.match(/^((1[3-9][0-9]{1})+\d{8})$/)) {
+            layer.msg("手机号码格式不正确！");
+            return;
+        }
+        if (MsgCode == '') {
+            layer.msg("短信验证码不能为空！");
+            return false;
+        }
+        if (Password == '') {
+            layer.msg("请输入您的密码，以英文字母开头，6-16位与数字的组合");
+            return false;
+        }
+        if (Password.length < 6) {
+            layer.msg("密码必须是6位以上数字的组合");
+            return false;
+        }
+        var checkbox = $("input[type='checkbox']").is(':checked');
+        if(!checkbox){
+            layer.msg("请勾选使用条款");
+            return false;
+        }
+        // if (!Password.match(/^[a-zA-Z]\w{5,15}$/)) {
+        // 	layer.msg("密码必须是以英文字母开头，6-16位与数字的组合");
+        // 	return false;
+        // }
+        $.ajax({
+            type: "POST",
+            url: "<?php echo U('Register/ajaxRegister');?>",
+            data: $('#formf').serialize(),
+            dataType: "json",
+            success: function (data) {
+                if (data.result == 1) {
+                    layer.msg(data.message, {time: 1500}, function () {
+                        //点击确认后的回调函数
+                        var u = navigator.userAgent;
+                        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+                        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+                        if (isiOS) {
+                            window.location.href = "http://bwh.feiyuandai.com/#/pages/member/appDownload";
+                        } else {
+                            window.location.href = "<?php echo $Downurl;?>";
+                            // window.location.href = "<?php echo $GLOBALS['BasicInfo']['Downurl'];?>";
+                        }
+                    })
+                } else {
+                    layer.msg(data.message);
+                }
+            }
+        });
+    }
+</script>

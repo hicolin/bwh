@@ -1,0 +1,402 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg',footer:'#ft'">
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+            <thead>
+                <tr>
+                    <td colspan="4">说明：带<span class="Red">*</span>必填；基本信息表中的信息已做了缓存，其他模块调用参数时可以使用缓存方法调用，禁止直接读取数据库。</td>
+                </tr>
+            </thead>
+        </table>
+        <fieldset style=" border: 1px solid #ccc;margin:5px;">
+            <legend>基本信息</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                    <tr>
+                        <td width="200" align="right"><span class="Red">*</span> 系统名称：</td>
+                        <td>
+                            <input id="SystemName" name="SystemName" type="text" class="easyui-textbox" data-options="required:true,validType:['length[1,100]']"/>
+                            <span class="Hui">系统的简短名称</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> 系统域名：</td>
+                        <td>
+                            <input id="SystemDomain" name="SystemDomain" type="text" class="easyui-textbox" data-options="required:true,validType:['length[1,100]','url'],prompt:'http://开头'" />
+                            <span class="Hui">请以Http://开头，/结尾</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> 密码错误上限：</td>
+                        <td>
+                            <input id="PsdErrorCount" name="PsdErrorCount" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:0,max:100,suffix:'次',prompt:'0值则不限制密码错误次数'">
+                            <span class="Hui">密码错误次数达到上限后，禁止登录系统，填写0则表示可无限次数尝试</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> 密码错误限制时长：</td>
+                        <td>
+                            <input id="PsdErrorTime" name="PsdErrorTime" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:1,prompt:'达到错误次数，再次登录时间间隔',increment:10,suffix:'分钟'">
+                            <span class="Hui">密码输入错误，再次可登录的时间间隔，设置为0时不限制！</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> 登录有效时长：</td>
+                        <td>
+                            <input id="Session" name="Session" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:1,value:20,increment:10,suffix:'分钟'">
+                            <span class="Hui">后台超过登录有效时长，未进行任何操作，再操作需要重新登录</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> APP登录有效时长：</td>
+                        <td>
+                            <input id="AppSession" name="AppSession" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:1,max:99,value:20,increment:10,suffix:'天'">
+                            <span class="Hui">超过登录有效时长，未进行任何操作，再操作需要重新登录</span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td align="right">ICP备案号：</td>
+                        <td>
+                            <input id="ICP" name="ICP" type="text" class="easyui-textbox" data-options="width:150,validType:['length[1,100]']">
+                            <span class="Hui">无可暂时留空</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">公司名称：</td>
+                        <td>
+                            <input id="CompanyName" name="CompanyName" type="text" class="easyui-textbox" data-options="validType:['length[1,100]']">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">登录验证：</td>
+                        <td>
+                            <label for="IP"><input type="checkbox" id="IP" name="IP" value="1"/>IP验证</label>
+                            <label for="MAC"><input type="checkbox" id="MAC" name="MAC" value="1"/>MAC验证</label>
+                            <span class="Hui">勾选表示启用验证，请在左边验证管理菜单内维护白名单后生效</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">监督电话：</td>
+                        <td>
+                            <input id="JdPhone" name="JdPhone" type="text" class="easyui-textbox" data-options="width:150">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">客服QQ：</td>
+                        <td>
+                            <input id="QQ" name="QQ" type="text" class="easyui-textbox" data-options="width:150">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">客服电话：</td>
+                        <td>
+                            <input id="Tel" name="Tel" type="text" class="easyui-textbox" data-options="width:150,validType:['telormobile']">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">微信号：</td>
+                        <td>
+                            <input id="WeChat" name="WeChat" type="text" class="easyui-textbox" data-options="width:150,validType:['length[1,100]']">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">微信二维码：</td>
+                        <td>
+                            <input type="text" id="WeChatQR" name="WeChatQR"><button class="back_pic" onclick="Upload('WeChatQR')">上传</button>
+                            <img src="" id="back_pic" alt="">
+                            <a href="javascript:void(0)" id="WeChatQRdd" style="display:inline-block;"><span class="icon317" style="width:16px;display:block;">&nbsp;</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">app下载地址：</td>
+                        <td>
+                            <input id="Downurl" name="Downurl" type="text" class="easyui-textbox" data-options="validType:['length[1,100]','url'],prompt:'http://开头'" />
+                            <span class="Hui">请以Http://开头，/结尾</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">app下载地址二维码：</td>
+                        <td>
+                            <input id="Downurl2" name="Downurl2" type="text" /><button onclick="Upload('Downurl2')">上传</button>
+                            <a href="javascript:void(0)" id="Downurl2dd" style="display:inline-block;"><span class="icon317" style="width:16px;display:block;">&nbsp;</span></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">App启动图：</td>
+                        <td>
+                            <input id="appT" name="appT" type="text" /><button onclick="Upload('appT')">上传</button>
+                            <a href="javascript:void(0)" id="appT2" style="display:inline-block;"><span class="icon317" style="width:16px;display:block;">&nbsp;</span></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <fieldset style="border: 1px solid #ccc;margin:5px;">
+            <legend>上传设置</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                    <tr>
+                        <td width="200" align="right"><span class="Red">*</span> 图片大小上限：</td>
+                        <td>
+                            <input id="PicSize" name="PicSize" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:1,suffix:'KB',increment:10,prompt:'单位为：KB'">
+                            <span class="Hui">单位为：KB</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> 图片扩展名限制：</td>
+                        <td>
+                            <input id="PicExt" name="PicExt" type="text" class="easyui-textbox" data-options="required:true,validType:['length[1,100]']">
+                            <span class="Hui">如：gif,jpg</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> 主图是否生成缩略图：</td>
+                        <td>
+                            <select id="IsThumbnail" name="IsThumbnail" style="width:50px">
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
+                            <span class="Hui">主图生成缩略图后,在列表展示时,系统调用小图显示.可节约带宽,提示访问速度!</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> 文件大小上限：</td>
+                        <td>
+                            <input id="FileSize" name="FileSize" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:1,suffix:'KB',increment:10,prompt:'单位为：KB'">
+                            <span class="Hui">单位为：KB</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span> 文件扩展名限制：</td>
+                        <td>
+                            <input id="FileExt" name="FileExt" type="text" class="easyui-textbox" data-options="required:true,validType:['length[1,100]']">
+                            <span class="Hui">如何：doc,rar</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <fieldset style="border: 1px solid #ccc;margin:5px;">
+            <legend>数聚魔盒设置</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="200" align="right">partner_code：</td>
+                    <td>
+                        <input id="MhCode" name="MhCode" type="text" class="easyui-textbox" data-options="required:true" />
+                        <!-- <span class="Hui">弹窗打开跳转的地址以&nbsp;http://&nbsp;开头</span> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right">partner_key：</td>
+                    <td>
+                        <input id="MhKey" name="MhKey" type="text" class="easyui-textbox" data-options="required:true" />
+                        <!-- <span class="Hui">弹窗打开跳转的地址以&nbsp;http://&nbsp;开头</span> -->
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <fieldset style="border: 1px solid #ccc;margin:5px;">
+            <legend>弹窗设置</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td align="right">弹窗图片：</td>
+                    <td>
+                        <input id="TanImg" name="TanImg" type="text" /><button onclick="Upload('TanImg')">上传</button>
+                        <a href="javascript:void(0)" id="TanImgdd" style="display:inline-block;"><span class="icon317" style="width:16px;display:block;">&nbsp;</span></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right">弹窗链接：</td>
+                    <td>
+                        <input id="TanUrl" name="TanUrl" type="text" class="easyui-textbox" data-options="required:true,validType:['length[1,255]']" />
+                        <span class="Hui">弹窗打开跳转的地址以&nbsp;http://&nbsp;开头</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right">弹窗控制：</td>
+                    <td>
+                        <select id="Tcstatus" name="Tcstatus" style="width:150px;">
+                           <option value="1">不弹</option>
+                            <option value="3">app弹</option>
+                            <!-- <option value="1">都不弹</option>
+                            <option value="2">只h5弹</option>
+                            <option value="3">只app弹</option>
+                            <option value="4">全都弹</option> -->
+                        </select>
+                        <span class="Hui">会员最近的借款申请，被拒绝后才会弹</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        
+        <fieldset style="border: 1px solid #ccc;margin:5px;">
+            <legend>额度显示设置</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+               <!--  <tr>
+                    <td width="200" align="right"><span class="Red">*</span>不登录显示额度：</td>
+                    <td>
+                        <input id="ShowEduNolog" name="ShowEduNolog" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:1,suffix:'元',increment:10,prompt:'单位为：元'">
+                        <span class="Hui">会员未登录时，首页显示的可借金额</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right"><span class="Red">*</span>未认证显示额度：</td>
+                    <td>
+                        <input id="ShowEduNorz" name="ShowEduNorz" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:1,suffix:'元',increment:10,prompt:'单位为：元'">
+                        <span class="Hui">会员登录后，未认证首页显示的可借金额</span>
+                    </td>
+                </tr> -->
+                <tr>
+                    <td width="200" align="right"><span class="Red">*</span>默认额度：</td>
+                    <td>
+                        <input id="Mlimitbalance" name="Mlimitbalance" type="text" class="easyui-numberspinner" data-options="required:true,width:150,min:1,suffix:'元',increment:10,prompt:'单位为：元'">
+                        <span class="Hui">会员认证通过后，自动给的可借金额</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <fieldset style="border: 1px solid #ccc;margin:5px;">
+            <legend>下单年龄限制</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="200" align="right"><span class="Red">*</span>最小年龄：</td>
+                    <td>
+                        <input id="MinAges" name="MinAges" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:1,suffix:'岁',increment:1">
+                        <span class="Hui">允许借款的最小年龄</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right"><span class="Red">*</span>最大年龄：</td>
+                    <td>
+                        <input id="MaxAges" name="MaxAges" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:1,suffix:'岁',increment:1">
+                        <span class="Hui">允许借款的最大年龄</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+        <fieldset style="border: 1px solid #ccc;margin:5px;">
+            <legend>其他设置</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="200" align="right"><span class="Red">*</span>支付测试：</td>
+                    <td>
+                        <select id="Payceshi" name="Payceshi" style="width:150px;">
+                           <option value="1">正式</option>
+                           <option value="2">测试</option>
+                        </select>
+                        <span class="Hui">如果选择测试，支付的金额统一变为0.01元</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right"><span class="Red">*</span>支付宝收款账号：</td>
+                    <td>
+                        <input id="Gfaccount" name="Gfaccount" type="text" class="easyui-textbox" data-options="required:true" />
+                        <span class="Hui">会员还款时，打入的账户</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right"><span class="Red">*</span>微信收款账号：</td>
+                    <td>
+                        <input id="Gfaccountw" name="Gfaccountw" type="text" class="easyui-textbox" data-options="required:true" />
+                        <span class="Hui">会员还款时，打入的账户</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right"><span class="Red">*</span>备注格式：</td>
+                    <td>
+                        <input id="Remarkgs" name="Remarkgs" type="text" class="easyui-textbox" data-options="required:true" />
+                        <span class="Hui">转账留言备注格式!</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">支付宝收款码：</td>
+                    <td>
+
+                        <input id="Alipayimg" name="Alipayimg" type="text" /><button onclick="Upload('Alipayimg')">上传</button>
+                        <a href="javascript:void(0)" id="Alipayimgdd" style="display:inline-block;"><span class="icon317" style="width:16px;display:block;">&nbsp;</span></a>
+                        <span class="Hui">支付宝收款二维码</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">微信收款码：</td>
+                    <td>
+                        <input id="Weixinimg" name="Weixinimg" type="text" /><button onclick="Upload('Weixinimg')">上传</button>
+                        <a href="javascript:void(0)" id="Weixinimgdd" style="display:inline-block;"><span class="icon317" style="width:16px;display:block;">&nbsp;</span></a>
+                        <span class="Hui">微信收款二维码</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right">AppCode：</td>
+                    <td>
+                        <input id="AppCode" name="AppCode" type="text" class="easyui-textbox" data-options="validType:['length[2,100]']" />
+                        <span class="Hui">用于获取IP地址所在城市的接口 [<a href="https://market.aliyun.com/products/57002003/cmapi010805.html#sku=yuncode480500000" target="_blank">查看详情</a>]</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200" align="right">存储位置：</td>
+                    <td>
+                        <select id="Store" name="Store" style="width:150px;">
+                            <option value="0">服务器本地</option>
+                            <option value="1">七牛云存储</option>
+                            <option value="2">阿里OSS云存储</option>
+                        </select>
+                        <span class="Hui">图片、视频、附件的存储位置,若选择了云存储，需要到存储接口中填写参数！</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
+<div id="ft" style="padding:4px;text-align:center;height:40px;line-height:40px;">
+    <input onclick="$.XB.pagesave({
+    'url': '__URL__/save/', 'fn': function (data) {
+        $.XB.success({
+            'message': data.message, 'fn': function () {
+                $.XB.topreload();
+            }
+        });
+    }
+});" type="button" id="saveb" value=" 确定保存 ">
+</div>
+
+<script>
+ 
+$(function () {
+        $('#FF').form('load', 'shows?ID=0&_=' + Math.random() + '');
+        $("#MainDiv").height($(window).height());
+        $.XB.pictips({ 'id': '#Logodd', 'path': '#Logo' });
+        $.XB.pictips({ 'id': '#MLogodd', 'path': '#MLogo' });
+        $.XB.pictips({ 'id': '#WeChatQRdd', 'path': '#WeChatQR' });
+        $.XB.pictips({ 'id': '#Downurl2dd', 'path': '#Downurl2' });
+        $.XB.pictips({ 'id': '#Alipayimgdd', 'path': '#Alipayimg' });
+        $.XB.pictips({ 'id': '#Weixinimgdd', 'path': '#Weixinimg' });
+ });
+
+//$(function () {
+//    var count=14;
+//    //根据条件判断是否需要提醒
+//    if(count>0){
+//        $.XB.CorOPUrl('/admin.php/System/Notes/index', '提醒信息', '590', '320', 'Icon83');
+//    }
+//})
+
+</script>
+</body>
+<include file="Shared:Footer" />

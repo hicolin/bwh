@@ -1,0 +1,95 @@
+<include file="Shared:Header" />
+
+<body class="Bodybg">
+    <div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg',footer:'#ft'">
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填；</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span>借款金额：</td>
+                    <td>
+                        <input id="SalePrice" name="SalePrice" type="text" class="easyui-numberbox" data-options="required:true,precision:2" style="width:250px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span>解锁额度：</td>
+                    <td>
+                        <input id="JSMoney" name="JSMoney" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:0,max:1000000,suffix:'元'">
+                        <span class="Hui">会员借款总金额(完成的订单)达到这个额度，则自动给会员借款额度提升此阶段</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span>利息：</td>
+                    <td>
+                        <input id="Interest" name="Interest" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:1,max:1000000,suffix:'元',prompt:'利息'">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span>快速申请费：</td>
+                    <td>
+                        <input id="Fastmoney" name="Fastmoney" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:1,max:1000000,suffix:'元'">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span>用户管理费：</td>
+                    <td>
+                        <input id="GuanliCost" name="GuanliCost" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:1,max:1000000,suffix:'元'">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span>续借服务费：</td>
+                    <td>
+                        <input id="ServiceCost" name="ServiceCost" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:1,max:1000000,suffix:'元'">
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span>描述：</td>
+                    <td>
+                        <input id="Desname" name="Desname" type="text" class="easyui-textbox" data-options="required:true" style="width:250px;"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="120" align="right">能否用优惠劵：</td>
+                    <td>
+                        <select id="CashCoupon" name="CashCoupon" style="width:200px;">
+                            <option value="1">能</option>
+                            <option value="2">不能</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">是否上架：</td>
+                    <td>
+                        <select id="IsShelves" name="IsShelves" style="width:200px;">
+                            <option value="1">已上架</option>
+                            <option value="0">未上架</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">排序：</td>
+                    <td>
+                        <input id="Sort" name="Sort" type="text" class="easyui-numberbox" data-options="min:0,value:999,formatter: $.XB.JSSortInt,prompt:'越小越靠前'"  style="width:250px;"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" id="ID" name="ID" value="{$id}"/>
+    </form>
+</div>
+    <script>
+     $(function () {
+        var id=$("#ID").val();
+
+         $('#FF').form('load', '../shows?ID='+id+'&_=' + Math.random() + '');
+         $.XB.pictips({ 'id': '#dd', 'path': '#MainPic' });
+     });
+    </script>
+</body>
+<include file="Shared:Footer" />

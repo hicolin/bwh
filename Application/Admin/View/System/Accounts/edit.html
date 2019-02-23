@@ -1,0 +1,57 @@
+<include file="Shared:Header" />
+
+<body class="Bodybg">
+    <div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg',footer:'#ft'">
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填；</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td align="right" width="120">账号名称：</td>
+                    <td>
+                        <input id="Name" name="Name" type="text" class="easyui-textbox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                 <tr>
+                    <td align="right">类型：</td>
+                    <td>
+                        <select id="Types" name="Types">
+                            <option value="1">支付宝</option>
+                            <option value="2">微信</option>
+                            <option value="3">银联</option>
+                        </select>
+                    </td>
+                </tr>
+                 <tr>
+                    <td align="right">状态：</td>
+                    <td>
+                        <select id="Status" name="Status">
+                            <option value="1">启用</option>
+                            <option value="0">禁用</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">排序：</td>
+                    <td>
+                        <input id="Sort" name="Sort" type="text" class="easyui-numberbox" data-options="min:0,max:999,value:999,formatter: $.XB.JSSortInt,prompt:'0-999越小越靠前'">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+    </form>
+</div>
+    <script>
+     $(function () {
+        var id=$("#ID").val();
+
+         $('#FF').form('load', '../shows?ID='+id+'&_=' + Math.random() + '');
+     });
+    </script>
+</body>
+<include file="Shared:Footer" />

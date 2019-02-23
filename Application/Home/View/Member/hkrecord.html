@@ -1,0 +1,143 @@
+<include file="Shared:Header" />
+<body>
+
+<!--head-->
+<div class="head">
+    <span>还款记录</span>
+    <a href="{:U('member/index')}">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--nav -->
+<div class="loan_record_nav">
+    <ul>
+        <li>
+            <a href="{:U('member/hkRecord')}">全部</a>
+        </li>
+        <li>
+            <a href="{:U('member/hkRecord',['Status'=>0])}">待审核</a>
+        </li>
+        <li>
+            <a href="{:U('member/hkRecord',['Status'=>1])}">审核成功</a>
+        </li>
+        <li>
+            <a href="{:U('member/hkRecord',['Status'=>2])}">审核失败</a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+</div>
+<!--nav end-->
+
+<!--main -->
+<div class="loan_record_main">
+    <div id="data-list">
+        <if condition="$records eq null">
+            <div style="margin: 0 auto;margin-top: 60px;text-align: center">
+            <img src="__PUBLIC__/images/no_content.png" style="width: 158px">
+            </div>
+        </if>
+        <volist name="records" id="vo">
+            <div class="lrm_item">
+                <ul>
+                    <li>
+                        <span>申请时间</span>
+                        <i>
+                            <php>echo $vo['HkTime']</php>
+                        </i>
+                    </li>
+                    <li>
+                        <span>还款编号</span>
+                        <i>
+                            <php>echo $vo['OrderSn']</php>
+                        </i>
+                    </li>
+                    <li>
+                        <span>支付状态</span>
+                        <i>
+                            <php>
+                                $status = [0=>'待支付',1=>'已支付'];echo
+                                $status[$vo["PayStatus"]];
+                            </php>
+                        </i>
+                    </li>
+                    <li>
+                        <span>还款本金</span>
+                        <i>{$vo.CostPayable} 元</i>
+                    </li>
+                    <li>
+                        <span>还款总金额</span>
+                        <i>{$vo.TotalMoney} 元</i>
+                    </li>
+                    <!--<li>-->
+                        <!--<span>审核时间</span>-->
+                        <!--<i>-->
+                            <!--<php>echo $vo['ShTime']</php>-->
+                        <!--</i>-->
+                    <!--</li>-->
+                    <li>
+                        <span>还款状态</span>
+                        <i class="active">
+                            <php>$status = [0=>'待审核',1=>'审核成功',2=>'审核失败'];echo
+                                $status[$vo["Status"]];
+                            </php>
+                        </i>
+                    </li>
+                </ul>
+            </div>
+        </volist>
+
+    </div>
+    <if condition="$total gt $pageSize">
+    <div class="load-tip" style="display: none"><i class="fa fa-spinner fa-spin"></i> 加载中...</div>
+    </if>
+</div>
+<!--main end-->
+<script type="text/javascript">
+    tabSwitch('.loan_record_nav li a');
+
+    // 加载更多
+    let pageSize = '{$pageSize}';
+    let total = '{$total}';
+    let isLoading = false;
+    let page = 1;
+    let scroll = new auiScroll({
+        listen:true,
+        distance:100
+    },function (res) {
+        if(res.isToBottom && (total > pageSize) && !isLoading){
+            isLoading = true;
+            page++;
+            $('.load-tip').show();
+            loadMore(page);
+        }
+    });
+    function loadMore(){
+        $.post('{:U("member/hkRecord")}',{page:page},function (res) {
+            if(res.result === 200){
+                let content = '';
+                res.des.forEach(function (val) {
+                    content += '<div class="lrm_item">';
+                        content += '<ul>';
+                            content += '<li><span>申请时间</span><i>'+val.HkTime+'</i></li>';
+                            content += '<li><span>还款编号</span><i>'+val.OrderSn+'</i></li>';
+                            content += '<li><span>支付状态</span><i>'+val.PayStatus+'</i></li>';
+                            content += '<li><span>还款本金</span><i>'+val.CostPayable+' 元</i></li>';
+                            content += '<li><span>还款总金额</span><i>'+val.TotalMoney+' 天</i></li>';
+                            content += '<li><span>还款状态</span><i>'+val.Status+'</i></li>';
+                        content += '</ul>';
+                    content += '</div>';
+                });
+                $('#data-list').append(content);
+                isLoading = false;
+                $('.load-tip').hide();
+            }else{
+                $('.load-tip').html('─ 没有数据啦 ─');
+            }
+        },'json');
+    }
+</script>
+</body>
+</html>
+

@@ -1,0 +1,82 @@
+.rangeslider,.rangeslider__fill {
+    background: #eee;
+    display: block;
+    height: 10px;
+    width: 100%;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.rangeslider {
+    position: relative
+}
+
+.rangeslider--disabled {
+    filter: alpha(opacity=40);
+    opacity: .4
+}
+
+.rangeslider__fill {
+    background: rgba(199,20,34,0.8);
+    position: absolute;
+    top: 0
+}
+
+.rangeslider__handle {
+    background: #fff;
+    padding: 4px;
+    cursor: pointer;
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: -12px;
+    background-image: url(../images/tuodong.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    -moz-box-shadow: 0 0 8px rgba(199,20,34,.3);
+    -webkit-box-shadow: 0 0 8px rgba(199,20,34,.3);
+    box-shadow: 0 8px 15px rgba(199,20,34,.3);
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%
+}
+
+.rangeslider__handle:after {
+    content: "";
+    display: block;
+    width: 18px;
+    height: 18px;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(../images/tuodong.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%
+}
+
+.rangeslider__handle:active {
+    background-image: url(../images/tuodong.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 24px 24px;
+}
+
+input[type=range]:focus+.rangeslider .rangeslider__handle {
+    -moz-box-shadow: 0 0 8px rgba(255,0,255,.9);
+    -webkit-box-shadow: 0 0 8px rgba(255,0,255,.9);
+    box-shadow: 0 0 8px rgba(255,0,255,.9)
+}
+
+
+.rangeslider__fill{margin-top: 0;}

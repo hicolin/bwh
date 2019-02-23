@@ -1,0 +1,125 @@
+@charset "UTF-8";
+/*首页头部*/
+.index_header{height: 42px;line-height: 42px;position: fixed;text-align: center;width: 100%;left: 0;top: 0;background: rgba(199,20,34,0.8);z-index: 30;}
+.index_header span.title{font-size: 0.16rem;color: #fff;letter-spacing: 3px;}
+.index_header i.icon-lingdang{width: 22px;position: absolute;right: 15px;top: 0;color: #eee;}
+
+
+/*index_content*/
+.index_main{width: 100%;height: 300px;
+    background:url("../images/user_bg.png") no-repeat center center;background-size: 100% 100%;}
+.index_main_con{width: 100%;height: 100%;background: rgba(0,0,0,0.6);position: relative;overflow: hidden;}
+.index_main_box{width: 90%;height: 200px;position: absolute;top: 55px;left: 5%;background: url("../images/card_bg.png") no-repeat;background-size: 100% 100%;border-radius: 10px;overflow: hidden;}
+.imb_top{height: 40px;background: rgba(255,255,255,0.2);padding: 0 10px;line-height: 40px;box-shadow: 0 0 10px #d4a71f;}
+.imb_top i{color: #c71422;font-size: 0.2rem;margin-right: 5px;display: inline-block;vertical-align: middle;margin-top: -3px;}
+.imb_top span{color: #333;font-size: 0.15rem;}
+
+.imb_mid{padding: 10px;}
+.imb_mid_money{padding-bottom: 4px;border-bottom: 1px dotted rgba(255,255,255,0.3);}
+.imb_mid_money p{font-size: 0.15rem;color: #c71422;line-height: 30px;}
+.imb_mid_money h1{font-size: 0.5rem;color: #c71422;line-height: 60px;font-family:  Arial;}
+.imb_bot{line-height: 30px;margin-top: 7px;}
+.imb_bot_left i{font-size: 0.18rem;color: #c71422;margin-right: 5px;}
+.scrollDiv{overflow: hidden;height: 30px;}
+.scrollDiv li{font-size: 0.15rem;color: #333;}
+
+.index_text{}
+
+.index_text_list{padding: 20px 0;}
+.index_text_list li{width: 33.3%;float: left;text-align: center;}
+.index_text_list li h1{font-size: 0.15rem;color: #333;line-height: 30px;}
+.index_text_list li h1 span{font-size: 0.2rem;color: #333;}
+.index_text_list li p{font-size: 0.14rem;color: #666;}
+.index_text_list li button{font-size: 0.14rem;color: #fff;background: #c71422;border: none;border-radius:3px;width: 75%;height: 26px;margin-top: 10px;}
+
+.index_loan{margin-top: 10px;padding: 0 15px;text-align: center;}
+.index_loan button{width: 80%;height: 45px;color: #fff;background:  linear-gradient(to right, #ea3d4a , #c71422);border-radius:45px;font-size: 0.18rem;border: none;}
+.index_loan button.on{color: #fff;background: linear-gradient(to right, #ea3d4a , #c71422);}
+
+.index_bot{margin-top: 30px;line-height: 30px;text-align: center;}
+.index_bot p{font-size: 0.14rem;color: #999;}
+.index_bot p i{font-size: 0.16rem;color: #999;}
+.index_bot p a{font-size: 0.14rem;color: #c71422;}
+
+
+
+
+.index_text_top{padding:20px 30px 40px 30px;border-radius: 10px;position: relative;width: 100%;background: #fff;}
+.index_text_top p{font-size: 0.13rem;color: #666;line-height: 16px;text-align: center;}
+.index_text_top button.add_mon{font-size: 0.14rem;color: #ededed;background: #ffc900;border: none;border-radius:3px;width: 100px;height: 26px;margin-top: 10px;position: absolute;right: 10px;top: 0px;}
+
+
+
+.add_mon{position: absolute;right: 10px;top: 60px;z-index: 19;}
+.add_mon_con{width: 75px;height: 75px;background:url("../images/add_mon.png");background-size: 100% 100%;}
+.add_mon_con p{padding-left: 22px;padding-top: 22px;color: #fff;line-height: 16px;font-size: 0.14rem;}
+.imb_reck{height: 40px;border-right: 2px solid #c71422;position: absolute;right: 47px;top: 40px;z-index: 15;}
+
+
+.index_cloud{height: 70px;position: absolute;  bottom: 0;  width: 600% ;background: url(../images/cloud.png) repeat-x;left: -200px;  animation: wave1 30s linear .4s infinite normal;  -moz-animation: wave1 30s linear .4s infinite normal;  -webkit-animation: wave1 30s linear .4s infinite normal;  -o-animation: wave1 30s linear .4s infinite normal;z-index: 19;background-size: 400px 100%; }
+
+@-webkit-keyframes wave1 {
+    from {left: -200px	}
+    to {left: -900px}
+}
+@keyframes wave1 {
+    from {
+        left: -200px
+    }
+    to {
+        left: -900px
+    }
+}
+
+.itt_money{}
+.itt_money_item{text-align: center;}
+.itt_money_item span{font-size: 0.12rem;color: #999;line-height: 15px;display: block;}
+
+
+
+
+.index_text_bot{padding: 10px;}
+.itb_list{background: #fff;padding: 0 10px;}
+.itb_list li{height: 45px;line-height: 45px;padding: 0 10px;}
+.itb_list li:first-child{border-bottom: 1px solid #eee;}
+.itb_list li span{font-size: 0.14rem;color: #8c8a93;}
+.itb_list li em span.text{color: #c71422;}
+.itb_list li em{display: inline-block;height: 45px;}
+
+
+/*选择下拉框*/
+.choose_date{background: #fff;position: fixed;width: 100%;left: 0;bottom: 0;text-align: center;z-index: 20;display: none;}
+.choose_date li{height: 40px;line-height: 40px;background: #fff;font-size: .14rem;color: #999;}
+.choose_date li.active{font-size: .16rem;color: #c71422;}
+.cd_list{padding:0 15px;margin-top: 10px;height: 100px;overflow-y: auto;}
+.cd_head{height: 50px;line-height: 50px;padding:0 15px;border-bottom: 1px solid #eee;}
+.cd_head button{height: 30px;margin-top: 5px;font-size: .16rem;color: #777;background: none;border: none;}
+.cd_head button.cd_sure{color: #c71422;}
+
+
+/*借款用途下拉*/
+.use_way{background: #fff;position: fixed;width: 100%;left: 0;bottom: 0;text-align: center;z-index: 20;display: none;}
+.use_way li{height: 40px;line-height: 40px;background: #fff;font-size: .14rem;color: #999;}
+.use_way li.active{font-size: .16rem;color: #c71422;}
+.uw_list{padding:0 15px;margin-top: 10px;height: 160px;overflow-y: auto;}
+.uw_head{height: 50px;line-height: 50px;padding:0 15px;border-bottom: 1px solid #eee;}
+.uw_head button{height: 30px;margin-top: 5px;font-size: .16rem;color: #777;background: none;border: none;}
+.uw_head button.uw_sure{color: #c71422;}
+
+/*推广*/
+.tui_banner{}
+.tui_banner img{width: 100%;}
+.tui_list{padding-bottom: 60px;}
+.tui_list img{width: 100%}
+/*.tui_list li{width: 50%;float: left;text-align: center;margin-top: 30px;}*/
+/*.tui_list li img{width: 100}*/
+/*.tui_list li h1{font-size: 0.16rem;color: #333;line-height: 30px;}*/
+/*.tui_list li p{font-size: 0.14rem;color: #999;}*/
+/*.tui_shadow{}*/
+/*.tui_shadow img{width: 100%;}*/
+
+.down_btn{text-align: center;position: fixed;left: 0;bottom: 0;width: 100%;height: 65px;background: #fff;padding: 10px 0;box-shadow: 0 0 10px #ccc}
+a.down_now{width: 80%;height: 45px;background: #c71422;font-size: 16px;color: #fff;border: none;border-radius: 45px;display: inline-block;line-height: 45px;}
+
+
+

@@ -1,0 +1,131 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div id="tt" class="easyui-tabs" >
+    <div title="续借信息" style="padding: 20px; background-color: #f4f4f4">
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">续借信息</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">会员账号：</td>
+                    <td width="200">
+                        {$infos['MemAccount']}
+                    </td>
+                    <td width="120" align="right">真实姓名：</td>
+                    <td width="200">
+                        {$infos['TrueName']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">手机号码：</td>
+                    <td width="200">
+                        {$infos['Mobile']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">申请号：</td>
+                    <td width="200">
+                        {$infos['LoanNo']}
+                    </td>
+                    <td width="120" align="right">订单号：</td>
+                    <td width="200">
+                        {$infos['OrderSn']}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="120" align="right">商品金额：</td>
+                    <td width="200">
+                        {$applyinfos['ApplyMoney']}
+                    </td>
+                    <td width="120" align="right">收购价格：</td>
+                    <td width="200">
+                        {$applyinfos['AdoptMoney']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">撮合费：</td>
+                    <td width="200">
+                        {$applyinfos['FJMoney']}
+                    </td>
+                    <td width="120" align="right">息费：</td>
+                    <td width="200">
+                        {$applyinfos['Interest']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">优惠劵金额：</td>
+                    <td width="200">
+                        {$applyinfos['CoMoney']}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td width="120" align="right">续借服务费：</td>
+                    <td width="200">
+                        {$infos['ServiceCost']}
+                    </td>
+                    <td width="120" align="right">支付总金额：</td>
+                    <td width="200">
+                        {$infos['TotalMoney']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">交易备注：</td>
+                    <td width="200">
+                        {$infos['TradeRemark']}
+                    </td>
+                    <td width="120" align="right">续借期限：</td>
+                    <td width="200">
+                        {$infos['LoanDay']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">支付状态：</td>
+                    <td width="200">
+                        {$infos['PayStatus']}
+                    </td>
+                    <td width="120" align="right">支付方式：</td>
+                    <td width="200">
+                        {$infos['PayType']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">收款账号：</td>
+                    <td width="200">
+                        {$infos['Accounts']}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+      <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">审核状态</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">审核状态：</td>
+                    <td width="200" style="color:red;">
+                        {$infos['Status']}
+                    </td>
+                    <td width="120" align="right">审核人：</td>
+                    <td width="200">
+                        {$infos['AdminID']}
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" align="right">审核时间：</td>
+                    <td width="200">
+                        {$infos['ShTime']}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </fieldset>
+    </div>
+</div>
+<div style="text-align:center;margin:20px 0px;">
+    <input name="Btn" type="button" value=" 关闭  " onclick="parent.$('#W1').window('close');" />
+</div>
+</body>
+<include file="Shared:Footer" />

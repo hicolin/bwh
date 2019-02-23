@@ -1,0 +1,40 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填；</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>原始密码：</td>
+            <td>
+                <input id="Password" name="Password" type="text" class="easyui-textbox" />
+                <span class="Hui"> 当前登录的密码</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>新的密码：</td>
+            <td>
+                <input id="NewPWD" name="NewPWD" type="text" class="easyui-textbox" />
+                <span class="Hui"> 请设置一个新的密码，长度不低于6位</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>确认密码：</td>
+            <td>
+                <input id="ConfirmPWD" name="ConfirmPWD" type="text" class="easyui-textbox" />
+                <span class="Hui"> 重复输入新密码,和设置的新密码保持一致</span>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td style="height:230px;"></td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+</body>
+<include file="Shared:Footer" />

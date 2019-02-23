@@ -1,0 +1,27 @@
+<include file="Shared:Header" />
+
+<style>
+    .read_done{}
+    .read_done a{display: inline-block;width: 1rem;height: 30px;border-radius: 30px;line-height: 30px;text-align: center;font-size: 0.14rem;color: #fff;background: #c71422;margin: 15px 0;}
+</style>
+
+<body>
+<div class="head">
+    <span>注册协议</span>
+    <a href="javascript:history.back();">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+
+        <!---->
+        <section style="padding: 10px; color: #999;  margin-top: 50px;">
+            {$content}
+        </section>
+
+        <!---->
+
+         <div class="read_done tc">
+             <p><a href="{:U('register/index')}">我已阅读</a></p>
+         </div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<style>
+  .easyui-numberbox{width: 60px}
+</style>
+<div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg',footer:'#ft'">
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <fieldset style=" border: 1px solid #ccc;margin:5px;">
+            <legend>运营商</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                    <foreach name="yysDecisions" item="Vo" key="k" >
+                        <tr id="{$Vo.ID}">
+                            <td align="right" style="width: 40%">
+                                {$k+1}. {$Vo.Title}
+                                <php>if($Vo['Value']):</php>
+                                <input name="" type="number" class="easyui-numberbox num-val" value="{$Vo.Value}">
+                                <php>endif;</php>
+                                <php>if($Vo['Desc']):</php>
+                                <span class="Hui">{$Vo['Desc']}</span>
+                                <php>endif;</php>
+                                <php>if($Vo['Remark']):</php>
+                                <span class="Red">{$Vo['Remark']}</span>
+                                <php>endif;</php>
+                            </td>
+                            <td >
+                                <select  name="" style="width:100px;">
+                                    <option value="1" <php>echo $Vo['Status'] == 1 ? 'selected' : ''</php> >直接拒绝</option>
+                                    <option value="2" <php>echo $Vo['Status'] == 2 ? 'selected' : ''</php> >手工复审</option>
+                                    <option value="3" <php>echo $Vo['Status'] == 3 ? 'selected' : ''</php> >直接通过</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </foreach>
+                </tbody>
+            </table>
+        </fieldset>
+        <fieldset style=" border: 1px solid #ccc;margin:5px;">
+            <legend>淘宝支付宝</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                    <foreach name="tbDecisions" item="Vo" key="k" >
+                        <tr id="{$Vo.ID}">
+                            <td align="right" style="width: 40%">
+                                {$k+1}. {$Vo.Title}
+                                <php>if($Vo['Value']):</php>
+                                <input name="" type="number" class="easyui-numberbox" value="{$Vo.Value}">
+                                <php>endif;</php>
+                                <php>if($Vo['Desc']):</php>
+                                <span class="Hui">{$Vo['Desc']}</span>
+                                <php>endif;</php>
+                                <php>if($Vo['Remark']):</php>
+                                <span class="Red">{$Vo['Remark']}</span>
+                                <php>endif;</php>
+                            </td>
+                            <td >
+                                <select  name="" style="width:100px;">
+                                    <option value="1" <php>echo $Vo['Status'] == 1 ? 'selected' : ''</php> >直接拒绝</option>
+                                    <option value="2" <php>echo $Vo['Status'] == 2 ? 'selected' : ''</php> >手工复审</option>
+                                    <option value="3" <php>echo $Vo['Status'] == 3 ? 'selected' : ''</php> >直接通过</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </foreach>
+                </tbody>
+            </table>
+        </fieldset>
+        <fieldset style=" border: 1px solid #ccc;margin:5px;">
+            <legend>多头条件</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                    <foreach name="dtDecisions" item="Vo" key="k" >
+                        <tr id="{$Vo.ID}">
+                            <td align="right" style="width: 40%">
+                                {$k+1}. {$Vo.Title}
+                                <php>if($Vo['Value']):</php>
+                                <input name="" type="number" class="easyui-numberbox" value="{$Vo.Value}">
+                                <php>endif;</php>
+                                <php>if($Vo['Desc']):</php>
+                                <span class="Hui">{$Vo['Desc']}</span>
+                                <php>endif;</php>
+                                <php>if($Vo['Remark']):</php>
+                                <span class="Red">{$Vo['Remark']}</span>
+                                <php>endif;</php>
+                            </td>
+                            <td >
+                                <select  name="" style="width:100px;">
+                                    <option value="1" <php>echo $Vo['Status'] == 1 ? 'selected' : ''</php> >直接拒绝</option>
+                                    <option value="2" <php>echo $Vo['Status'] == 2 ? 'selected' : ''</php> >手工复审</option>
+                                    <option value="3" <php>echo $Vo['Status'] == 3 ? 'selected' : ''</php> >直接通过</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </foreach>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+    <div style="height: 100px"></div>
+</div>
+<script>
+    // input 非负处理
+    $('form').on('click','input[type="number"]',function(){
+        $this = $(this);
+        var val = $this.val() > 0 ? $this.val() : 0;
+        $this.val(val)
+    });
+
+    // input 修改
+    $('form').on('blur','input[type="number"]',function(){
+        let type = 'Value';
+        let that = $(this);
+        changeField(type,that);
+    });
+
+    // select 修改
+    $('form').on('change','select',function(){
+        let type = 'Status';
+        let that = $(this);
+        changeField(type,that);
+    });
+
+    // 数据修改
+    function changeField(type,that){
+        let $this = that;
+        let id = $this.parents('tr').attr('id');
+        let val = $this.val();
+        layer.load(3);
+        $.post('{:U("System/Decision/changeField")}',{id:id,val:val,type:type},function (res) {
+            layer.closeAll();
+            if(res.result === 100){
+                layer.msg(res.message,{time:1500})
+            }
+        },'json')
+    }
+</script>
+</body>
+<include file="Shared:Footer" />

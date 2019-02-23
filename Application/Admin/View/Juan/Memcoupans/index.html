@@ -1,0 +1,77 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" method="post">
+        <div id="tools" class="tools">
+
+            {:W('RolePerm/RolePermTop')}
+
+        </div>
+        <div id="search" class="search">
+            <table border="0" class="SearchTable" cellpadding="3">
+                <thead>
+                    <tr>
+                        <td width="80" align="right">手机号码：</td>
+                        <td width="100">
+                            <input id="Mobile" Name="Mobile" type="text" />
+                        </td>
+                        <td width="80" align="right">获取方式：</td>
+                        <td width="100">
+                            <select id="GetType" name="GetType">
+                                <option value="-5" selected="selected">全部</option>
+                                <option value="1">平台发放</option>
+                                <option value="2">会员领取</option>
+                            </select>
+                        </td>
+                        <td width="80" align="right">是否使用：</td>
+                        <td width="100">
+                            <select id="Isuser" name="Isuser">
+                                <option value="-5" selected="selected">全部</option>
+                                <option value="1">未使用</option>
+                                <option value="2">已使用</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 询">
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div id="tabelContent" class="tabelContent">
+            <table id="DataList"></table>
+        </div>
+    </form>
+    <script type="text/javascript">
+
+        $(function () {
+
+            var frozenColumns = [
+                { field: 'MemAccount', title: '会员账号', width: 100 },
+                { field: 'TrueName', title: '真实姓名', width: 80 },
+                { field: 'Mobile', title: '手机号码', width: 100 },
+                { field: 'GetType', title: '获取方式', width: 100 },
+            ];
+            var columns = [
+                    { field: 'Title', title: '优惠劵名称', width: 100 },
+                    { field: 'Money', title: '优惠劵金额', width: 100 },
+                    { field: 'Isuser', title: '是否使用', width: 100 },
+                    { field: 'StartMoney', title: '金额条件', width: 200},
+                    { field: 'StartTime', title: '开始时间', width: 150 ,sortable: true},
+                    { field: 'EndTime', title: '结束时间', width: 200 ,sortable: true},
+                    { field: 'UseTime', title: '使用时间', width: 150 },
+                    { field: 'Oid', title: '支付订单号', width: 150 },
+                    { field: 'Gid', title: '使用商品', width: 250 },
+                    { field: 'Status', title: '状态', width: 100 ,formatter: Common.StatusFormatter,sortable: true},
+                    { field: 'AddUserID', title: '添加(领取)人', width: 150},
+                    { field: 'AddTime', title: '发放(领取)时间', width: 150, sortable: true },
+            ];
+            $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns });
+            $.XB.enter();
+        });
+    </script>
+        {:W('RolePerm/RolePermBottom')}
+	</body>
+<include file="Shared:Footer" />
+
+
+

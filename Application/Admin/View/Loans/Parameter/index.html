@@ -1,0 +1,61 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg',footer:'#ft'">
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <fieldset style=" border: 1px solid #ccc;margin:5px;">
+            <legend>基本参数</legend>
+            <table width="700px" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                    <tr>
+                        <td align="right"><span class="Red">*</span>容时期期限：</td>
+                        <td>
+                            <input id="RongDay" name="RongDay" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:0,max:100,suffix:'天',prompt:'默认为0'">
+                        </td>
+                        <td align="right"><span class="Red">*</span>容时期利率：</td>
+                        <td>
+                            <input id="RongP" name="RongP" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:0,max:100,suffix:'%',prompt:'默认为0'">
+                            <span class="Hui">单位：天</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span>逾时期期限：</td>
+                        <td>
+                            <input id="OverdueDay" name="OverdueDay" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:0,max:100,suffix:'天',prompt:'默认为0'">
+                        </td>
+                        <td align="right"><span class="Red">*</span>逾时期利率：</td>
+                        <td>
+                            <input id="OverdueP" name="OverdueP" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:0,max:100,suffix:'%',prompt:'默认为0'">
+                            <span class="Hui">单位：天</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right"><span class="Red">*</span>最大续借次数：</td>
+                        <td>
+                            <input id="MaxRenewSum" name="MaxRenewSum" type="text" class="easyui-numberspinner" data-options="required:true,width:100,min:0,max:100,suffix:'次',prompt:'默认为0'">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
+<div id="ft" style="padding:4px;text-align:center;height:40px;line-height:40px;">
+    <input onclick="$.XB.pagesave({
+    'url': '__URL__/save/', 'fn': function (data) {
+        $.XB.success({
+            'message': data.message, 'fn': function () {
+                $.XB.topreload();
+            }
+        });
+    }
+});" type="button" id="saveb" value=" 确定保存 ">
+</div>
+<script>
+
+$(function () {
+        $('#FF').form('load', 'shows?ID=0&_=' + Math.random() + '');
+        $("#MainDiv").height($(window).height());
+ });
+</script>
+</body>
+<include file="Shared:Footer" />

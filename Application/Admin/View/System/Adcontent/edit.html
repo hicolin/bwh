@@ -1,0 +1,74 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填；</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td  align="right">所属广告位：</td>
+            <td>
+                <select id="AdvertisingID" name="AdvertisingID">
+                    <foreach name="Advertising" item="item">
+                        <option value="{$item.ID}">{$item.Name}</option>
+                    </foreach>
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>广告名称：</td>
+            <td>
+                <input id="Name" name="Name" type="text" class="easyui-textbox" />
+                <span class="Hui"> 最好2到5个字符之间</span>
+            </td>
+        </tr>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span> <label>广告图片</label></td>
+            <td>
+                <input id="Pic" name="Pic" type="text" /><button onclick="Upload('Pic')">上传</button>
+                <a href="javascript:void(0)" id="dd" style="display:inline-block;"><span class="icon317" style="width:16px;display:block;">&nbsp;</span></a>
+            </td>
+        </tr>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>跳转地址：</td>
+            <td>
+                <input id="Url" name="Url" type="text" class="easyui-textbox" />
+                <span class="Hui"> 以http://开头</span>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right">状态：</td>
+            <td>
+                <select id="Status" name="Status">
+                    <foreach name="StatusList" item="item">
+                        <option value="{$item.DictValue}">{$item.DictName}</option>
+                    </foreach>
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+            <td  align="right">排序：</td>
+            <td>
+                <input id="Sort" name="Sort" type="text" class="easyui-numberbox" />
+                <span class="Hui"> 不填写默认按添加顺序排</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- @Html.AntiForgeryToken() -->
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+<script>
+
+    $(function () {
+        $('#FF').form('load', '../shows?ID='+{$ID}+'&_=' + Math.random() + '');
+    });
+    $.XB.pictips({ 'id': '#Pic', 'path': '#Pic' });
+</script>
+</body>
+<include file="Shared:Footer" />

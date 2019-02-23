@@ -1,0 +1,73 @@
+<include file="Shared:Header" />
+
+<body class="Bodybg">
+    <div class="easyui-panel" data-options="fit:true,border:false,bodyCls:'Bodybg',footer:'#ft'">
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax"
+>
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填；</td>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td align="right" width="200"><span class="Red">*</span> 标题：</td>
+                    <td>
+                        <input id="Title" name="Title" type="text" class="easyui-textbox" value="{$cate.Name}" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td align="right">文章内容：</td>
+                    <td>
+                        <textarea id="Contents" name="Contents"></textarea>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="right">SEO标题：</td>
+                    <td>
+                        <textarea id="SEOTitle" name="SEOTitle" rows="2"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">SEO关键字：</td>
+                    <td>
+                        <textarea id="SEOKeyWords" name="SEOKeyWords" rows="2"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">SEO描述：</td>
+                    <td>
+                        <textarea id="SEODescription" name="SEODescription" rows="3"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="hidden" id="ID" name="ID" value="{$find.ID}"/>
+        <input type="hidden" id="CategoriesID" name="CategoriesID" value="{$CategoriesID}"/>
+        <input type="hidden" id="IsPublish" name="IsPublish" value="1"/>
+
+    </form>
+</div>
+<div id="ft" style="padding:4px;text-align:center;">
+    <input onclick="$.XB.pagesave({'isiframe':false,'isClose':false});" type="button" value=" 确 定 ">
+    <input onclick="$.XB.easyuireset();" type="button" style="margin-left:20px;" value=" 重 置 ">
+</div>
+    {:load_editor_js('kindeditor')}
+    <script>
+     $(function () {
+         $('#FF').form('load', '../shows?ID={$find.ID}&_=' + Math.random() + '').form({
+             onLoadSuccess: function (data) {
+                 {:editor('kindeditor',0,'Contents')}
+             }
+         });
+     });
+
+    </script>
+</body>
+<include file="Shared:Footer" />

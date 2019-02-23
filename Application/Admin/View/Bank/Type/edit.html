@@ -1,0 +1,48 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填；银行名称不能重复；</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="100" align="right"><span class="Red">*</span>银行名称 ：</td>
+                    <td>
+                        <input id="Name" name="Name" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">状态：</td>
+                    <td>
+                        <select id="Status" name="Status" class="easyui-combobox" data-options="editable:false">
+                            <option value="1">正常</option>
+                            <option value="0">隐藏</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" align="right"><span class="Red">*</span>排序：</td>
+                    <td>
+                        <input id="Sort" name="Sort" value="999" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <input type="hidden" id="ID" name="ID" value="{$ID}" />
+    </form>
+    <script>
+    </script>
+    <script>
+    $(function () {
+        var id=$("#ID").val();
+        if(id) {
+            $('#FF').form('load', '../shows?ID=' + id + '&_=' + Math.random() + '');
+        }
+    });
+    </script>
+</body>
+<include file="Shared:Footer" />

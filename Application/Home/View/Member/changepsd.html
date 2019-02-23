@@ -1,0 +1,128 @@
+<include file="Shared:Header" />
+<body class="user_body">
+
+<!--head-->
+<div class="head">
+    <span>修改密码</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+
+<!--main -->
+<div class="per_main">
+
+        <ul class="per_main_list">
+            <li>
+                <span>原密码：</span>
+                <input type="password" id="psd" name="Password" placeholder="请输入原密码" class="old_psd">
+            </li>
+            <li>
+                <span>新密码：</span>
+                <input type="password" id="psd1" name="Password1" placeholder="请输入新密码" class="new_psd">
+            </li>
+            <li>
+                <span>确认密码：</span>
+                <input type="password" id="psd2" name="Password2" placeholder="请确认密码" class="sure_psd">
+            </li>
+        </ul>
+        <div class="user_btn2 tc">
+            <button onclick="check();">提交</button>
+        </div>
+
+
+</div>
+<!--main end-->
+<script>
+    function old_psd() {
+        var str = $("#psd").val();
+        var reg = /^[\S]{6,20}$/g;
+        if (!reg.test(str)) {
+            layer.msg("请输入原密码");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    function new_psd() {
+        var str = $("#psd1").val();
+        var reg = /^[\S]{6,20}$/g;
+        if (!reg.test(str)) {
+            layer.msg("请输入6-20位新密码");
+
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    function new_psd2() {
+        var str = $("#psd2").val();
+        var reg = /^[\S]{6,20}$/g;
+        if (!reg.test(str)) {
+
+            layer.msg("请再次确认新密码");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function bijiao() {
+        var psd1 = $("#psd1").val();
+        var psd2 = $("#psd2").val();
+        if (psd1 !== psd2) {
+            layer.msg("两次密码不一致");
+
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function check() {
+        if(old_psd() && new_psd() && new_psd2() && bijiao()){
+            var psd = $("#psd").val();
+            var psd1 = $("#psd1").val();
+            var psd2 = $("#psd2").val();
+            $.ajax({
+                type: 'POST',
+                url: '{:U("member/changepsd")}',
+                data: {'psd': psd, 'psd1': psd1, 'psd2': psd2},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.result == 1) {
+                        layer.msg(data.message, {icon:6,time: 2000}, function () {
+                            window.location.href = '{:U("register/logout")}';
+                        })
+                    } else {
+                        layer.msg(data.message, {icon:5,time: 2000})
+                    }
+                }
+            })
+
+        }
+
+    }
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

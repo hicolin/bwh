@@ -1,0 +1,57 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填；</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td width="120" align="right"><span class="Red">*</span>链接名称：</td>
+            <td>
+                <input id="Name" name="Name" type="text" class="easyui-textbox" />
+                <span class="Hui"> 最好2到5个字符之间</span>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right"><span class="Red">*</span>链接网址：</td>
+            <td>
+                <input id="Url" name="Url" type="text" class="easyui-textbox" />
+                <span class="Hui"> 请以/结尾</span>
+            </td>
+        </tr>
+        <tr>
+            <td  align="right">状态：</td>
+            <td>
+                <select id="Status" name="Status">
+                    <foreach name="StatusList" item="item">
+                        <option value="{$item.DictValue}">{$item.DictName}</option>
+                    </foreach>
+                </select>
+
+            </td>
+        </tr>
+        <tr>
+            <td  align="right">排序：</td>
+            <td>
+                <input id="Sort" name="Sort" type="text" class="easyui-numberbox" />
+                <span class="Hui"> 不填写默认按添加顺序排</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- @Html.AntiForgeryToken() -->
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+<script>
+
+    $(function () {
+        $('#FF').form('load', '../shows?ID='+{$ID}+'&_=' + Math.random() + '');
+    });
+
+
+</script>
+</body>
+<include file="Shared:Footer" />

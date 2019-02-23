@@ -1,0 +1,97 @@
+<include file="Shared:Header" />
+<style>
+    .BactchPic {
+        margin-top: 7px;
+        display: none;
+    }
+    .BactchPic div {
+        width: 83px;
+        margin: 2px;
+        float: left;
+        position: relative;
+    }
+    .Bactchimg {
+        width: 82px;
+        height: 60px;
+        border: 1px solid #ccc;
+    }
+    .tan{
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top:0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1000000000;
+        display: none;
+    }
+    .tan_content{
+        width: 80%;
+        height: 80%;
+        margin: auto;
+        background-color: white;
+        margin-top: 5%;
+        position: relative;
+    }
+    .close_btn{
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 16px;
+        color: grey;
+        position: absolute;
+        right: 0;
+        top:0;
+    }
+</style>
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="4">说明：带<span class="Red">*</span>必填；</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+            <td align="right">银行卡号：</td>
+            <td>{$info.BankCode}</td>
+            <td align="right">所属银行：</td>
+            <td>{$info.Name}</td>
+        </tr>
+        <tr>
+            <td width="120" align="right">添加会员：</td>
+            <td width="230">{$info.UserName}</td>
+            <td width="120" align="right">添加时间：</td>
+            <td>{$info.UpdateTime}</td>
+        </tr>
+        <tr>
+            <td width='100' align="right"><span class="Red">*</span>审核结果：</td>
+            <td colspan="3">
+                <select id="AuditStatus" name="AuditStatus" class="easyui-combobox" data-options="editable:false">
+                    <option value="0" <if condition="$info.AuditStatus eq 0">selected</if>>审核中</option>
+                    <option value="1" <if condition="$info.AuditStatus eq 1">selected</if>>审核通过</option>
+                    <option value="2" <if condition="$info.AuditStatus eq 2">selected</if>>审核未通过</option>
+                </select>
+                <div class="Hui"></div>
+            </td>
+        </tr>
+        <tr>
+            <td width='100' align="right">审核描述：</td>
+            <td colspan="3">
+                <textarea id="Remarks" name="Remarks" rows="5" cols="10">{$info['Remarks']}</textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <!-- @Html.AntiForgeryToken() -->
+    <input type="hidden" id="ID" name="ID" value="{$info.ID}"/>
+</form>
+<div class="tan">
+    <div class="tan_content">
+        <a href="javascript:void(0)" class="close_btn" onclick="tan_close()">关闭</a>
+    </div>
+</div>
+</body>
+<include file="Shared:Footer" />

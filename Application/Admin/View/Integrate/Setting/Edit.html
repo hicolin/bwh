@@ -1,0 +1,32 @@
+<include file="Shared:Header" />
+
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：带<span class="Red">*</span>必填；</td>
+        </tr>
+        </thead>
+        <tbody>
+        <volist name="ParaList" id="List">
+            <tr>
+                <td width="120" align="right"><span class="Red">*</span>{$List.Name}：</td>
+                <td>
+                    <input id="{$List.ParaName}" name="{$List.ParaName}" type="text" class="easyui-textbox" />
+                </td>
+            </tr>
+        </volist>
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+<script>
+
+    $(function () {
+        $('#FF').form('load', '../shows?ID='+{$ID}+'&_=' + Math.random() + '');
+    });
+
+
+</script>
+
+<include file="Shared:Footer" />

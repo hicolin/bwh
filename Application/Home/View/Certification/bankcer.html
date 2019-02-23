@@ -1,0 +1,125 @@
+<include file="Shared:Header" />
+
+<style>
+    html,body{background: #f5f5f5;}
+</style>
+<body>
+
+<!--head-->
+<div class="head">
+    <span>银行卡认证</span>
+    <a href="javascript:history.back();">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--main-->
+<div class="id_cer_main main">
+        <div>
+            <div class="id_cer_m_list">
+                <ul>
+                    <li>
+                        <span>持卡人：</span>
+                        <input type="text" name="TrueName" placeholder="持卡人姓名" class="cer_QQ" value="<?php echo $member['TrueName']?>">
+                    </li>
+                    <li>
+                        <span>身份证号：</span>
+                        <input type="text" name="IDCard" placeholder="身份证号" class="cer_QQ" value="<?php echo $member['IDCard']?>">
+                    </li>
+                    <!--<li>-->
+                        <!--<span>开户行：</span>-->
+                        <!--<input type="text" name="BankName" placeholder="开户行信息" class="cer_ba" value="<?php echo $bank['BankName']?>">-->
+                    <!--</li>-->
+
+                    <li class="mb10">
+                        <span>卡号：</span>
+                        <input type="number" name="BankNo" placeholder="请输入银行卡号" class="cer_bn" value="<?php echo $bank['BankNo']?>">
+                    </li>
+                </ul>
+
+                <ul>
+                    <li>
+                        <span>手机号：</span>
+                        <input type="number" disabled name="YMobile" placeholder="预留手机号" class="cer_ylp" value="<?php echo $member['Mobile']?>">
+                    </li>
+
+                    <li>
+                        <span>验证码：</span>
+                        <input  type="button" class="code_b" onclick="BankRz('1')" value="获取验证码">
+                        <input type="number" name="Code" placeholder="输入验证码" class="cer_bank_yzm" value="">
+                    </li>
+
+                </ul>
+
+            </div>
+        </div>
+        <div class="id_cer_m_btn tc">
+            <button onclick="BankRz('2')">{$bank['ID']?'修改信息':'提交认证'}</button>
+        </div>
+</div>
+<!--main end-->
+</body>
+</html>
+<script>
+    function BankRz(type) {
+        var TrueName = $('input[name="TrueName"]').val();
+        var IDCard = $('input[name="IDCard"]').val();
+        // var BankName = $('input[name="BankName"]').val();
+        var YMobile = $('input[name="YMobile"]').val();
+        var BankNo = $('input[name="BankNo"]').val();
+        if(TrueName.length<2){
+            layer.msg('请输入持卡人姓名');return;
+        }
+        if(IDCard.length!=15&&IDCard.length!=18){
+            layer.msg('身份证号应该15位或者18位');return;
+        }
+        // if(BankName.length<2){
+        //     layer.msg('请输入开户行');return;
+        // }
+        if(YMobile.match(/^((1[3-9][0-9]{1})+\d{9})$/)){
+            layer.msg('请输入正确的手机号');return;
+        }
+        if(BankNo.length<2){
+            layer.msg('请输入银行卡号');return;
+        }
+        if(type==1){
+           var url = '{:U("fuyoupay/bangka")}';
+            countDown();
+        }else if(type==2){
+            var url = '{:U("fuyoupay/bangkat")}';
+            var Code = $('input[name="Code"]').val();
+            if(Code.length!=6){
+                layer.msg('请输入正确的验证码');return;
+            }
+        }
+        $.post(url,{TrueName:TrueName,IDCard:IDCard,YMobile:YMobile,BankNo:BankNo,Code:Code},function (msg) {
+            if(msg.result==1){
+                layer.msg(msg.message,{icon:6,time:1500},function () {
+                    window.location.href = '{:U("certification/index")}';
+                })
+            }if(msg.result==2){
+                layer.msg(msg.message,{icon:6,time:1500})
+            }else {
+                layer.msg(msg.message,{icon:6,time:1500})
+            }
+        },'json')
+    }
+
+    // 倒计时
+    function countDown() {
+        var $codeBtn = $('.code_b');
+        var num = 60;
+        $codeBtn.removeAttr('onclick');
+        var timer = setInterval(function () {
+            if(num > 0){
+                $codeBtn.val(num +' S').css({'color':'red'});
+                num--;
+            }else{
+                $codeBtn.val('获取验证码').css({'color':'black'});
+                $codeBtn.attr('onclick',"BankRz('1')");
+                clearInterval(timer);
+            }
+        },1000)
+    }
+</script>

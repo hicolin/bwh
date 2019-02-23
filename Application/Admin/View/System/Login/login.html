@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>后台管理系统</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/Admin/images/font-awesome/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/util.css">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/main.css">
+</head>
+
+<body>
+<div class="dowebok">
+	<div class="container-login100">
+		<div class="wrap-login100">
+			<div class="login100-pic js-tilt" data-tilt>
+				<img src="__PUBLIC__/Admin/images/img-01.png" alt="IMG">
+			</div>
+			<form class="login100-form validate-form" id="FF" method="post" onsubmit="return false">
+				<span class="login100-form-title">
+					会员登录
+				</span>
+				<div class="wrap-input100 validate-input">
+					<input class="input100" type="text" name="username" placeholder="账户" id="UserName">
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-envelope" aria-hidden="true"></i>
+					</span>
+				</div>
+				<div class="wrap-input100 validate-input">
+					<input class="input100" type="password" name="password" placeholder="密码" id="UserPsd">
+					<span class="focus-input100"></span>
+					<span class="symbol-input100">
+						<i class="fa fa-lock" aria-hidden="true"></i>
+					</span>
+				</div>
+				<div class="container-login100-form-btn">
+					<button class="login100-form-btn" onclick="Login()">
+						登陆
+					</button>
+					<input type="hidden" id="MacAddress" name="MacAddress" value=""/>
+				</div>
+				<div class="text-center p-t-136">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script src="__PUBLIC__/Admin/JS/jquery.min.js"></script>
+<script src="__PUBLIC__/Admin/Js/layer/layer.js"></script>
+<script language="javascript">
+    $(function () {
+        if (top.location != self.location) {
+            top.location = self.location;
+        }
+        $("#UserName").focus();
+        $(document).on('keyup', function (event) {
+            if (event.keyCode == 13) {
+                Login();
+            }
+        });
+        //判断后台是否开启获取MAC地址 【获取缓存点】
+        if (1==1)
+        {
+            GetSystemInfo('NetworkAdapter.1.PhysicalAddress');
+        }
+    })
+    function GetSystemInfo(strINFOType) {
+        try {
+            LODOP = getLodop();
+            $("#MacAddress").val(LODOP.GET_SYSTEM_INFO(strINFOType));
+        } catch (e) {
+
+        }
+    }
+    function Login() {
+        var UserName = $("#UserName"), UserPsd = $("#UserPsd")
+        if (UserName.val().length == 0) {
+            layer.msg('请先输入登录账户名！');
+        }
+        else if (UserPsd.val().length == 0) {
+            layer.msg('请先输入登录密码！')
+        }
+        else {
+            var parm = { "UserName": escape(UserName.val()), "UserPsd": escape(UserPsd.val()), "MacAddress": escape($("#MacAddress").val()) };
+           layer.load(3);
+            $.post("{:U('System/Login/doLogin')}", parm, function (data, textStatus) {
+                layer.closeAll();
+                if (data.result) {
+                    window.location.href = data.des;
+                } else {
+                    layer.msg(data.message)
+                }
+            }, "json");
+        }
+    }
+</script>
+</body>
+</html>

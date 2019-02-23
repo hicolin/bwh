@@ -1,0 +1,116 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="FF">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">真实姓名：</td>
+                    <td width="175">
+                        <input id="TrueName" name="TrueName" type="text" />
+                    </td>
+                    <td width="70" align="right">手机号码：</td>
+                    <td width="175">
+                        <input id="Mobile" name="Mobile" type="text" />
+                    </td>
+                    <td width="70" align="right">支付状态：</td>
+                    <td width="180">
+                        <select id="PayStatus" name="PayStatus">
+                            <option value="-5">全部</option>
+                          <?php foreach($PayStatus as $k=>$v):?>
+                            <option value="{$k}">{$v}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                    <td >
+                        <input id="MoreSearch" onclick="$.XB.moresearch()" type="button" value="更多条件">
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="stbody">
+                <tr>
+                    <td width="70" align="right">申请号：</td>
+                    <td width="175">
+                        <input id="LoanNo" name="LoanNo" type="text" />
+                    </td>
+                    <td width="70" align="right">订单号：</td>
+                    <td width="175">
+                        <input id="OrderSn" name="OrderSn" type="text" />
+                    </td>
+                    <td width="70" align="right">支付方式：</td>
+                    <td width="180">
+                        <select id="PayType" name="PayType">
+                            <option value="-5">全部</option>
+                          <?php foreach($PayType as $k=>$v):?>
+                            <option value="{$k}">{$v}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70" align="right">审核状态：</td>
+                    <td width="180">
+                        <select id="Status" name="Status">
+                            <option value="-5">全部</option>
+                          <?php foreach($Status as $k=>$v):?>
+                            <option value="{$k}">{$v}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                    <td width="70" align="right">申请时间：</td>
+                    <td width="200">
+                        <input id="xjStartTime" name="xjStartTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                        -
+                        <input id="xjEndTime" name="xjEndTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                    </td>
+                    <td width="70" align="right">审核时间：</td>
+                    <td width="200">
+                        <input id="shStartTime" name="shStartTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                        -
+                        <input id="shEndTime" name="shEndTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'ID', checkbox: true },
+        { field: 'MemAccount', title: '会员账号', width:90},
+        { field: 'TrueName', title: '真实姓名', width:80},
+        { field: 'Mobile', title: '手机号码', width:90},
+    ];
+    var columns = [
+        { field: 'ServiceCost', title: '续借服务费', width: 90  },
+        { field: 'TotalMoney', title: '支付总金额', width: 90  },
+        { field: 'TradeRemark', title: '交易备注', width: 150  },
+        { field: 'XjTime', title: '续借时间', width: 130  },
+        { field: 'PayStatus', title: '支付状态', width: 70  },
+        { field: 'PayType', title: '支付方式', width: 70  },
+        { field: 'Accounts', title: '收款账号', width: 90  },
+        { field: 'Status', title: '审核状态', width: 70  },
+        { field: 'AdminID', title: '审核人', width: 70  },
+        { field: 'ShTime', title: '审核时间', width: 130  },
+        { field: 'LoanNo', title: '申请号', width: 150  },
+        { field: 'OrderSn', title: '订单号', width: 150  },
+        
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+    {:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

@@ -1,0 +1,98 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+    	<thead>
+        <tr>
+            <td colspan="2">说明：会员资料只能修改基本信息，有关账号及资金部分不可修改！</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        	<td align="right"><span class="Red">*</span>交易号：</td>
+            <td>
+                <input id="TradeNum" name="TradeNum" type="text" class="easyui-textbox" data-options="required:true,validType:['length[1,100]']" />
+            </td>
+        </tr>
+		<tr>
+			<td align="right"><span class="Red">*</span>打款方式：</td>
+            <td>
+                <select id="ReplaymentType" name="ReplaymentType" onchange="fnlingyanact(this)">
+                    <option value="1" <?php if($res['ReplaymentType']=='1') echo 'selected';?> >支付宝</option>
+                    <option value="2" <?php if($res['ReplaymentType']=='2') echo 'selected';?> >微信</option>
+                    <option value="3" <?php if($res['ReplaymentType']=='3') echo 'selected';?> >银联</option>
+                </select>
+            </td>
+		</tr>
+		<tr>
+			<td align="right"><span class="Red">*</span>打款账号：</td>
+            <td>
+                <select id="RepaymentAccount" name="RepaymentAccount"></select>
+            </td>
+		</tr>
+        <tr>
+            <td align="right">会员账号：</td>
+            <td>
+                <input id="UserAccount" name="UserAccount" type="text" class="easyui-textbox" />
+                <span class="Hui">会员的收款账号</span>
+            </td>
+        </tr>
+		<!-- <tr>
+			<td align="right"><span class="Red">*</span>会员账号：</td>
+            <td>
+                <select id="UserAccount" name="UserAccount">
+                  <?php foreach($userbanks as $k=>$v):?>
+                    <option value="{$v.BankCode}" <?php if($res['UserAccount']==$v['BankCode']) echo 'selected';?> >{$v.BankCode}-{$v.Name}</option>
+                  <?php endforeach;?>
+                </select>
+            </td>
+		</tr> -->
+        <tr>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td align="right">修改时间：</td>
+            <td>
+                <input id="editdays" name="editdays" type="text" class="easyui-numberbox"/>
+                <span class="Hui">测试专用!!用于测试订单逾期......</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$res['ID']}"/>
+</form>
+</body>
+<include file="Shared:Footer" />
+<script type="text/javascript">
+	//打款账号
+    function fnlingyanact(obj){
+    	var types=$(obj).val();
+    	var id=$('#ID').val();
+        $.ajax({
+            type:"post",
+            url:"../getaccuonts",
+            data:"types="+types+"&id="+id,
+            success:function(data){
+                $('#RepaymentAccount').empty();
+                $('#RepaymentAccount').append(data);
+            }
+        });
+    }
+    function fnlingyanact2(types){
+        var id=$('#ID').val();
+        $.ajax({
+            type:"post",
+            url:"../getaccuonts",
+            data:"types="+types+"&id="+id,
+            success:function(data){
+                $('#RepaymentAccount').empty();
+                $('#RepaymentAccount').append(data);
+            }
+        });
+    }
+    var types="<?php echo $res['ReplaymentType'];?>";
+    if(types=='0'){
+        types='1';
+    }
+    fnlingyanact2(types);
+</script>

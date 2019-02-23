@@ -1,0 +1,171 @@
+<include file="Shared:Header" />
+<body class="bg_white mb60">
+<!--head-->
+<div class="head">
+    <span>我要续期</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--nav-->
+
+<div class="renewal_nav">
+
+    <div class="renewal_nav_con">
+        <a href="{:U('index/repaymoney')}">我要还款</a>
+        <a href="{:U('index/renewal')}" class="active">我要续期</a>
+        <div class="clear"></div>
+
+    </div>
+
+</div>
+
+
+<div class="renewal_main">
+
+    <div class="renewal_main_item">
+        <!--<h1>- 请选择期限天数 -</h1>-->
+
+        <span class="date_btn"><i class="date">7</i>天</span>
+
+        <ul class="ren_list">
+            <li>
+                续期还款日
+
+                <i class="fr">{$retdata['arrivetime']}</i>
+            </li>
+            <li style="background: #f6f6f6;">
+                到期应还
+
+                <i class="fr">￥{$applyinfo['BackM']+$retdata['termlist']['Applyfee']+$retdata['termlist']['ServiceCost']+$retdata['xjfee']}元</i>
+            </li>
+        </ul>
+
+    </div>
+
+
+    <div class="renewal_main_item mt20">
+        <h1>- 续期费用 -</h1>
+
+
+        <ul class="ren_list">
+            <li>
+                本期息费
+
+                <em class="fr">{$retdata['termlist']['Applyfee']}元</em>
+            </li>
+            <li>
+                本期服务费
+
+                <em class="fr"><a href="pages/user/urual_question.html"><i class="iconfont icon-bangzhuzhongxin"></i></a> {$retdata['termlist']['ServiceCost']}元</em>
+            </li>
+            <li>
+                续借服务费
+
+                <em class="fr"><a href="pages/user/urual_question.html"><i class="iconfont icon-bangzhuzhongxin"></i></a> {$retdata['xjfee']}元</em>
+            </li>
+            <li style="background: #f6f6f6;">
+
+                <span>总共手续费</span>
+                <i class="fr total_money">￥{$retdata['termlist']['Applyfee']+$retdata['termlist']['ServiceCost']+$retdata['xjfee']}元</i>
+            </li>
+        </ul>
+
+    </div>
+
+
+    <div class="renewal_main_btn tc mt20">
+        <a >
+            <button onclick="xjcomfirm();">现在就续</button>
+        </a>
+    </div>
+
+</div>
+
+<!--nav end-->
+
+<!--遮罩层-->
+<!--<div id="cover"></div>-->
+
+
+<!--下拉框1-->
+<!--<div class="date_list animated bounceInUp">-->
+
+    <!--<div class="dl_head">-->
+        <!--<button class="dl_close fl">取消</button>-->
+        <!--<button class="dl_sure fr">确定</button>-->
+    <!--</div>-->
+
+    <!--<div class="dl_list_list">-->
+        <!--<span>3</span>-->
+        <!--<span class="active">7</span>-->
+        <!--<span>15</span>-->
+        <!--<span>30</span>-->
+        <!--<span>60</span>-->
+        <!--<span>90</span>-->
+        <!--<span>180</span>-->
+    <!--</div>-->
+
+
+<!--</div>-->
+
+
+
+
+<script>
+    //    选择期限
+    $(function(){
+        $(".date_btn").click(function(){
+            $("#cover").show();
+            $(".date_list").show();
+        });
+
+        $(".dl_list_list span").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".dl_close").click(function(){
+            $("#cover").hide();
+            $(".date_list").hide();
+        });
+
+        $(".dl_sure").click(function(){
+
+            var _text = $(".dl_list_list .active").text();
+            $(".date").text(_text);
+            $("#cover").hide();
+            $(".date_list").hide();
+        });
+    })
+
+
+    function xjcomfirm(){
+        var uid = '{$uid}';
+        var LoanNo = '{$applyinfo['LoanNo']}';
+        var day ="{$retdata['termlist']['NumDays']}";
+        var total = "{$applyinfo['BackM']+$retdata['termlist']['Applyfee']+$retdata['termlist']['ServiceCost']+$retdata['xjfee']}";
+        var xjfee = "{$retdata['termlist']['Applyfee']+$retdata['termlist']['ServiceCost']+$retdata['xjfee']}";
+        $.ajax({
+            type: 'POST',
+            url: '{:U("index/xqlist")}',
+            data: {'uid': uid, 'LoanNo': LoanNo,'day':day,'total':total,'xjfee':xjfee},
+            dataType: 'json',
+            success: function (data) {
+                if (data.result == 1) {
+                    layer.msg(data.message, {time: 3000}, function () {
+                        window.location.href = '{:U("member/index")}';
+                    })
+                } else {
+                    layer.msg(data.message, {time: 3000}, function () {
+                        window.location.href = '/';
+                    })
+                }
+            }
+        })
+
+    }
+
+</script>
+

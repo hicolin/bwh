@@ -1,0 +1,7 @@
+<volist name="list" id="val">
+        <if condition="$val.EName neq 'Separator'">
+            <a href="javascript:void(0);" class="ToolBtn" onclick="OpenWin('{$val.EName}')"><span class="{$val.Icon}"></span><b>{$val.Name}</b></a>
+        <else/>
+            <div class="Separator"></div>
+        </if>
+</volist>

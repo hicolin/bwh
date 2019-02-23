@@ -1,0 +1,80 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="4">说明：带<span class="Red">*</span>必填；</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+            <td width="120" align="right"> <span class="Red">*</span>优惠券名称：</td>
+            <td>
+                <input id="Title" name="Title" type="text" class="easyui-textbox" data-options="required:true"/>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right"><span class="Red">*</span>优惠券金额：</td>
+            <td>
+                <input id="Money" name="Money" type="text" class="easyui-numberbox" data-options="required:true,prefix:'￥',suffix:'元',min:0"/>
+            </td>
+        </tr>
+        <!-- <tr >
+            <td width="120" align="right"><span class="Red">*</span>最低消费金额：</td>
+            <td>
+                <input id="StartMoney" name="StartMoney" type="text" class="easyui-numberbox" data-options="required:true,prefix:'消费满足￥',suffix:'元可使用',min:0"/>
+                <span class="Hui">会员自己领取该券，使用时的最低消费金额</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right"><span class="Red">*</span>优惠券开始时间：</td>
+            <td>
+                <input id="StartTime" name="StartTime" type="text" class="easyui-datebox" data-options="required:true,editable:false"/>
+                <span class="Hui">会员自己领取该券，使用时的开始时间</span>
+
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right"><span class="Red">*</span>优惠券结束时间：</td>
+            <td>
+                <input id="EndTime" name="EndTime" type="text" class="easyui-datebox" data-options="required:true,editable:false" />
+                <span class="Hui">会员自己领取该券，使用时的结束时间</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right"><span class="Red">*</span>每日可领取数：</td>
+            <td>
+                <input id="PerdayNunbs" name="PerdayNunbs" type="text" class="easyui-numberbox" data-options="required:true,min:1,suffix:'张'" />
+                <span class="Hui">会员自己领每日可领取该券数</span>
+
+            </td>
+        </tr> -->
+        <tr >
+            <td width="120" align="right">优惠券状态：</td>
+            <td>
+                <select id="Status" name="Status" class="easyui-combobox" data-options="panelHeight:100,editable:false">
+                    <option value="1">可使用</option>
+                    <option value="0">禁用</option>
+                </select>
+                <span class="Hui">被禁用的优惠券，无法使用！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">排序：</td>
+            <td>
+                <input type="text" class="easyui-textbox" id="Sort" name="Sort" data-options="max:999,value:999,min:0">
+                <span class="Hui">0-999越小越靠前！</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+<script>
+    $(function () {
+        $('#FF').form('load', '__URL__/Shows?ID='+"{$ID}"+'&_=' + Math.random() + '');
+    });
+</script>
+</body>
+<include file="Shared:Footer" />

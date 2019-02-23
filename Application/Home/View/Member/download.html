@@ -1,0 +1,46 @@
+<include file="Shared:Header" />
+<body>
+<style>
+    .down_now{
+        width: 80%;
+        height: 45px;
+        background: #c71422;
+        font-size: 16px;
+        color: #fff;
+        border: none;
+        border-radius: 45px;
+    }
+</style>
+<div class="head">
+    <span>立即下载</span>
+    <a href="javascript:history.back();">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<div class="tui_banner">
+    <img src="__PUBLIC__/images/tuiguang_banner2.png"/>
+</div>
+
+<div class="tui_list">
+    <img src="__PUBLIC__/images/tui_list.png"/>
+
+</div>
+
+<div class="down_btn">
+    <a class="down_now" >立即下载</a>
+</div>
+
+<script language="javascript">
+    $('.down_now').click(function () {
+        var u = navigator.userAgent;
+        if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1){
+            $('.down_now').attr('href',"/XXFAndroid.apk")
+        }else if(u.indexOf('iPhone') > -1){
+            $('.down_now').attr('href',"/XXFiOS.ipa")
+        }else if(u.indexOf('Windows Phone') > -1){
+            $('.down_now').attr('href',"/XXFAndroid.apk")
+        }
+    })
+</script>
+</body>
+</html>

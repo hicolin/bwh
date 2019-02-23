@@ -1,0 +1,188 @@
+@charset "UTF-8";
+.user_body{background: #fff;}
+
+
+/*个人中心首页*/
+.user_head{height: 42px;line-height: 42px;position: fixed;text-align: center;width: 100%;left: 0;top: 0;padding: 0 5px;z-index: 15;background: rgba(199,20,34,0.2);}
+.user_head span{font-size: 0.16rem;color: #fff;font-family: "PingFang_Medium";letter-spacing: 3px;}
+
+.user_msg{width: 100%;height: 250px;
+    background:url("../images/user_bg.png") no-repeat center center;background-size: 100% 100%;position: relative;}
+
+.user_msg_text{width: 100%;height: 100%;}
+.user_msg_text img{width: 70px;height: 70px;border-radius: 50%;padding: 3px;box-shadow: 0 0 10px 0 #fff;vertical-align: middle;}
+
+.user_msg_text span{font-size: 0.14rem;color: #fff;margin-left: 10px;}
+.user_msg_text span a{line-height: 35px;font-size: 0.14rem;color: #fff;margin-left: 5px;text-decoration: underline;}
+
+.user_msg_text_tx{height: 70px;line-height: 70px;padding-top: 80px;padding-left: 30px;}
+
+
+/*nav*/
+.user_nav{position: relative;height: 50px;}
+.user_nav_con{position: absolute;width: 100%;top: -60px;background: url("../images/user_nav_bg.png") no-repeat center center;background-size: 100% 100%;padding: 30px 0 15px 0;left: 0;}
+.user_nav_con li{width: 33.3%;float: left;text-align: center;}
+.user_nav_con li a{display: block;}
+.user_nav_con li img{width: 50px;height: 50px;border-radius: 50%;}
+.user_nav_con li p{font-size: 0.13rem;color: #666;line-height: 20px;}
+
+
+
+/*user_main*/
+.user_main{padding: 10px 0;margin-top: 10px;margin-bottom: 60px;}
+.user_main ul{background: #fff;padding: 0 10px;margin-bottom: 10px;}
+.user_main li{border-bottom: 1px solid #eee;}
+.user_main li a{display: block;padding: 15px 0;height: 55px;line-height: 25px;}
+.list1 li i{color: #ff5c3d;}
+.list2 li i{color: #f9ae01;}
+.list3 li i{color: #017eff;}
+
+.user_main li a i{font-size: .2rem;margin-right: 10px;vertical-align: middle;margin-top: -3px;display: inline-block;}
+.user_main li a i.arrow{font-size: .14rem;color: #aaa;}
+
+.user_main li a span{font-size: .16rem;color: #333;}
+.user_main ul li:last-child{border-bottom: none;}
+
+.user_exit{text-align: center;}
+.user_exit button{width: 80%;height: 45px;background: linear-gradient(to right, #ea3d4a , #c71422);color: #fff;font-size: 0.17rem;border: none;border-radius: 45px;margin-top: 15px;}
+
+
+
+/*基本信息*/
+.per_main{padding: 52px 15px 0 15px;}
+.per_main li{padding: 10px 0;line-height: 40px;height: 60px;border-bottom: 1px solid #ededed;}
+
+.per_main li a{display: block;color: #666;}
+.per_main li a span{font-size: 0.15rem;}
+.per_main li a img{width: 40px;height: 40px;border-radius: 50%;}
+.per_main li a em{font-size: 0.14rem;color: #999;}
+.per_main li a em i{font-size: 0.14rem;color: #999;}
+.per_main li a em button{font-size: 0.14rem;margin-left: 5px;
+    border: none;color: #999;background: none;}
+
+
+
+.user_btn button{width: 200px;height: 40px;border: 1px solid #ff5c3d;margin-top: 30px;background: rgba(199,20,34,0.3);font-size: .15rem;color: #333;border-radius: 4px;}
+
+
+/*提示框*/
+.notice_box{width: 220px;height: 150px;position: fixed;z-index: 20;top: 120px;left: 50%;margin-left: -110px;background: #fff;border-radius: 5px;display: none;}
+.notice_box_top{position: relative;height: 30px;margin-top: 10px;line-height: 30px;}
+.notice_box_top span{display: block;width: 80px;background: #c71422;position: absolute;top: 0;height: 30px;left: -5px;border-top-right-radius: 30px;border-bottom-right-radius: 30px;text-align: center;color: #fff;font-size: .15rem;}
+.notice_box_top em{display: block;width: 100px;border-bottom: 1px solid #ddd;position: absolute;left: 75px;top: 14px;}
+.notice_box_top i{position: absolute;right: 10px;top: 0px;font-size: 0.22rem;color: #aaa;}
+
+.notice_box_text{height: 70px;line-height: 70px;text-align: center;}
+.notice_box_text i{display: inline-block;width: 40px;height: 40px;text-align: center;border-radius: 50%;border:1px solid #c71422;line-height: 38px;color: #c71422;}
+.notice_box_text p{font-size: .15rem;color: #333;}
+
+.notice_box_bot{height: 40px;line-height: 40px;border-top: 1px solid #eee;}
+.notice_box_bot button{height: 40px;;border: none;background: none;width: 49.8%;font-size: 0.15rem;float: left;}
+.notice_box_bot button.notice_box_close{border-right: 1px solid #eee;}
+.notice_box_bot button.sure{color: #c71422;}
+
+
+.per_main_list{padding: 0 10px;}
+.per_main_list li{height: 50px;line-height: 30px;padding: 10px 0;border-bottom: 1px solid #eee;}
+.per_main_list li span{display: inline-block;width: .8rem;font-size: .14rem;color: #333;font-family: "PingFang_Medium";}
+.per_main_list li input{height: 30px;border: none;font-size: 0.14rem;}
+.user_btn2{}
+.user_btn2 button{width: 200px;height: 40px;border: none;border-radius: 40px;margin-top: 15px;background: #c71422;color: #fff;font-size: .15rem;font-family: "PingFang_Light";}
+
+
+
+/*我的消息*/
+
+/*notice_main*/
+.notice_main{padding-top: 42px;}
+.notice_main li{height: 70px;border-bottom: 1px solid #ededed;margin-top: 10px;}
+.notice_main li a{display: block;padding:10px;height: 70px;line-height: 40px;}
+.notice_main li a i{display: block;width: 40px;height: 40px;color: #fff;text-align: center;background: #0bbf06;border-radius: 7px;font-size: 0.20rem;margin-top: 5px;}
+.notice_main li a i.icon-xitong{background: #ff9600;}
+.notice_main_left{width: 15%;}
+.notice_main_text{width: 85%;line-height: 25px;}
+.notice_main_text h1{font-size: 0.16rem;color: #333;height: 25px;}
+.notice_main_text h1 span{font-size: 0.12rem;color: #999;}
+.notice_main_text p{font-size: 0.14rem;color: #999;overflow: hidden;text-overflow: ellipsis;white-space: nowrap}
+
+
+
+/*我的交易消息*/
+.bus_main{margin-top: 35px;padding: 15px;}
+.bus_main li{padding: 10px;margin-top: 20px;}
+.bus_time{}
+.bus_time span{background: rgba(96,96,96,0.3);height: 25px;line-height: 25px;color: #fff;font-size: 0.13rem;display: inline-block;padding: 0 10px;border-radius: 4px;}
+.bus_list_text{padding: 10px;background: #fff;margin-top: 20px;border-radius: 10px;box-shadow: 0 0 10px #ccc;}
+.bus_list_text h1{font-size: 0.16rem;color: #333;line-height: 25px;}
+.bus_list_text p{font-size: 0.14rem;color: #999;line-height: 20px;margin-top: 5px;}
+
+
+
+/*我的银行卡*/
+.bank_main{padding: 42px 20px 0 20px;}
+.bank_main li{padding: 10px;background: #c71422;margin-top: 20px;color: #fff;border-radius: 10px;}
+.bank_main li h1{font-size: .16rem;font-family: "PingFang_Light";line-height: 30px;}
+.bank_main li h1 i{font-size: .18rem;margin-right: 5px;vertical-align: middle;margin-top: -3px;display: inline-block;}
+.bank_main li p{font-size: .14rem;font-family: "PingFang_Light";line-height: 25px;padding-left: 30px;}
+.bank_main li h2{font-size: .18rem;font-family: "PingFang_Light";line-height:30px;text-align: right;}
+
+
+/*常见问题*/
+.ques_main{padding: 42px 10px 0 10px;}
+.ques_main li{padding: 10px 0;border-bottom: 1px solid #eee;}
+.ques_main li h1{font-size: .15rem;color: #333;overflow:hidden;white-space: nowrap;text-overflow: ellipsis;line-height: 30px;}
+.ques_main li h1 i{font-size: .12rem;color: #999;transition: transform .5s;}
+.ques_main li p{font-size: .13rem;color: #999;line-height: 20px;margin-top: 5px;transition: transform .5s;display: none;}
+.qm_title.on{color: #c71422;font-weight: bold;}
+.qm_title .iconRotate{transform: rotate(180deg);transition: transform .5s;color: #c71422;}
+.qm_text{display: none;}
+
+/*选择下拉框*/
+.choose_list{background: #fff;position: fixed;width: 100%;left: 0;bottom: 0;text-align: center;z-index: 20;display: none;}
+.choose_list li{height: 40px;line-height: 40px;background: #fff;font-size: .14rem;color: #999;}
+.choose_list li.active{font-size: .16rem;color: #c71422;}
+.cl_list{padding:0 15px;margin-top: 10px;height: 200px;overflow-y: auto;}
+
+.cl_head{height: 50px;line-height: 50px;padding:0 15px;border-bottom: 1px solid #eee;}
+.cl_head button{height: 30px;margin-top: 5px;font-size: .16rem;color: #777;background: none;border: none;}
+.cl_head button.cl_sure{color: #c71422;}
+
+
+
+/*借款记录*/
+
+.loan_record_nav{height: 50px;border-bottom: 1px solid #ededed;background: #fff;position: fixed;top: 42px;left: 0;width: 100%;}
+.loan_record_nav li{width: 20%;float: left;text-align: center;}
+.loan_record_nav li a{display: inline-block;width: auto;height: 50px;line-height: 50px;font-size: 0.15rem;color: #333;}
+.loan_record_nav li.active a{color: #c71422;border-bottom: 2px solid #c71422;}
+
+
+
+
+.loan_record_main{padding: 0 15px 30px 15px;margin-top: 112px;}
+.lrm_item{padding:0 10px 20px 10px;background: #fff;border-radius: 5px;box-shadow: 0 0 15px #ccc;margin-top: 20px;}
+.lrm_item li{height: 50px;line-height: 30px;padding: 10px 0;border-bottom: 1px solid #eee;}
+.lrm_item li:last-child{border-bottom: none;}
+.lrm_item li span{display: inline-block;width: .8rem;font-size: .15rem;color: #999;}
+.lrm_item li i{font-size: .15rem;color: #666;}
+.lrm_item li i.active{color: #c71422;}
+.lrm_item p{text-align: right;}
+.lrm_item p button{width: 100px;height: 30px;border: none;background: #c71422;color: #fff;font-size: .14rem;margin-top: 20px;}
+
+
+
+/*添加银行卡*/
+.add_bank_main{}
+.add_bank_m_list{padding: 0 10px;}
+.add_bank_m_list li{height: 50px;line-height: 30px;padding: 10px 0;border-bottom: 1px solid #eee;position: relative;}
+.add_bank_m_list li:last-child{border-bottom: none;}
+.add_bank_m_list li span{display: inline-block;width: .8rem;font-size: .15rem;color: #333;font-family: "PingFang_Medium";}
+.add_bank_m_list li input{height: 30px;border: none;font-size: 0.15rem;}
+.add_bank_m_list li select{border: none;color: #666;}
+.add_bank_m_btn button{width: 200px;height: 40px;border: none;border-radius: 40px;margin-top: 15px;background: #c71422;color: #fff;font-size: .15rem;font-family: "PingFang_Light";}
+.add_bank_m_list li .code_btn{position: absolute;right: 0;top: 7px;width: auto;height: 25px;border-left: 1px solid #999;padding-left: 0;padding: 0 10px;background: none;font-size: 0.13rem;color: #999;}
+
+
+
+
+

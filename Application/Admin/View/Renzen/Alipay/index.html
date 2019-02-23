@@ -1,0 +1,75 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="form1">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">会员账号：</td>
+                    <td width="180">
+                        <input id="MemAccount" name="MemAccount" type="text" />
+                    </td>
+                    <td width="70" align="right">手机号码：</td>
+                    <td width="180">
+                        <input id="Mobile" name="Mobile" type="text" />
+                    </td>
+                    <td width="70" align="right">真实姓名：</td>
+                    <td width="180">
+                        <input id="TrueName" name="TrueName" type="text" />
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                    <td>
+                        <input id="MoreSearch" onclick="$.XB.moresearch()" type="button" value="更多条件">
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="stbody">
+                    <tr>
+                        <td width="70" align="right">状态：</td>
+                        <td width="180">
+                            <select name="Status" id="Status">
+                                <option value="-5">全部</option>
+                                <option value="0">待审核</option>
+                                <option value="1">已认证</option>
+                                <option value="2">认证失败</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'ID', checkbox: true }
+    ];
+    var columns = [
+        { field: 'MemAccount', title: '会员账号', width: 90  },
+        { field: 'Mobile', title: '手机号码', width: 100},
+        { field: 'TrueName', title: '真实姓名', width: 80},
+        { field: 'Email', title: '邮箱', width: 100},
+        { field: 'Balance', title: '余额', width: 80},
+        { field: 'HuabeiLimit', title: '花呗额度', width: 90},
+        { field: 'HuabeiRet', title: '花呗还款额度', width: 90},
+        { field: 'HuabeiBalance', title: '花呗可用额度', width: 90},
+        { field: 'TaobaoName', title: '淘宝会员名', width: 100},
+        { field: 'RenzTime', title: '认证时间', width: 150 ,sortable:true},
+        { field: 'Status', title: '状态', width: 80},
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+    {:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

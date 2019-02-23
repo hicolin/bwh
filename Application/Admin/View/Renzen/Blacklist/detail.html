@@ -1,0 +1,13 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    <div style="padding: 30px">
+        <volist name="resp" id="list">
+            <div>
+                <foreach name="list" item="vo" key="key" >
+                    <p style="line-height: 25px"><span style="font-weight: bold">{$key}：</span> {$vo}</p>
+                </foreach>
+            </div>
+        </volist>
+    </div>
+</body>
+<include file="Shared:Footer" />

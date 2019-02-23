@@ -1,0 +1,198 @@
+<include file="Shared:Header"/>
+<body class="bg_F6F7FA mb60">
+
+<!--head-->
+<div class="head">
+    <span>认证</span>
+    <a href="javascript:history.back();">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--main-->
+<div class="certi_main main">
+    <h1>
+        <i class="iconfont icon-dian"></i>
+        必备认证
+        <span>必填，完成所有基本认证后才可激活额度</span>
+    </h1>
+    <ul class="cm_list">
+        <volist name="rzMust" id="vo">
+            <li>
+                <a href="javascript:;" id="{$vo.Flag}">
+                    <div class="fl cm_list_left ">
+                        <img src="{$vo.IconSrc}">
+                    </div>
+                    <div class="cm_list_mid fl">
+                        <p>{$vo.Name}</p>
+                        <span>{$vo.Intro}</span>
+                    </div>
+                    <div class="cm_list_right fr">
+                        <span>{$vo.Status} <i class="iconfont icon-youjiantou"></i></span>
+                    </div>
+                    <div class="clear"></div>
+                </a>
+            </li>
+        </volist>
+    </ul>
+
+    <h1>
+        <i class="iconfont icon-dian"></i>
+        可选认证
+        <span>选填，完成所有基本认证后才可激活额度</span>
+    </h1>
+
+    <ul class="cm_list">
+        <volist name="rzNotMust" id="item">
+            <li>
+                <a href="javascript:;" id="{$item.Flag}">
+                    <div class="fl cm_list_left ">
+                        <img src="{$item.IconSrc}">
+                    </div>
+                    <div class="cm_list_mid fl">
+                        <p>{$item.Name}</p>
+                        <span>{$item.Intro}</span>
+                    </div>
+                    <div class="cm_list_right fr">
+                        <span>{$item.Status} <i class="iconfont icon-youjiantou"></i></span>
+                    </div>
+                    <div class="clear"></div>
+                </a>
+            </li>
+        </volist>
+    </ul>
+</div>
+<!--main end-->
+
+<include file="Shared:Footer"/>
+<script>
+    // 基本信息
+    $('#memberinfo').click(function () {
+        location.href = '{:U("certification/basecer")}';
+    });
+
+    // 社交
+    $('#social').click(function () {
+        IsRenZen('{:U("certification/renzen")}', 1, 'social', '{:U("certification/socialcer")}');
+    });
+
+    // 银行卡
+    $('#bank').click(function () {
+        var cId = "{$rzCard['ID']}";
+        if (!cId) {
+            layer.msg('请先进行身份证认证');
+            return;
+        }
+        $.post('{:U("certification/bankcer")}', {status: 1}, function (data) {
+            if (data.result == 100) {
+                location.href = '{:U("certification/bankcer")}';
+            } else {
+                layer.msg(data.message);
+            }
+        }, 'json')
+    });
+
+    // 运营商
+    $('#mobile').click(function () {
+        var cId = "{$rzBank['ID']}";
+        if (!cId) {
+            layer.msg('请先进行银行卡认证');
+            return;
+        }
+        $.post('{:U("certification/mobile")}', {status: 1}, function (data) {
+            if (data.result == 100) {
+                $.get('{:U("tianji/mobilerz")}', {uids: 2}, function (data) {
+                    if (data.result == 100) {
+                        window.location.href = data.message;
+                    } else {
+                        layer.msg(data.message);
+                    }
+                }, 'json')
+            } else {
+                layer.msg(data.message, {time: 1500}, function () {
+                    window.location.reload();
+                });
+            }
+        }, 'json')
+
+    });
+
+    // 身份认证
+    $('#cards').click(function () {
+        // var status = '{$rzBank["Status"]}';
+        // if (status != 1) {
+        //     layer.msg('请先进行银行卡认证');
+        //     return false;
+        // }
+        IsRenZen('{:U("certification/renzen")}', 1, 'cards', '{:U("certification/idcer")}');
+       
+    });
+
+    // 淘宝认证
+    $('#taobao').click(function () {
+        var bankStatus = '{$rzBank["Status"]}';
+        var rzMobileStatus = '{$rzMobile[\'Status\']}';
+        if (bankStatus != 1) {
+            layer.msg('请先进行银行卡认证');
+            return false;
+        }
+        if (rzMobileStatus != 1) {
+            layer.msg('请先进行运营商认证');
+            return false;
+        }
+        $.post('{:U("certification/taobao")}', {status: 1}, function (data) {
+            if (data.result == 100) {
+                $.get('{:U("tianji/taobao")}', {}, function (res) {
+                    if (res.result == 100) {
+                        window.location.href = res.message;
+                    } else {
+                        layer.msg(res.message);
+                    }
+                }, 'json')
+            } else {
+                layer.msg(data.message);
+            }
+        }, 'json')
+
+    });
+
+    // 支付宝认证
+    $('#alipay').click(function () {
+        var bankStatus = '{$rzBank["Status"]}';
+        var rzMobileStatus = '{$rzMobile[\'Status\']}';
+        if (bankStatus != 1) {
+            layer.msg('请先进行银行卡认证');
+            return false;
+        }
+        if (rzMobileStatus != 1) {
+            layer.msg('请先进行运营商认证');
+            return false;
+        }
+        $.post('{:U("certification/alipay")}', {status: 1}, function (data) {
+            if (data.result == 100) {
+                $.get('{:U("tianji/alipay")}', {}, function (res) {
+                    if (res.result == 100) {
+                        window.location.href = res.message;
+                    } else {
+                        layer.msg(res.message);
+                    }
+                }, 'json')
+            } else {
+                layer.msg(data.message);
+            }
+        }, 'json')
+
+    });
+
+    function IsRenZen(url, status, table, tzurl) {
+        $.post(url, {status: status, table: table}, function (data) {
+            if (data.result == 100) {
+                window.location.href = tzurl;
+            } else {
+                layer.msg(data.message);
+            }
+        }, 'json')
+    }
+
+</script>

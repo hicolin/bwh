@@ -1,0 +1,66 @@
+body{margin:0; padding: 0;  min-height: 100%; font-family: '微软雅黑';   }
+		li{ list-style: none;} 
+		img{
+			display: block;
+			padding: 0;
+			margin: 0;
+		}
+	.app_bg{  width: 100%;    }
+	.header{   height: 43px; line-height: 43px; width: 100%; background: #333333; position: fixed; top:0; left: 0; z-index: 999;}
+    .toptil{font-size:17px; margin: 0 auto; width: 80%; display: block; text-align: center; color: #f7f7f7; } 
+	  .go_back{ position: absolute; left: 10px; top:0; color:#f7f7f7; height: 43px; width: 20px; background:url(../images/icon_goleft.png) left center no-repeat; background-size: 16px auto;}  
+	  .clear{ clear: both;} 
+	  .center{
+	  	text-align: center;
+	  }
+	  .bg1{
+	  	position: relative;
+	  } 
+	  .bg1_con{
+	  	position: absolute;
+	  	top:40px;
+	  	left: 0%;
+	  	width: 100%; 
+	  }
+	  .pd{
+	  	padding-top: 20px;
+	  }
+	  .q_bg{
+				background:#2e95ff;
+				padding: 20px  0;
+				color: #fff;
+			}
+			.dl_que{
+				margin: 0 15px;
+			}
+			.dl_que .dd1{
+				padding-left: 30px;
+				background: url(../images/A.png) left top 10PX no-repeat;
+				background-size: 20px auto;
+				padding: 5px 0 20px 30px;
+			}
+			
+			.dl_que .dd2{
+				padding-left: 30px;
+				background: url(../images/Q.png) left top 10PX no-repeat;
+				background-size: 20px auto;
+				padding: 5px 0 5px 30px;
+			}
+
+	  @media only screen and (max-width: 760px) {
+	  	
+	  }
+	@media only screen and (max-width: 375px) {
+	 .bg1_con{ 
+	  	top:40px; 
+	  }
+	  
+	  }
+ @media only screen and (max-width: 360px) {
+	   .bg1_con{ 
+	  	top:20px; 
+	  }
+	  .pd{
+	  	padding-top: 0px;
+	  }
+ }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>上传窗口</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background-color: #F5F5F5;
+        }
+    </style>
+</head>
+<body>
+    <div id="uploader"></div>
+    <script src="__PUBLIC__/Admin/JS/jquery.min.js"></script>
+    <link href="__PUBLIC__/Admin/JS/EasyUI/easyui.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/JS/EasyUI/jquery.easyui.min.js"></script>
+    <script src="__PUBLIC__/Admin/JS/Plupload/plupload.full.min.js"></script>
+    <script src="__PUBLIC__/Admin/JS/Plupload/plupload.queue.min.js"></script>
+    <link href="__PUBLIC__/Admin/JS/Plupload/css/plupload.queue.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/JS/XB.js"></script>
+    <script>
+        $(function () {
+            $.XB.upload({ "file": "{$data['file']}", "path": "{$data['Path']}", "ismulti": "{$data['ismulti']}", "maxsize": "10000kb", "ext": "gif,jpg,jpeg,bmp,png","url":"/admin.php/Attachment/File/Upload" });
+        })
+    </script>
+</body>
+</html>

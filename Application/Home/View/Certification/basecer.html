@@ -1,0 +1,183 @@
+<include file="Shared:Header"/>
+<body>
+<!--head-->
+<div class="head">
+    <span>基本信息认证</span>
+    <a href="javascript:history.back();">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+<div class="convertor">
+
+</div>
+<!--main-->
+<div class="id_cer_main main">
+    <div style="background: #fff;">
+        <div class="id_cer_m_list">
+            <ul>
+                <li>
+                    <span>学历：</span>
+
+                    <em class="educate_btn">
+                        <i class="iconfont icon-youjiantou fr"></i>
+                        <em class="educate_text fr" value="<?php echo $basecer['Education']?>">{$basecer['Education']}</em>
+                    </em>
+                </li>
+                <li onclick="getLocation()">
+                    <span>常住地址：</span>
+                    <textarea type="text" name="JAddress" placeholder="请输入地址" class="cer_ad"
+                           onblur="getLocation()"><?php echo $basecer['JAddress']?></textarea>
+                    <img src="__PUBLIC__/images/ad.png" class="ad"/>
+                </li>
+                <li>
+                    <span>单位名称：</span>
+                    <input type="text" name="CompanyName" placeholder="请输入单位名称" class="cer_ad"
+                           value="<?php echo $basecer['CompanyName']?>">
+                </li>
+                <li>
+                    <span>单位电话：</span>
+                    <input type="number" name="CompanyMobile" placeholder="请输入单位电话" class="cer_ad"
+                           value="<?php echo $basecer['CompanyMobile']?>">
+                </li>
+                <li>
+                    <span>单位地址：</span>
+                    <input type="text" name="CompanyAddress" placeholder="请输入单位地址" class="cer_ad"
+                           value="<?php echo $basecer['CompanyAddress']?>">
+                </li>
+
+            </ul>
+
+        </div>
+    </div>
+    <div class="id_cer_m_btn tc">
+        <button onclick="MemberInfo()">提交</button>
+    </div>
+</div>
+<!--main end-->
+
+
+
+<!--遮罩层-->
+<div id="cover"></div>
+
+
+<!--学历下拉-->
+<div class="choose_education animated bounceInUp">
+
+    <div class="ce_head">
+        <button class="ce_close fl">取消</button>
+        <button class="ce_sure fr">确定</button>
+    </div>
+
+    <ul class="ce_list">
+        <volist name="education" id="list" key="k">
+            <li value="{$k}">
+            {$list}</li>
+        </volist>
+    </ul>
+</div>
+<script>
+    //    选择学历
+    $(function(){
+        $(".educate_btn").click(function(){
+            $("#cover").show();
+            $(".choose_education").show();
+        });
+
+        $(".ce_list li").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".ce_sure").click(function(){
+            $("#cover").hide();
+            $(".choose_education").hide();
+        });
+
+        $(".ce_sure").click(function(){
+            var _text = $(".ce_list .active").text();
+            var _val = $(".ce_list .active").attr("value");
+            $(".educate_text").text(_text);
+            $(".educate_text").attr("value",_text);
+            $("#cover").hide();
+            $(".choose_education").hide();
+        });
+    })
+</script>
+
+</body>
+</html>
+<script>
+    function MemberInfo() {
+        var Education = $('.educate_text').attr('value');
+        var JAddress = $('textarea[name="JAddress"]').val();
+        var CompanyName = $('input[name="CompanyName"]').val();
+        var CompanyMobile = $('input[name="CompanyMobile"]').val();
+        var CompanyAddress = $('input[name="CompanyAddress"]').val();
+        var regTel1 = /^(([0\+]\d{2,3})?(0\d{2,3}))(\d{7,8})(-(\d{3,}))?$/; //带区号的固定电话
+        var regTel2 = /^(\d{7,8})(-(\d{3,}))?$/; //不带区号的固定电话
+        var hz = /^[\u4e00-\u9fa5]{2,25}$/; //验证汉字
+
+        if (!Education) {
+            layer.msg('请输入你的正确学历');
+            return;
+        }
+        if (!hz.test(JAddress)) {
+            layer.msg('请输入你正确的常住地址');
+            return;
+        }
+        if (!hz.test(CompanyName)) {
+            layer.msg('请输入你正确的公司名称');
+            return;
+        }
+        if (!regTel1.test(CompanyMobile) && !regTel2.test(CompanyMobile)) {
+            layer.msg('请输入正确的单位电话');
+            return;
+        }
+        if (!hz.test(CompanyAddress)) {
+            layer.msg('请输入你正确的公司地址');
+            return;
+        }
+        $.post('{:U("certification/basecer")}', {
+            Education: Education,
+            JAddress: JAddress,
+            CompanyName: CompanyName,
+            CompanyMobile: CompanyMobile,
+            CompanyAddress: CompanyAddress
+        }, function (data) {
+            if (data.result == 1) {
+                layer.msg(data.message, {icon: 6, time: 1500}, function () {
+                    window.location.href = '{:U("certification/index")}';
+                })
+            } else {
+                layer.msg(data.message, {icon: 5, time: 1500});
+            }
+        }, 'json')
+    }
+
+    function getLocation(){
+        if(window.app){
+            window.app.getLocation();
+        }else{
+            alert("非官方APP，不支持获取定位数据");
+        }
+    }
+
+    // app回调接口，该方法不能改名，返回数据为JSON格式，lng:经度，lat:纬度
+    function getLocation_callback(result){
+        obj = JSON.parse(result);
+        var latlon =obj.lng + ',' + obj.lat;
+        var url = "http://api.map.baidu.com/geoconv/v1/?from=1&to=5&ak=C93b5178d7a8ebdb830b9b557abce78b&coords="+latlon;
+        //ajax请求无法成功
+        $.ajax({
+            type: 'GET',
+            url: url,
+            dataType: 'json',
+            success: function (data) {
+                alert(data);
+            }
+        })
+
+    }
+</script>
+

@@ -1,0 +1,62 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="form1">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">审核人：</td>
+                    <td width="180">
+                        <input id="OperatorID" name="OperatorID" type="text" />
+                    </td>
+                    <td width="70" align="right">审核类型：</td>
+                    <td width="180">
+                        <select id="Codes" name="Codes">
+                            <option value="">全部</option>
+                          <?php foreach($RenzenCodes as $k=>$v):?>
+                            <option value="{$k}">{$v}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                    <td width="70" align="right">会员账号：</td>
+                    <td width="180">
+                        <input id="MemAccount" name="MemAccount" type="text" />
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'ID', checkbox: true }
+    ];
+    var columns = [
+        { field: 'OperatorID', title: '审核人', width: 130  },
+        { field: 'MemAccount', title: '会员账号', width: 90},
+        { field: 'UserID', title: '会员姓名', width: 100},
+        { field: 'Mobile', title: '手机号码', width: 110},
+        { field: 'Codes', title: '认证类型', width: 120},
+        { field: 'Descs', title: '描述', width: 150},
+        { field: 'Intro', title: '备注', width: 150},
+        { field: 'UpdateTime', title: '审核时间', width: 150 ,sortable:true}
+
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+    {:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

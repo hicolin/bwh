@@ -1,0 +1,21 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <tbody>
+		<tr>
+			<td align="right">客服：</td>
+            <td>
+                <select id="CsadminID" name="CsadminID">
+                  <?php foreach($kefuArr as $k=>$v):?>
+                    <option value="{$v.ID}" <?php if($res['CsadminID']==$v['ID']) echo 'selected';?> >{$v.TrueName}</option>
+                  <?php endforeach;?>
+                </select>
+            </td>
+		</tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$res['ID']}"/>
+</form>
+</body>
+<include file="Shared:Footer" />

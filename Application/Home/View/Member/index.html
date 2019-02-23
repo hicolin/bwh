@@ -1,0 +1,160 @@
+<include file="Shared:Header" />
+
+<style>
+    html, body{background: #f5f5f5;}
+</style>
+<body class="mb60">
+
+<!--head-->
+<div class="user_head">
+    <span>我的</span>
+</div>
+<!--head end-->
+
+<!--user_msg-->
+<div class="user_msg">
+    <div class="user_msg_text">
+        <div class="user_msg_text_tx">
+            <img src="<php>echo $member['HeadImg'] ? : '__PUBLIC__/images/default_avatar.png'</php>" id="avatar"/>
+            <form action="" id="uploadForm" style="display: none">
+                <input type="file" name="file" id="file" accept="image/png,image/gif,image/jpg,image/jpeg">
+            </form>
+            <span>您好，{$member['NickName']}</span>
+
+        </div>
+    </div>
+</div>
+<!--user_msg end-->
+
+<!--nav-->
+<div class="user_nav">
+    <div class="user_nav_con">
+        <ul>
+            <li>
+                <a href="{:U('member/hkRecord')}">
+                    <img src="__PUBLIC__/images/dhk.png"/>
+                    <p>还款记录</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('member/myBank')}">
+                    <img src="__PUBLIC__/images/yhk.png"/>
+                    <p>我的银行卡</p>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('member/loanRecord')}">
+                    <img src="__PUBLIC__/images/jkjl.png"/>
+                    <p>借款记录</p>
+                </a>
+            </li>
+
+            <div class="clear"></div>
+        </ul>
+    </div>
+</div>
+<!--nav end-->
+
+<!--main -->
+<div class="user_main">
+    <ul class="list1">
+        <li>
+            <a href="{:U('member/basic')}">
+                <i class="iconfont icon-jibenxinxi "></i>
+                <span>基本信息</span>
+                <i class="iconfont icon-youjiantou arrow fr"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('member/myNews')}">
+                <i class="iconfont icon-wodexiaoxi "></i>
+                <span>我的消息</span>
+                <i class="iconfont icon-youjiantou arrow fr"></i>
+            </a>
+        </li>
+        </ul>
+
+    <ul class="list2">
+        <li>
+            <a class="dial">
+                <i class="iconfont icon-lianxiwomen "></i>
+                <span>联系我们</span>
+                <i class="iconfont icon-youjiantou arrow fr"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('member/download')}">
+                <i class="iconfont icon-xiazai"></i>
+                <span>下载APP</span>
+                <i class="iconfont icon-youjiantou arrow fr"></i>
+            </a>
+        </li>
+    </ul>
+    <ul class="list3">
+        <li>
+            <a href="{:U('member/question')}">
+                <i class="iconfont icon-bangzhuzhongxin "></i>
+                <span>帮助中心</span>
+                <i class="iconfont icon-youjiantou arrow fr"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{:U('member/setting')}">
+                <i class="iconfont icon-tubiaozhizuomoban_fuzhi "></i>
+                <span>设置</span>
+                <i class="iconfont icon-youjiantou arrow fr"></i>
+            </a>
+        </li>
+    </ul>
+
+    <div class="user_exit">
+        <button onclick="window.location.href='{:U('register/logout')}'">安全退出</button>
+    </div>
+</div>
+<!--main end-->
+
+<!--遮罩层-->
+<div id="cover"></div>
+
+<!--提示框-->
+<div class="notice_box animated bounceInDown" style="height: 170px;">
+    <div class="notice_box_top">
+        <span>提示</span>
+        <em></em>
+        <i class="iconfont icon-guanbi notice_box_close"></i>
+    </div>
+    <div class="notice_box_text" style="line-height: 30px;height: 90px;padding: 10px 0;">
+        <i class="iconfont icon-bodadianhua"></i>
+        <p>{$basicInfo['Tel']}</p>
+    </div>
+    <div class="notice_box_bot">
+        <button class="notice_box_close">取消</button>
+        <button class="sure" onclick="location.href='tel:{$basicInfo[\'Tel\']}'">拨打</button>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<script>
+    // 联系我们
+    $(function(){
+        $(".dial").click(function(){
+            $("#cover").show();
+            $(".notice_box").show();
+        });
+        $(".notice_box_close").click(function(){
+            $("#cover").hide();
+            $(".notice_box").hide();
+        });
+    });
+
+    // 头像上传
+    let url = "{:U('member/uploadHeadImg')}";
+    $('#avatar').click(function () {
+        $('#file').click().change(function () {
+            uploadPic('#avatar',url);
+        });
+    })
+</script>
+<!--foot-->
+<include file="Shared:Footer" />
+<!--foot end-->

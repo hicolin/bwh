@@ -1,0 +1,121 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="FF">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">真实姓名：</td>
+                    <td width="175">
+                        <input id="TrueName" name="TrueName" type="text" />
+                    </td>
+                    <td width="70" align="right">手机号码：</td>
+                    <td width="175">
+                        <input id="Mobile" name="Mobile" type="text" />
+                    </td>
+                    <td width="70" align="right">状态：</td>
+                    <td width="180">
+                        <select id="LoanStatus" name="LoanStatus">
+                            <option value="-5">全部</option>
+                          <?php foreach($LoanStatus as $k=>$v):?>
+                            <option value="{$k}">{$v}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                    <td >
+                        <input id="MoreSearch" onclick="$.XB.moresearch()" type="button" value="更多条件">
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="stbody">
+                <tr>
+                    <td width="70" align="right">申请号：</td>
+                    <td width="175">
+                        <input id="LoanNo" name="LoanNo" type="text" />
+                    </td>
+                    <td width="70" align="right">订单号：</td>
+                    <td width="175">
+                        <input id="OrderSn" name="OrderSn" type="text" />
+                    </td>
+                <?php if($RoleID=='2'):?>
+                    <td width="70" align="right">催收客服：</td>
+                    <td width="180">
+                        <select id="CsadminID" name="CsadminID">
+                            <option value="-5">全部</option>
+                          <?php foreach($kefuArr as $k=>$v):?>
+                            <option value="{$v.ID}">{$v.TrueName}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                <?php endif;?>
+                </tr>
+                <tr>
+                    <?php if($RoleID=='2'):?>
+                    <td width="70" align="right">专属客服：</td>
+                    <td width="180">
+                        <select id="SqAdminID" name="SqAdminID">
+                            <option value="-5">全部</option>
+                            <?php foreach($DockingCustomerServices as $k=>$v):?>
+                            <option value="{$v.ID}">{$v.TrueName}</option>
+                            <?php endforeach;?>
+                        </select>
+                    </td>
+                    <?php endif;?>
+                    <td width="70" align="right">借款次数：</td>
+                    <td width="175">
+                        <input id="LoanSum" name="LoanSum" type="text" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'ID', checkbox: true },
+        { field: 'LoanNo', title: '申请号', width: 150  },
+    ];
+    var columns = [
+        { field: 'OrderSn', title: '订单号', width: 150  },
+        { field: 'TrueName', title: '真实姓名', width:80},
+        { field: 'Mobile', title: '手机号码', width:90},
+        { field: 'ApplyMoney', title: '申请金额', width: 70  },
+        { field: 'AdoptMoney', title: '快速申请费', width: 80  },
+        { field: 'FJMoney', title: '用户管理费', width: 80  },
+        { field: 'Interest', title: '息费', width: 60  },
+        { field: 'CoMoney', title: '优惠劵金额', width: 70  },
+        { field: 'OpenM', title: '放款金额', width: 70  },
+        { field: 'BackM', title: '到期应还', width: 70  },
+        { field: 'Overdays', title: '逾期天数', width: 70  },
+        { field: 'SqAdminID', title: '专属客服', width: 70  },
+        { field: 'Famoney', title: '罚金', width: 70  },
+        { field: 'RealtotalMoney', title: '应还总金', width: 70  },
+        { field: 'YyFkTime', title: '应还时间', width: 130  },
+        { field: 'RealFkTime', title: '实际还款时间', width: 130  },
+        //{ field: 'LoanSum', title: '续借次数', width: 70  },
+        { field: 'LoanStatus', title: '借款状态', width: 70  },
+        { field: 'FkServiceID', title: '放款人', width: 70  },
+        { field: 'OpenTime', title: '审核时间', width: 130  },
+
+        { field: 'Csadmin', title: '催收人', width: 70},
+        { field: 'CsRemark', title: '最新备注', width: 100},
+        { field: 'Cstime', title: '备注时间', width: 130},
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+    {:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

@@ -1,0 +1,138 @@
+<include file="Shared:Header" />
+<style type="text/css">
+    body{background: #fff}
+</style>
+
+<body>
+<div class="easyui-panel" data-options="fit:true,border:false,footer:'#ft'">
+    <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" >
+            <thead>
+            <tr>
+                <td colspan="4"></td>
+            </tr>
+            </thead>
+        </table>
+        <fieldset style=" border: 1px solid #ccc;margin:5px;">
+            <legend>统计信息(<span style="color:red;"><?php echo date('Y-m-d');?></span>)</legend>
+            <table border="0" align="center" cellpadding="8" cellspacing="3" class="fine_table" width="100%">
+                <tbody>
+                <tr>
+                    <td width="25%">
+                        <div style="width:130px;background: #EB6A5D;text-align: center;margin:0 auto;">
+                            <span style="display:inline-block;font-size:30px;color:white;padding-top:5px;width:100%;">{$mem_count}</span>
+                            <sapn style="display:inline-block;font-size:12px;color:white;padding-bottom:5px;">注册人数</sapn>
+                        </div>
+                    </td>
+                    <td width="25%">
+                        <div style="width:130px;background: #F4B95D;text-align: center;margin:0 auto;">
+                            <span style="display:inline-block;font-size:30px;color:white;padding-top:5px;width:100%;">{$apply_count}</span>
+                            <sapn style="display:inline-block;font-size:12px;color:white;padding-bottom:5px;">借款单数</sapn>
+                        </div>
+                    </td>
+                    <td width="25%">
+                        <div style="width:130px;background: #5AB47E;text-align: center;margin:0 auto;">
+                            <span style="display:inline-block;font-size:30px;color:white;padding-top:5px;width:100%;">{$fk_count}</span>
+                            <sapn style="display:inline-block;font-size:12px;color:white;padding-bottom:5px;">放款单数</sapn>
+                        </div>
+                    </td>
+                    <td width="25%">
+                        <div style="width:130px;background: #51A8DE;text-align: center;margin:0 auto;">
+                            <span style="display:inline-block;font-size:30px;color:white;padding-top:5px;width:100%;">{$hk_count}</span>
+                            <sapn style="display:inline-block;font-size:12px;color:white;padding-bottom:5px;">还款单数</sapn>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </fieldset>
+
+        <fieldset style=" border: 1px solid #ccc;margin:5px;">
+            <legend>渠道信息(<span style="color:red;"><?php echo date('Y-m-d');?></span>)</legend>
+            <table border="0" align="center" cellpadding="8" cellspacing="3" class="fine_table" width="100%">
+                <tbody>
+                <tr>
+                    <td width="25%">
+                        <div style="width:130px;text-align: center;margin:0 auto;">
+                            <span style="display:inline-block;font-size:30px;padding-top:5px;width:100%;color:red;">{$q_memcount}</span>
+                            <sapn style="display:inline-block;font-size:12px;color:#777;padding-bottom:5px;">注册量</sapn>
+                        </div>
+                    </td>
+                    <td width="25%">
+                        <div style="width:130px;text-align: center;margin:0 auto;">
+                            <span style="display:inline-block;font-size:30px;padding-top:5px;width:100%;color:red;">{$q_applycount}</span>
+                            <sapn style="display:inline-block;font-size:12px;color:#777;padding-bottom:5px;">进件量</sapn>
+                        </div>
+                    </td>
+                    <td width="25%">
+                        <div style="width:130px;text-align: center;margin:0 auto;">
+                            <span style="display:inline-block;font-size:30px;padding-top:5px;width:100%;color:red;">{$q_fkcount}</span>
+                            <sapn style="display:inline-block;font-size:12px;color:#777;padding-bottom:5px;">放款量</sapn>
+                        </div>
+                    </td>
+                    <td width="25%">
+                        <div style="width:130px;text-align: center;margin:0 auto;">
+                            <span style="display:inline-block;font-size:30px;padding-top:5px;width:100%;color:red;">{$q_jjcount}</span>
+                            <sapn style="display:inline-block;font-size:12px;color:#777;padding-bottom:5px;">拒绝量</sapn>
+                        </div>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+        </fieldset>
+
+        <fieldset style=" border: 1px solid #ccc;margin:5px;">
+            <legend>进出金额统计</legend>
+            <table border="0" align="center" cellpadding="8" cellspacing="3" class="fine_table" width="100%">
+                <tbody>
+                <tr>
+                    <td>
+                       <div id="echart1" style="width:90%; height:300px; margin:auto;"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+
+
+</div>
+
+</body>
+<include file="Shared:Footer" />
+<script src="__PUBLIC__/Admin/Js/echarts.min.js"></script>
+<script type="text/javascript">
+        //-----------------------------注册会员数
+        // 基于准备好的dom，初始化echarts实例
+        var myChart1 = echarts.init(document.getElementById('echart1'));
+        // 指定图表的配置项和数据
+        var option1 = {
+            title: {
+                text: '',
+            },
+            tooltip: {},
+            legend: {
+                data: ['放款金额', '还款金额']
+            },
+            toolbox: {
+
+            },
+            calculable: true,
+            xAxis: {
+                data: <?php echo json_encode(array_column($fkmoneyArr,'date'));?>
+            },
+            yAxis: {},
+            series: [{
+                name: '放款金额',
+                data: <?php echo json_encode(array_column($fkmoneyArr,'money'));?>,
+                type: 'line'
+            },
+            {
+                name: '还款金额',
+                type: 'line',
+                data: <?php echo json_encode(array_column($huankArr,'money'));?>,
+            }]
+        };
+        myChart1.setOption(option1);
+</script>

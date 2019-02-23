@@ -1,0 +1,365 @@
+<include file="Shared:Header" />
+
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/main_index.css">
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/rangeslider.css">
+<script src="__PUBLIC__/js/number.js"></script>
+<style>
+    html{background: #f5f5f5;}
+</style>
+<body class="bg_f5f5f5 mb60">
+<!--header-->
+<div class="index_header">
+    <span class="title">{$basicInfo['SystemName']}</span>
+    <a href="{:U('member/mynews')}">
+        <i class="iconfont icon-lingdang"></i>
+    </a>
+
+</div>
+<!--header end-->
+
+
+<!--content-->
+<div class="index_main">
+    <div class="index_main_con">
+        <div class="index_main_box">
+
+            <div class="imb_top">
+                <i class="iconfont icon-huojian-copy"></i>
+                <span>借款，就是这么的简单</span>
+            </div>
+
+            <div class="imb_mid">
+                <div class="imb_mid_money">
+                    <p>信用额度（元）</p>
+                    <h1 class="invest-money-data">10000</h1>
+                </div>
+
+                <div class="imb_bot">
+
+                    <div class="imb_bot_left fl">
+                        <i class="iconfont icon-iconfonthuodonggonggao"></i>
+                    </div>
+
+                    <div class="imb_bot_right fl">
+                        <div class="scrollDiv" id="scrollDiv">
+                            <ul>
+                                <li>131**4554成功放款，额度提升至10000</li>
+                                <li>131**1254成功放款，额度提升至10000</li>
+                                <li>181**4654成功放款，额度提升至10000</li>
+                                <li>152**4263成功放款，额度提升至10000</li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+
+
+            </div>
+
+            <div class="add_mon">
+                <a href="{:U('certification/index')}">
+                    <div class="add_mon_con">
+                        <p>
+                            提升<br/>额度
+                        </p>
+                    </div>
+                </a>
+
+            </div>
+
+            <div class="imb_reck"></div>
+
+        </div>
+
+        <div class="index_cloud"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    function AutoScroll(obj) {
+        $(obj).find("ul:first").animate({
+            marginTop: "-30px"
+        }, 500, function () {
+            $(this).css({
+                marginTop: "0px"
+            }).find("li:first").appendTo(this);
+        });
+    }
+    $(document).ready(function () {
+        setInterval('AutoScroll("#scrollDiv")', 3000);
+    });
+</script>
+<!--content end-->
+
+
+
+<!--text-->
+<div class="index_text mb60">
+
+
+
+    <div class="index_text_top">
+
+        <div id="js-example-destroy">
+
+            <p>申请借款金额（元）</p>
+
+            <output>1000</output>
+
+            <div class="itt_money">
+                <div class="itt_money_item fl">
+                    <span>100</span>
+                    <span>(元)</span>
+                </div>
+                <div class="itt_money_item fr">
+                    <span>10000</span>
+                    <span>(元)</span>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+
+
+            <input type="range" min="100" max="10000" step="100" value="1000" data-rangeslider>
+
+        </div>
+
+
+
+
+    </div>
+
+    <!--<div class="itt_date">-->
+        <!--<i>借款天数：</i>-->
+        <!--<span class="active" value="7">7天</span>-->
+        <!--<em value="14" >14天</em>-->
+
+    <!--</div>-->
+
+
+    <div class="index_text_bot">
+        <ul class="itb_list">
+            <li class="itb_list_btn1 itt_date">
+                <span>借款期限</span>
+                <em class="fr">
+                    <span class="text1 text" value="7">7天</span>
+                    <i class="iconfont icon-youjiantou"></i>
+                </em>
+            </li>
+            <li class="itt_way">
+                <span>借款用途</span>
+                <em class="fr">
+                    <span class="text2 text" value="1">个人生活消费</span>
+                    <i class="iconfont icon-youjiantou"></i>
+                </em>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div class="index_loan">
+        <a >
+            <button class="loan_now" onclick="getmoney()">立即借款</button>
+        </a>
+    </div>
+
+
+</div>
+
+
+<!--遮罩层-->
+<div id="cover"></div>
+
+
+<!--期限下拉-->
+<div class="choose_date animated bounceInUp">
+
+    <div class="cd_head">
+        <button class="cd_close fl">取消</button>
+        <button class="cd_sure fr">确定</button>
+    </div>
+
+    <ul class="cd_list">
+        <li class="active" value="7">7天</li>
+        <li value="14">14天</li>
+    </ul>
+</div>
+
+<script>
+    //    借款天数
+    $(function(){
+        $(".itb_list_btn1").click(function(){
+            $("#cover").show();
+            $(".choose_date").show();
+        });
+
+        $(".cd_list li").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".cd_close").click(function(){
+            $("#cover").hide();
+            $(".choose_date").hide();
+        });
+
+        $(".cd_sure").click(function(){
+            var _text = $(".cd_list .active").text();
+            var _val = $(".cd_list .active").attr("value");
+            $(".text1").text(_text);
+            $(".text1").attr("value",_val);
+            $("#cover").hide();
+            $(".choose_date").hide();
+        });
+    })
+</script>
+
+
+<!--借款用途下拉-->
+<div class="use_way animated bounceInUp">
+
+    <div class="uw_head">
+        <button class="uw_close fl">取消</button>
+        <button class="uw_sure fr">确定</button>
+    </div>
+
+    <ul class="uw_list">
+        <foreach name="usefor" item="vo" key="k">
+        <li class=""  value="{$k}">{$vo}</li>
+        </foreach>
+    </ul>
+</div>
+
+
+<script>
+    //    借款用途
+    $(function(){
+        $(".itt_way").click(function(){
+            $("#cover").show();
+            $(".use_way").show();
+        });
+
+        $(".uw_list li").click(function(){
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+
+        $(".uw_close").click(function(){
+            $("#cover").hide();
+            $(".use_way").hide();
+        });
+
+        $(".uw_sure").click(function(){
+            var _text = $(".uw_list .active").text();
+            var _val = $(".uw_list .active").val();
+            $(".text2").text(_text);
+            $(".text2").attr('value',_val);
+            $("#cover").hide();
+            $(".use_way").hide();
+        });
+    })
+</script>
+
+
+
+<!--text-->
+<script>
+    function getmoney(){
+        var money = $('#js-example-destroy output').html();
+        var days = $('.itt_date .text').attr('value');
+        var usefor = $('.itt_way .text').attr('value');
+        var uid = {$uid?:0};
+        var renzen = {$renzen?:0};
+        // var renzen = '1';
+        var applied = {$applied?:0};
+        if(!days){
+            layer.msg("请选择借款天数！");
+            return false;
+        }
+        if(days=='14'){
+            layer.msg("14天产品暂未开放！");
+            return false;
+        }
+        if(!uid){
+            layer.msg('您还未登录，请先登录！', {time: 1500}, function () {
+                window.location.href="{:U('register/login')}";
+            })
+        }
+        if(uid && !renzen){
+            layer.msg('您还未完成认证必备项，请先认证！', {time: 1500}, function () {
+                window.location.href="{:U('certification/index')}";
+            })
+        }
+        if(uid && renzen && applied){
+            layer.msg('您有未完成的借款，请完成后再借款！', {time: 1500}, function () {
+                // window.location.reload();
+            })
+        }
+        if(!money){
+            layer.msg("请选择借款数额！");
+            return false;
+        }
+
+        if(uid && renzen && money && !applied){
+            $.ajax({
+                type: 'POST',
+                url: '{:U("index/index")}',
+                data: {'money': money, 'days': days},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.result == 1) {
+                        window.location.href="{:U('index/borrow')}?money="+money+"&days="+days+"&for="+usefor;
+                    } else {
+                        layer.msg(data.message, {time: 2000}, function () {
+                            window.location.reload();
+                        })
+                    }
+                }
+            })
+            // window.location.href="{:U('index/borrow')}?money="+money+"&days="+days;
+        }
+    }
+</script>
+<script src="__PUBLIC__/js/rangeslider.min.js"></script>
+<script>
+    $(function() {
+        var $document   = $(document);
+        var selector    = '[data-rangeslider]';
+        var $inputRange = $(selector);
+
+        // Example functionality to demonstrate a value feedback
+        // and change the output's value.
+        function valueOutput(element) {
+            var value = element.value;
+            var output = element.parentNode.getElementsByTagName('output')[0];
+
+            output.innerHTML = value;
+        }
+
+        // Initial value output
+        for (var i = $inputRange.length - 1; i >= 0; i--) {
+            valueOutput($inputRange[i]);
+        };
+
+        // Update value output
+        $document.on('input', selector, function(e) {
+            valueOutput(e.target);
+        });
+
+        // Initialize the elements
+        $inputRange.rangeslider({
+            polyfill: false
+        });
+
+    });
+
+
+
+</script>
+
+
+
+
+
+<!--foot-->
+<include file="Shared:Footer" />
+<!--foot end-->

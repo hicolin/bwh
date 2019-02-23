@@ -1,0 +1,49 @@
+<include file="Shared:Header" />
+<body class="user_body">
+
+<!--head-->
+<div class="head">
+    <span>我的消息</span>
+    <a href="javascript:history.go(-1)">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--main -->
+<div class="notice_main">
+    <ul>
+        <volist name="list" id="vo">
+        <li>
+            <a href="{:U('member/notice',array('id'=>$vo['ID']))}">
+                <div class="notice_main_left fl">
+                    <i class="iconfont icon-jiaoyi "></i>
+                </div>
+                <div class="notice_main_text fl">
+                    <h1>交易消息<span class="fr">{$vo.SendTime}</span></h1>
+
+                    <p>{$vo.Contents}</p>
+
+                </div>
+                <div class="clear"></div>
+            </a>
+        </li>
+        </volist>
+        <!--<li>-->
+            <!--<a href="">-->
+                <!--<div class="notice_main_left fl">-->
+                    <!--<i class="iconfont icon-xitong "></i>-->
+                <!--</div>-->
+                <!--<div class="notice_main_text fl">-->
+                    <!--<h1>系统消息<span class="fr"><php>echo $sysNews['SendTime'] ? date('Y/m/d',strtotime($sysNews['SendTime'])) : ''</php></span></h1>-->
+                    <!--<p>{$sysNews['Contents'] ? : '暂无消息'}</p>-->
+                <!--</div>-->
+                <!--<div class="clear"></div>-->
+            <!--</a>-->
+        <!--</li>-->
+    </ul>
+</div>
+<!--main end-->
+
+</body>
+</html>

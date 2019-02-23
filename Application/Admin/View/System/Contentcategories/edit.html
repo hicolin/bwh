@@ -1,0 +1,80 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填；同父级分类下，分类名称不能重复；</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td width="100" align="right"><span class="Red">*</span> 分类名称：</td>
+                    <td>
+                        <input id="Name" name="Name" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" align="right"><span class="Red">*</span> 英文标识：</td>
+                    <td>
+                        <input id="Ename" name="Ename" type="text" class="easyui-validatebox" data-options="required:true,validType:['length[1,100]']" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><span class="Red">*</span> 父级分类：</td>
+                    <td>
+                        <select id="ParentID" name="ParentID" class="easyui-combotree" data-options="required:true,panelHeight:150,editable:false,url:'{:U('System/Contentcategories/add')}',queryParams: {'Add': '[{&quot;id&quot;:0,&quot;text&quot;:&quot;设为父级分类&quot;}]'}"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">是否推荐：</td>
+                    <td>
+                        <label for="isRec0"><input type="radio" name="IsRec" id="IsRec0" value="0" checked="checked" />未推荐</label>
+                        <label for="isRec1"><input type="radio" name="IsRec" id="IsRec1" value="1" />已推荐</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">栏目类型：</td>
+                    <td>
+                        <label for="ColumnType0"><input type="radio" name="ColumnType" id="ColumnType0" value="1" checked="checked" />栏目</label>
+                        <label for="ColumnType1"><input type="radio" name="ColumnType" id="ColumnType1" value="0" />单页</label>
+                        <span class="Hui">单页：只能发布一篇文章资讯</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">允许删除：</td>
+                    <td>
+                        <label for="AllowDelete0"><input type="radio" name="AllowDelete" id="AllowDelete0" value="1" checked="checked" />允许</label>
+                        <label for="AllowDelete1"><input type="radio" name="AllowDelete" id="AllowDelete1" value="0" />禁止</label>
+                        <span class="Hui">指是否允许管理员外的其他账号删除</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">排序：</td>
+                    <td>
+                        <input id="Sort" name="Sort" type="text" class="easyui-numberbox" data-options="min:1,formatter: $.XB.JSSortInt,prompt:'越小越靠前'">
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">状态：</td>
+                    <td>
+                        <select id="Status" name="Status">
+                            <option value="1">正常</option>
+                            <option value="0">隐藏</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input name="__RequestVerificationToken" type="hidden" value="LDLXhmb3W0MNCWkVLVfbixRczlzI_9A_SVHxnK2h8cT0xLFhAZ9nal854QLUTAavbaMXgZztZVMOfVE_X0KkFaPtlheIg3z9Z6KtzBZlT9s1" />
+        <input type="hidden" id="ID" name="ID" />
+    </form>
+    <script>
+    </script>
+    <script>
+    $(function () {
+        $('#FF').form('load', '../shows?ID='+{$id}+'&_=' + Math.random() + '');
+    });
+    </script>
+</body>
+<include file="Shared:Footer" />

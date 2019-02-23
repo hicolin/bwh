@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+/*续期*/
+.renewal_nav{margin-top: 42px;padding: 30px 0;}
+.renewal_nav_con{width: 300px;height: 34px;border:2px solid #c71422;margin: 0 auto;border-radius: 34px;line-height: 30px;overflow: hidden;}
+.renewal_nav_con a{display: block;float: left;width: 50%;height: 30px;text-align: center;font-size: 0.15rem;color: #c71422;}
+.renewal_nav_con a.active{background: #c71422;color: #fff;}
+
+
+.renewal_main{padding: 0 40px;}
+.renewal_main_item h1{font-size: 0.14rem;line-height: 30px;color: #c71422;text-align: center;}
+
+.renewal_main_item span.date_btn{width: 80px;display: block;margin: 15px auto;height: 80px;line-height: 80px;text-align: center;background: #c71422;font-size: 0.18rem;color: #fff;border-radius: 50%;box-shadow: 0 10px 15px rgba(199,20,37,0.4);}
+
+.ren_list{width: 100%;border: 1px solid #ccc;border-radius: 5px;overflow: hidden;margin-top: 25px;}
+.ren_list li{height: 45px;line-height: 45px;padding: 0 15px;font-size: 0.14rem;color: #666;border-bottom: 1px solid #ccc;}
+.ren_list li:last-child{border-bottom: none;}
+.ren_list li i{color: #c71422;}
+.ren_list li span{color: #333;font-weight: bold;}
+.ren_list li a{line-height: 42px;}
+
+
+
+/*日期下拉框*/
+.date_list{background: #fff;position: fixed;width: 100%;left: 0;bottom: 0;z-index: 20;display: none;}
+
+.dl_head{height: 50px;line-height: 50px;padding:0 15px;border-bottom: 1px solid #eee;}
+.dl_head button{height: 30px;margin-top: 5px;font-size: .16rem;color: #777;background: none;border: none;}
+.dl_head button.dl_sure{color: #c71422;}
+
+.dl_list_list{padding: 15px;}
+.dl_list_list span{display: inline-block;height: 38px;border: 1px solid #ccc;border-radius: 5px;text-align: center;width: 22%;margin-left:2%;margin-bottom: 15px;line-height: 36px;font-size: 0.15rem;}
+.dl_list_list span:nth-child(4n+1){margin-left: 0;}
+.dl_list_list span.active{border: 1px solid #c71422;background: rgba(199,20,34,0.4);color: #c71422;}
+.dl_list_list p{line-height: 40px;height: 40px;font-size: 0.14rem;color: #999;text-align: center;}
+.dl_list_list p.active{font-size: 0.16rem;color: #c71422;}
+
+
+
+.renewal_main_btn{padding: 0 20px;}
+.renewal_main_btn button{width: 80%;height: 40px;border: none;border-radius: 40px;margin-top: 15px;background: #c71422;color: #fff;font-size: .16rem;font-family: "PingFang_Light";}
+
+
+
+/*自助还款*/
+.repay_main{padding: 15px;margin-top: 42px;}
+.repay_main_text{}
+.repay_main_text p{line-height: 35px;font-size: 0.16rem;color: #333;}
+.repay_main_text p span{color: #c71422;}
+
+
+.repay_main_bank{width: 90%;margin: 20px auto;height: 37px;border: 1px solid #c71422;border-radius: 37px;line-height: 35px;}
+.rmb_left{width: 80%;border-right: 1px solid #c71422;padding-left: 20px;}
+.rmb_right{text-align: center;width: 19%}
+.rmb_right i{font-size: 0.16rem;color: #c71422;}
+
+
+.repay_main_btn{text-align: center;}
+.repay_main_btn button{width: 75%;height: 40px;border: none;border-radius: 40px;margin-top: 20px;background: #c71422;color: #fff;font-size: .16rem;font-family: "PingFang_Light";}
+.repay_main_btn button.close{background: #ccc;}
+
+
+/*确认框*/
+.sure_box{width: 80%;position: fixed;top: 100px;left: 10%;display: none;border-radius: 10px;background: #fff;z-index: 20;overflow: hidden;}
+.sure_box_head{height: 40px;background: #c71422;line-height: 40px;font-size: 0.15rem;color: #fff;text-align: center;position: relative;}
+.sure_box_head img.close_sureBox{position: absolute;width: 20px;right: 10px;top: 10px;}
+.sure_box_list{padding:  0 10px;}
+.sure_box_list li{line-height: 30px;border-bottom: 1px solid #eee;padding: 10px 0;font-size: 0.14rem;color: #333;}
+.sure_box_list li img{width: 100px;vertical-align: top;}
+.sure_box_list li i{color: #c71422;}
+.sure_box_list li:last-child{border-bottom: none;}
+.sure_box_list p{line-height: 50px;text-align: center;font-size: 0.16rem;color: #c71422;}
+
+

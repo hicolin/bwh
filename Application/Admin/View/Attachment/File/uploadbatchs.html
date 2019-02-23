@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>uploadbatch</title>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            background-color: #F5F5F5;
+        }
+    </style>
+</head>
+<body>
+    <div id="uploader"></div>
+    <script src="__PUBLIC__/Admin/JS/jquery.min.js"></script>
+    <link href="__PUBLIC__/Admin/JS/EasyUI/easyui.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/JS/EasyUI/jquery.easyui.min.js"></script>
+    <script src="__PUBLIC__/Admin/JS/Plupload/plupload.full.min.js"></script>
+    <script src="__PUBLIC__/Admin/JS/Plupload/plupload.queue.min.js"></script>
+    <link href="__PUBLIC__/Admin/JS/Plupload/css/plupload.queue.css" rel="stylesheet" />
+    <script src="__PUBLIC__/Admin/JS/XB.js"></script>
+    <script>
+        $(function () {
+            upload({ "file": "{$data['file']}", "path": "{$data['Path']}", "ismulti": "{$data['ismulti']}", "maxsize": "{$data['size']}KB", "ext": "{$data['ext']}" });
+        })
+        var num = '0';
+        function upload(options) {
+                                    var settings = {
+                                        "id": "#uploader",
+                                        "path": "pic",//保存路径是图片(pic)还是文件(file)
+                                        "ext": "jpg,jpeg,png,gif,bmp,zip,rar,doc,xls,ppt,docx,xlsx,ppts,txt",//扩展名
+                                        "ismulti": true,//是否支持多选
+                                        "file": "pic",
+                                        "maxsize": "10MB",
+                                        "url": "{:U('Attachment/File/Upload')}"
+                                    };
+
+                                    if (options) {
+                                        $.extend(settings, options);
+                                    }
+
+            var uploader = $(settings.id).pluploadQueue({
+                        runtimes: 'html5,flash,html4',
+                        url: settings.url,
+                        chunk_size: '0MB',//分块上传，0不分块
+                        multipart_params: { "Path": settings.path, "NameAdd": $.XB.FormatDate(new Date(), "ddhhmmssS_") },//附加参数
+                        multi_selection: settings.ismulti,//是否支持多选
+                        flash_swf_url: '/JS/Plupload/Moxie.swf',
+                        filters: {
+                            mime_types: [
+                              { title: "select files", extensions: settings.ext },
+                            ],
+                            max_file_size: settings.maxsize,
+                            prevent_duplicates: true //是否允许选取重复文件
+                        },
+                        init: {
+                            FilesAdded: function (uploader, files) {
+                                if (!settings.ismulti) {
+                                    uploader.start();
+                                }
+                            },
+                             FileUploaded: function (uploader, queuefile, response) { //队列某一文件上传完成触发
+                        
+                                     if (settings.ismulti) {
+                                            var host=window.location.pathname;
+                                            var arr=host.split('/');
+                                            var $val = parent.$('#BactchPic');
+                                            if (!$val.hasClass('BactchPic')) {
+                                                $val.addClass('BactchPic');
+                                            }
+                                       
+                                            var count = '6';
+                       
+                                            count = parseInt(count);
+                                            if (num < count) {
+                                                num = parseInt(num) + 1;
+                                                paths=$.parseJSON(response.response).FilePath;
+                                                if(typeof paths=='undefined'){
+                                                    alert('非法图片文件类型');
+                                                }else {
+                                                    $val.prepend('<div><i class="Bactchdel Icon211"></i><img src="' + paths + '" class="Bactchimg" /><input name="MultiPic[]" value="' + paths + '" type="hidden" /></div>');
+                                                }
+
+                                            } else {
+                                                $.XB.warning({
+                                                    "message": "图片最多可上传" + count + "张", "fn": function () {
+                                                        parent.$('div [name="win"]:last').window('close');
+                                                    }
+                                                });
+
+                                            }
+                                            parent.$("#BactchPic").show();
+                                        }
+                                        else {
+                                            $.XB.findiframe2().$('#' + settings.file).textbox('setValue', $.parseJSON(response.response).FilePath);
+                                        }
+                                  },
+                                        UploadComplete: function (uploader, files) { //队列所有文件上传完成触发
+                                            parent.Bactch();
+                                            parent.$("#D1").dialog('close');
+                                            parent.$('#W1').window('close');
+                                        },
+                                        Error: function (uploader, errObject) {
+                                                if (errObject.code == "-600") {
+                                                    $.XB.error({ "message": "" + errObject.file.name + "文件超过系统限制的" + settings.maxsize });
+                                                }
+                                                else {
+                                                    $.XB.error({ "message": errObject.message });
+                                                }
+                                        }
+                         }
+            });
+            
+        }
+    </script>
+</body>
+</html>

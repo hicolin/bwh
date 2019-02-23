@@ -1,0 +1,210 @@
+<include file="Shared:Header" />
+<body class="login_body">
+
+<!--head-->
+<div class="head">
+    <span>注册</span>
+    <a href="javascript:history.back();">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--main-->
+<div class="login_main">
+
+    <div class="login_main_top">
+        <img src="__PUBLIC__/images/tx.jpg"/>
+    </div>
+
+
+    <div class="login_form">
+
+        <ul>
+            <li>
+                <i class="iconfont icon-shouji"></i>
+                <input type="number" id="Mobile" name="Mobile" oninput="if(value.length>11)value=value.slice(0,11)" style="ime-mode:Disabled"  onKeypress="return (/[\d]/.test(String.fromCharCode(event.keyCode)))" onblur="validateTel()" placeholder="输入手机号">
+            </li>
+
+            <li>
+                <i class="iconfont icon-yanzhengma"></i>
+                <input type="number" id="MsgCode" name="MsgCode" placeholder="输入验证码">
+                <input type="button" value="获取验证码" class="code_btn" onclick="settime(this)">
+            </li>
+
+            <li>
+                <i class="iconfont icon-mima"></i>
+                <input type="password" id="Password" name="Password" placeholder="输入密码">
+            </li>
+
+        </ul>
+        <input type="hidden" id="Referee" name="Referee" value="{$referee}">
+        <p class="xieyi">
+            <label>
+                <input type="checkbox">已阅读并同意
+            </label>
+            <a href="{:U('Register/regdetail')}">《使用条款服务协议》</a>
+        </p>
+
+        <div class="login_btn tc">
+            <button onclick="check();">注册</button>
+        </div>
+
+        <div class="login_link tc">
+            已有账号？<a href="{:U('Register/login')}" style="text-decoration: underline">登录</a>
+        </div>
+
+    </div>
+
+
+</div>
+<!--main end-->
+<script>
+    function validateTel() {
+        var mobile = $('#Mobile').val();
+        if (mobile == '') {
+            layer.msg("请输入手机号码");
+            return false;
+        }
+        if (!mobile.match(/^((1[3-9][0-9]{1})+\d{8})$/)) {
+            layer.msg("手机号码格式不正确！");
+            return;
+        }
+        $.ajax({
+            type: 'GET',
+            url: '{:U("register/validatetel")}',
+            data: {'mobile': mobile},
+            async:false,
+            dataType: 'json',
+            success: function (data) {
+                if (data.result == 0) {
+                    $(".code_btn").removeAttr('onclick');
+                    layer.msg(data.message, {time: 3000}, function () {
+                        window.location.href = '{:U("register/login")}';
+                    })
+                }
+            }
+        })
+    }
+
+    $(".code_btn").click(function () {
+        var mobile = $("#Mobile").val();
+        if (!mobile.match(/^((1[3-9][0-9]{1})+\d{8})$/)) {
+            layer.msg("手机号码格式不正确！");
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '{:U("Common/getYun")}',
+            data: {'mobile': mobile,check:1},
+            async: false,
+            dataType: 'json',
+            success: function (data) {
+                if (data.result) {
+                    layer.msg(data.message);
+                } else {
+                    layer.msg(data.message);
+                }
+            }
+        })
+    });
+
+    var countdown = 60;
+
+    function settime(obj) {
+        var str = $("#Mobile").val();
+        if (!str.match(/^((1[3-9][0-9]{1})+\d{8})$/)) {
+            layer.msg("手机号码格式不正确！");
+            return;
+        }
+        if (countdown == 0) {
+            obj.removeAttribute("disabled");
+            $(".code_btn").val("重新获取");
+            countdown = 60;
+            return;
+        } else {
+            obj.setAttribute("disabled", true);
+            $(".code_btn").val("重新发送(" + countdown + ")");
+            countdown--;
+        }
+        setTimeout(function () {
+                settime(obj)
+            }
+            , 1000)
+    }
+
+    function zc_yzm() {
+        var str = $("#MsgCode").val();
+        var reg = /^[\w]{2,20}$/g;
+        if (!reg.test(str)) {
+
+            layer.msg("请输入验证码！");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function zc_psd() {
+        var str = $("#Password").val();
+        var reg = /^[\S]{6,20}$/g;
+        if (!reg.test(str)) {
+            layer.msg("请输入6-20位密码！");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function valcheck() {
+        var checkbox = $("input[type='checkbox']").is(':checked');
+        if(checkbox==false){
+            layer.msg("请勾选使用条款！");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+
+    function check() {
+        var mobile = $("#Mobile").val();
+        if (!mobile) {
+            layer.msg("请输入手机号码");
+            return false;
+        }
+        if (zc_yzm() && zc_psd() &&valcheck()) {
+            var code = $("#MsgCode").val();
+            var psd = $("#Password").val();
+            var Referee = $("#Referee").val();
+            $.ajax({
+                type: 'POST',
+                url: '{:U("register/ajaxRegister")}',
+                data: {'mobile': mobile, 'code': code, 'psd': psd, 'Referee': Referee},
+                dataType: 'json',
+                success: function (data) {
+                    if (data.result == 1) {
+                        layer.msg(data.message, {time: 3000}, function () {
+                            window.location.href = '{:U("register/login")}';
+                        })
+                    } else {
+                        layer.msg(data.message, {time: 3000}, function () {
+                            window.location.reload();
+                        })
+                    }
+                }
+            })
+        } else {
+            return false;
+        }
+    }
+
+
+</script>
+
+
+</body>
+</html>

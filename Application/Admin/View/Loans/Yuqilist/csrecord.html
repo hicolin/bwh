@@ -1,0 +1,52 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+    	<thead>
+        <tr>
+            <td colspan="2">说明：带<span style="color:red;">*</span>必填！</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+			<td align="right">订单号：</td>
+            <td>{$res['OrderSn']}</td>
+		</tr>
+		<tr>
+			<td align="right"><span style="color:red;">*</span>结果：</td>
+            <td>
+                <select id="Status" name="Status">
+                    <option value="1">承诺订单</option>
+                    <option value="2">跳票</option>
+                    <option value="3">失联</option>
+                    <option value="4">拒绝订单</option>
+                    <option value="5">斡旋</option>
+                    <option value="5">继续跟进</option>
+                </select>
+            </td>
+		</tr>
+		<tr>
+            <td align="right">附件：</td>
+            <td>
+                <input id="ImgUrl" name="ImgUrl" type="text" /><button onclick="Upload('ImgUrl')">上传</button>
+                <a href="javascript:void(0)" id="ImgUrldd" style="display:inline-block;"></a>
+            </td>
+        </tr>
+		<tr>
+			<td align="right"><span style="color:red;">*</span>备注:</td>
+			<td colspan="3">
+				<textarea name="Remark" id="Remark" style="width:400px;height:90px;"></textarea>
+			</td>
+		</tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$res['ID']}"/>
+</form>
+<script>
+
+$(function () {
+        $.XB.pictips({ 'id': '#ImgUrldd', 'path': '#ImgUrl' });
+ });
+</script>
+</body>
+<include file="Shared:Footer" />

@@ -1,0 +1,67 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <tbody>
+		<tr>
+			<td align="right">真实姓名:</td>
+			<td>{$res.TrueName}</td>
+			<td align="right">身份证号:</td>
+			<td>{$res.IDCard}</td>
+		</tr>
+		<tr>
+			<td align="right">正面:</td>
+			<td><a href="javascript:void(0);"><img src="{$res.CardFace}" style="width:180px;height:120px;" onclick="bigview(this,0)"/></a></td>
+			<td align="right">反面:</td>
+			<td><a href="javascript:void(0);"><img src="{$res.CardSide}" style="width:180px;height:120px;" onclick="bigview(this,1)"/></a></td>
+		</tr>
+		<tr>
+			<td align="right">手持照:</td>
+			<td><a href="javascript:void(0);"><img src="{$res.Cardschi}" style="width:180px;height:120px;" onclick="bigview(this,2)"/></a></td>
+			<td align="right">状态：</td>
+            <td>
+                <select id="Status" name="Status">
+                    <option value="0" <?php if($res['Status']=='0') echo 'selected';?> >待审核</option>
+                    <option value="1" <?php if($res['Status']=='1') echo 'selected';?> >已认证</option>
+                    <option value="2" <?php if($res['Status']=='2') echo 'selected';?> >认证失败</option>
+                </select>
+            </td>
+		</tr>
+		<tr>
+			<td align="right">原因:</td>
+			<td colspan="3">
+				<textarea name="Intro" id="Intro" style="width:400px;height:90px;"></textarea><br/>
+				<span style="color:red;">提示：认证失败需要填写原因</span>
+			</td>
+		</tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$res['ID']}"/>
+</form>
+
+</body>
+<include file="Shared:Footer" />
+<script type="text/javascript">
+	function bigview(obj,num) {
+        var imsArr=<?php echo json_encode($cardimgArr);?>;
+        $(".docs-pictures" , parent.parent.parent.document).remove();
+        $(".viewer-container" , parent.parent.parent.document).remove();
+        var ulHtml='';
+        ulHtml+='<ul style="display: none" class="docs-pictures">';
+        for(var i=0;i<imsArr.length;i++){
+            ulHtml+='<li style="float:left;padding-left:20px;cursor: pointer"><img src="'+imsArr[i]+'" data-original="'+imsArr[i]+'"></li>'
+        }
+        ulHtml+='<div class="clear"></div></ul>';
+        if($("body" , parent.parent.parent.document).append(ulHtml)){
+//                    var num=$(obj).attr('data-num');
+            window.parent.parent.parent.bigPopup(num);
+        }else{
+            $.XB.warning({'message':"请刷新后重试"});
+        }
+    }
+
+    $('input[name="Btn"]').click(function () {
+        $(".docs-pictures" , parent.parent.parent.document).remove();
+        $(".viewer-container" , parent.parent.parent.document).remove();
+    });
+</script>

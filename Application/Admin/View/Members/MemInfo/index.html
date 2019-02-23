@@ -1,0 +1,197 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" method="post">
+    <div id="tools" class="tools">
+
+        {:W('RolePerm/RolePermTop')}
+
+    </div>
+    <div id="search" class="search">
+        <table border="0" class="SearchTable" cellpadding="3">
+            <thead>
+            <tr>
+                <td width="70" align="right">会员账号：</td>
+                <td width="180">
+                    <input id="MemAccount" Name="MemAccount" type="text" />
+                </td>
+                <td width="70" align="right">手机号码：</td>
+                <td width="180">
+                    <input id="Mobile" name="Mobile" type="text" />
+                </td>
+                <td width="70" align="right">用户状态：</td>
+                <td width="180">
+                    <select id="Status" name="Status">
+                        <option value="-5" selected="selected">全部</option>
+                        <option value="1">待审核</option>
+                        <option value="2">审核通过</option>
+                        <option value="3">禁用</option>
+                        <option value="4">黑名单</option>
+                    </select>
+                </td>
+                <td width="70">
+                    <input id="btnSearch" onclick="$.XB.searchtree();" type="button" value="查 询">
+                </td>
+                <td>
+                    <input id="MoreSearch" onclick="$.XB.moresearch()" type="button" value="更多条件">
+                </td>
+            </tr>
+            </thead>
+            <tbody id="stbody">
+            <tr>
+                <td width="70" align="right">会员昵称：</td>
+                <td width="180">
+                    <input id="NickName" name="NickName" type="text" />
+                </td>
+                <td width="70" align="right">真实姓名：</td>
+                <td width="180">
+                    <input id="TrueName" name="TrueName" type="text" />
+                </td>
+                <td width="70" align="right">登录IP：</td>
+                <td width="160">
+                    <input id="LoginIP" name="LoginIP" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td width="70" align="right">注册来源：</td>
+                <td width="180">
+                    <select id="Retype" name="Retype">
+                        <option value="-5" selected="selected">全部</option>
+                        <option value="0">网页</option>
+                        <option value="1">安卓</option>
+                        <option value="2">苹果</option>
+                    </select>
+                </td>
+                <td width="70" align="right">登录城市：</td>
+                <td width="180">
+                    <input id="IpCity" name="IpCity" type="text" />
+                </td>
+                <td width="70" align="right">类型：</td>
+                <td width="180">
+                    <select id="Mtype" name="Mtype">
+                        <option value="-5" selected="selected">全部</option>
+                        <option value="0">正常</option>
+                        <option value="1">测试</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="70" align="right">专属客服：</td>
+                <td width="180">
+                    <select id="ZsAdminID" name="ZsAdminID">
+                        <option value="-5">全部</option>
+                        <?php foreach($kefuArr as $k=>$v):?>
+                        <option value="{$v.ID}">{$v.TrueName}</option>
+                        <?php endforeach;?>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="tabelContent" class="tabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+<script type="text/javascript">
+
+    // $(function () {
+
+    //     var frozenColumns = [
+    //          { field: 'ID', checkbox: true },
+    //          { field: 'UserName', title: '会员账号', width: 100 },
+    //          { field: 'TrueName', title: '会员姓名', width: 100 },
+    //          { field: 'Mobile', title: '手机号码', width: 100 },
+    //     ];
+    //     var columns = [
+    //         { field: 'LimitBalcance', title: '授信额度', width: 100 ,sortable: true},
+    //         { field: 'Balance', title: '已用额度', width: 100 ,sortable: true},
+    //         { field: 'NickName', title: '会员昵称', width: 150 },
+    //         { field: 'TrueName', title: '真实姓名', width: 100 },
+    //         { field: 'Sex', title: '性别', width: 50 ,formatter:Common.SexFormatter},
+    //         { field: 'BorthDate', title: '出生日期', width: 100,sortable: true },
+    //         { field: 'RegTime', title: '注册时间', width: 150 ,sortable: true},
+    //         { field: 'Status', title: '会员状态', width: 70 ,sortable: true},
+    //         { field: 'LoginTime', title: '最后登录时间', width: 150, sortable: true },
+    //         { field: 'LoginIP', title: '最后登录IP', width: 100, sortable: true },
+    //         { field: 'IpCity', title: '最后登录城市', width: 300, sortable: true }
+    //     ];
+    //     $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns });
+    //     $.XB.enter();
+    // });
+
+    $(function () {
+        $('#DataList').treegrid({
+            rownumbers: false,
+            animate: true,
+            border: false,
+            lines: true,
+            url: 'DataList',
+            idField: 'ID',
+            treeField: 'ID',
+            pagination:true,
+            pageSize: 10,
+            pageList: [10, 20, 50],
+            frozenColumns: [[
+                { field: 'ID', title: '唯一ID', width: 80 ,align:'center',sortable: true},
+                { field: 'Mobile', title: '手机号码', width: 100 },
+                { field: 'TrueName', title: '真实姓名', width: 90 },
+            ]],
+            columns: [[
+                { field: 'LimitBalcance', title: '借款额度', width: 100 ,sortable: true},
+                { field: 'RepayNum', title: '还款笔数', width: 70 },
+                { field: 'Risk', title: '决策风险', width: 70 },
+                { field: 'Status', title: '会员状态', width: 70 ,sortable: true},
+                { field: 'Mtype', title: '类型', width: 70},
+                { field: 'ZsAdminID', title: '专属客服', width: 70},
+                { field: 'Retype', title: '注册来源', width: 70},
+                { field: 'TgAdmin', title: '注册渠道', width: 70},
+                { field: 'RegTime', title: '注册时间', width: 150 ,sortable: true},
+                { field: 'LoginTime', title: '登录时间', width: 150 ,sortable: true},
+                { field: 'LoginIP', title: '登录IP', width: 100},
+                { field: 'LoginAddress', title: '登录地址', width: 100},
+                { field: 'IDCards', title: '身份证认证', width: 70},
+                { field: 'Bank', title: '银行卡认证', width: 70},
+                { field: 'Social', title: '社交认证', width: 70},
+                { field: 'Tel', title: '运营商认证', width: 70},
+                { field: 'Taobao', title: '淘宝认证', width: 70},
+                { field: 'Alipay', title: '支付宝认证', width: 70},
+                { field: 'Zhima', title: '芝麻信用', width: 70},
+            ]],
+            onClickRow:function(row){
+                if(row.state=='closed') {
+                    $('#DataList').treegrid('reload', row.ID);
+                }else{
+                    $('#DataList').treegrid('toggle', row.ID);
+                }
+            },
+
+            onLoadSuccess: function () {
+                $(this).treegrid('resize', {
+                    height: $(window).height() - $('#tools').height() - $('#search').height() - 15
+                });
+            },
+            onDblClickCell: function (field, row) {
+                OpenWin('edit');
+            }
+        })
+        $.XB.entertree();
+    });
+
+    // 悬浮提示
+    $('#FF').on('mouseenter','.risk_reason',function () {
+        var text = $(this).next().text();
+        layer.tips(text,$(this),{
+            tips: 2,
+            time: 0
+        })
+    });
+    $('#FF').on('mouseout','.risk_reason',function () {
+        layer.closeAll();
+    })
+</script>
+{:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+
+
+

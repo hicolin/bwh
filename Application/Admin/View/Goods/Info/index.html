@@ -1,0 +1,82 @@
+<include file="Shared:Header" />
+    <style>
+      .Tree  .datagrid-row {
+    height: 28px;
+}
+      .Tree .datagrid-body td {
+    border-width: 0 0px 1px 0;
+}
+    </style>
+</head>
+<body class="Bodybg easyui-layout">
+
+    <div data-options="region:'center',border:false" style="overflow: hidden; ">
+        <form id="FF">
+            <div class="tools" id="tools">
+                {:W('RolePerm/RolePermTop')}
+            </div>
+            <div class="search" id="search">
+                <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+                    <thead>
+                        <tr>
+                            <td>是否上架：</td>
+                            <td>
+                                <select id="IsShelves" name="IsShelves" >
+                                    <option value="-5">全部</option>
+                                    <option value="1">已上架</option>
+                                    <option value="0">未上架</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="TabelContent" class="TabelContent">
+                <table id="DataList"></table>
+            </div>
+            <input name="__RequestVerificationToken" type="hidden" value="1R2caBtN00CaeL-U9Cspa5T6iL8H9TpDtMnTkAyKvhxKazyI9gFj9wTUdVmVdv3p04JdOUfPN4SBHQJJFYyal6RsKSLcP2D97D2KTfPc6DA1" />
+        </form>
+
+        <script type="text/javascript">
+            var frozenColumns = [
+                { field: 'ID', checkbox: true },
+                { field: 'SalePrice', title: '借款金额', width: 90 , sortable: true},
+            ];
+            var columns = [
+                { field: 'JSMoney', title: '解锁额度', width: 80 , sortable: true},
+                { field: 'Interest', title: '息费', width: 80 , sortable: true},
+                { field: 'Fastmoney', title: '快速申请费', width: 90 , sortable: true},
+                { field: 'GuanliCost', title: '用户管理费', width: 90 , sortable: true},
+                { field: 'ServiceCost', title: '续借服务费', width: 90 , sortable: true},
+                { field: 'Desname', title: '描述', width: 180},
+                { field: 'CashCoupon', title: '优惠劵', width: 70},
+                { field: 'IsShelves', title: '是否上架', width: 70, formatter: Common.DoFormatter , sortable: true},
+                { field: 'Sort', title: '排序', width: 60 , sortable: true},
+                { field: 'OperatorID', title: '添加人', width: 70 },
+                { field: 'UpdateTime', title: '更新时间', width: 130, sortable: true}
+                ];
+            $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns });
+            $.XB.enter();
+        </script>
+            {:W('RolePerm/RolePermBottom')}
+<div id="DataListMenu" class="easyui-menu" style="width: 130px;display:none;">
+<div data-options="name:'refresh'">刷新</div>
+<div class="menu-sep"></div>
+<div data-options="name:'add'">添加</div>
+<div data-options="name:'edit'">修改</div>
+<div data-options="name:'detail'">详情</div>
+<div data-options="name:'exportexcel'">导出Excel</div>
+<div class="menu-sep"></div>
+<div data-options="name:'all'">全选</div>
+<div data-options="name:'clearall'">全不选</div>
+<div data-options="name:'anti'">反选</div>
+<div class="menu-sep"></div>
+<div>退出</div>
+</div>
+
+    </div>
+</body>
+<include file="Shared:Footer" />

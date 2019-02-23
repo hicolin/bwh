@@ -1,0 +1,7 @@
+延伸类型拓展
+
+用法同 THINKPHP 其他类库
+
+//例
+$Page = new \Extend\Page($count,6);
+$page  = $Page->show();

@@ -1,0 +1,58 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" method="post">
+        <div id="tools" class="tools">
+
+            {:W('RolePerm/RolePermTop')}
+
+        </div>
+        <!-- <div id="search" class="search">
+            <table border="0" class="SearchTable" cellpadding="3">
+                <thead>
+                    <tr>
+                        <td width="90" align="right">优惠券名称：</td>
+                        <td width="180">
+                            <input id="Title" name="Title" type="text" />
+                        </td>
+                        <td width="90" align="right">优惠劵金额：</td>
+                        <td width="180">
+                            <input id="Money" Name="Money" type="text" />
+                        </td>
+                        <td>
+                            <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 询">
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div> -->
+        <div id="tabelContent" class="tabelContent">
+            <table id="DataList"></table>
+        </div>
+    </form>
+    <script type="text/javascript">
+
+        $(function () {
+                var frozenColumns=[
+                 { field: 'ID', checkbox: true },
+                 { field: 'Name', title: '送券名称', width: 200 },
+                ];
+                var columns= [
+                    { field: 'Money', title: '优惠金额', width: 100 },
+                    { field: 'StartMoney', title: '使用条件', width: 150 },
+                    { field: 'StartTime', title: '开始时间', width: 150 ,sortable: true},
+                    { field: 'EndTime', title: '结束时间', width: 150 ,sortable: true},
+                    { field: 'Nunbs', title: '送券个数', width: 80,sortable: true },
+                    { field: 'Status', title: '状态', width: 80},
+                    { field: 'OperatorID', title: '添加人', width: 100 },
+                    { field: 'UpdateTime', title: '添加时间', width: 150, sortable: true },
+                ];
+            $.XB.datagrid({'frozenColumns':frozenColumns,'columns':columns});
+            $.XB.enter();
+        });
+    </script>
+        {:W('RolePerm/RolePermBottom')}
+	</body>
+<include file="Shared:Footer" />
+
+
+

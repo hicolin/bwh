@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+/*主体*/
+
+/*main*/
+.certi_main{}
+.certi_main h1{font-size: 0.16rem;font-family: "PingFang_Light";padding: 0 5px;line-height: 40px;height: 40px;}
+.certi_main h1 span{font-size: 0.12rem;color: #c71422;}
+
+
+.cm_list{padding: 0 10px;background: #fff;}
+.cm_list li{height: 55px;line-height: 45px;padding: 5px 0;border-bottom: 1px solid #eee;}
+.cm_list li:last-child{border-bottom: none;}
+.cm_list li a{display: block;}
+.cm_list_left{width: 10%; padding: 2px 0;}
+.cm_list_left img{display: block;width: 26px;height: 26px;margin-top: 8px;}
+.cm_list_mid{width: 65%;}
+.cm_list_mid p{font-size: .14rem;font-family: "PingFang_Medium";color: #222;}
+.cm_list_mid span{font-size: .12rem;font-family: "PingFang_Light";line-height: 20px;color: #999;display: block;}
+.cm_list_right{}
+.cm_list_right span{font-size: .14rem;font-family: "PingFang_Light";;color: #999;display: block;}
+
+
+/*身份证认证*/
+.id_cer_main{}
+.id_cer_m_top{text-align: center;padding-top: 20px;}
+.id_item{display: inline-block;width: 150px;height: 120px;background: #c71422;border-radius: 10px;overflow: hidden;}
+.id_item img{width: 150px;height:90px;}
+.id_item p{font-size: .14rem;font-family: "PingFang_Light";;color: #fff;}
+
+.id_cer_m_list{}
+.id_cer_m_list ul{background: #fff;padding: 0 10px;}
+.id_cer_m_list li{min-height: 50px;line-height: 30px;padding: 10px 0;border-bottom: 1px solid #eee;position: relative;}
+.id_cer_m_list li:last-child{border-bottom: none;}
+.id_cer_m_list li span{display: inline-block;width: .75rem;font-size: .14rem;color: #555;font-family: "PingFang_Medium";}
+.id_cer_m_list li em.educate_text{font-size: 0.14rem;color: #555;padding-right: 4px;}
+.id_cer_m_list li input{height: 30px;border: none;font-size: 0.14rem;float: right;width: 2.3rem;text-align: right;}
+.id_cer_m_list li input.cer_bank_yzm{width: 1rem;text-align: right;}
+.id_cer_m_list li input.code_b{width: 0.8rem;font-size: 0.12rem;text-align: center;background: none;border-left: 1px solid #ccc;margin-left: 0.1rem;}
+.id_cer_m_list li textarea{height:30px;border: none;font-size: 0.14rem;vertical-align: top;line-height: 30px;width: 2.3rem;float: right;text-align: right;padding-right: 33px;}
+.id_cer_m_list li img.ad{width: 30px;position: absolute;right: 5px;top: 8px;padding: 5px 5px;}
+.id_cer_m_list li img.my_phoneNum{width: 20px;vertical-align: middle;margin-left: 0.1rem;margin-top: 0.05rem;}
+.id_cer_m_btn{}
+.id_cer_m_btn button{width: 200px;height: 40px;border: none;border-radius: 40px;margin-top: 15px;background: #c71422;color: #fff;font-size: .15rem;font-family: "PingFang_Light";}
+
+
+/*社交认证*/
+.social_list span{width: 0.85rem!important;}
+.social_list i{color: #aaa;}
+
+/*选择下拉框*/
+.choose_list{background: #fff;position: fixed;width: 100%;left: 0;bottom: 0;text-align: center;z-index: 20;display: none;}
+.choose_list li{height: 40px;line-height: 40px;background: #fff;font-size: .14rem;color: #999;}
+.choose_list li.active{font-size: .16rem;color: #c71422;}
+.cl_list{padding:0 15px;margin-top: 10px;height: 200px;overflow-y: auto;}
+
+.cl_head{height: 50px;line-height: 50px;padding:0 15px;}
+.cl_head button{height: 30px;margin-top: 5px;font-size: .16rem;color: #777;background: none;border: none;}
+.cl_head button.cl_sure{color: #c71422;}
+
+
+/*选择学历*/
+.choose_education{background: #fff;position: fixed;width: 100%;left: 0;bottom: 0;text-align: center;z-index: 20;display: none;}
+.choose_education li{height: 40px;line-height: 40px;background: #fff;font-size: .14rem;color: #999;}
+.choose_education li.active{font-size: .16rem;color: #c71422;}
+.ce_list{padding:0 15px;margin-top: 10px;height: 240px;overflow-y: auto;}
+.ce_head{height: 50px;line-height: 50px;padding:0 15px;border-bottom: 1px solid #eee;}
+.ce_head button{height: 30px;margin-top: 5px;font-size: .16rem;color: #777;background: none;border: none;}
+.ce_head button.ce_sure{color: #c71422;}
+

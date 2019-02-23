@@ -1,0 +1,159 @@
+<include file="Shared:Header" />
+<body>
+
+<!--head-->
+<div class="head">
+    <span>身份证认证</span>
+    <a href="javascript:history.back();">
+        <i class="iconfont icon-arrow-left"></i>
+    </a>
+</div>
+<!--head end-->
+
+<!--main-->
+<div class="id_cer_main main">
+    <form onsubmit="return false">
+
+        <div style="background: #fff;">
+           <!-- <div class="id_cer_m_top">
+                <div class="id_item">
+                    <img src="<php>echo $rzCard['Cardschi'] ? : '__PUBLIC__/images/certificate/id1.png'</php>" id="hand_pic"/>
+                    <p>手持身份证</p>
+                </div>
+            </div>-->
+            <div class="id_cer_m_top" onclick="identification()">
+                <div class="id_item">
+                    <img src="<php>echo $rzCard['CardFace'] ? : '__PUBLIC__/images/certificate/id2.png'</php>" id="front_pic"/>
+                    <p>身份证人像面</p>
+                </div>
+                <div class="id_item ml10">
+                    <img src="<php>echo $rzCard['CardSide'] ? : '__PUBLIC__/images/certificate/id3.png'</php>" id="back_pic"/>
+                    <p>身份证国徽面</p>
+                </div>
+            </div>
+
+            <div class="id_cer_m_list">
+                <ul>
+                    <li>
+                        <span>姓名：</span>
+                        <input type="text" placeholder="真实姓名" name="name" value="{$memInfo['TrueName']}">
+                    </li>
+                    <li>
+                        <span>身份证号：</span>
+                        <input type="text" placeholder="真实身份证号" name="id_card" value="{$memInfo['IDCard']}">
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--<div class="id_cer_m_btn tc">-->
+            <!--<button>确认</button>-->
+        <!--</div>-->
+    </form>
+    <input type="hidden" name="hiden">
+</div>
+<!--main end-->
+<!--图像上传-->
+<form action="" id="uploadForm" style="display: none">
+    <input type="file" name="file" id="file">
+</form>
+<script>
+    // 图片上传
+    /*$('#hand_pic,#back_pic,#front_pic').click(function () {
+        var id = $(this).attr('id');
+        $('#file').click().unbind().change(function () {
+            uploadPic('#'+id,'{:U("certification/uploadIdCard")}');
+        })
+    });*/
+
+    // 身份认证
+    $('button').click(function () {
+        var handPic = $('#hand_pic').attr('src');
+        var frontPic = $('#front_pic').attr('src');
+        var backPic = $('#back_pic').attr('src');
+        var name = $('input[name="name"]').val();
+        var idCard = $('input[name="id_card"]').val();
+        if (handPic.indexOf('id1.png') > -1) {
+            layer.msg('请上传手持身份证照片');
+            return false;
+        }
+        if (frontPic.indexOf('id2.png') > -1) {
+            layer.msg('请上传身份证人像面');
+            return false;
+        }
+        if (backPic.indexOf('id3.png') > -1) {
+            layer.msg('请上传身份证国徽面');
+            return false;
+        }
+        if (!name) {
+            layer.msg('姓名不能为空');
+            return false;
+        }
+        if (!idCard) {
+            layer.msg('身份证号不能为空');
+            return false;
+        }
+        if (!/^\d{18}|\d{17}x$/i.test(idCard)) {
+            layer.msg('身份证号格式不正确');
+            return false;
+        }
+        saveIdCard(name, idCard, handPic, frontPic, backPic);
+    });
+
+    function saveIdCard(name, idCard, handPic, frontPic, backPic) {
+        layer.load(3);
+        $.post('{:U("certification/idcer")}',
+            {name: name, idCard: idCard, handPic: handPic, frontPic: frontPic, backPic: backPic},
+            function (res) {
+            layer.closeAll();
+                if (res.result === 200) {
+
+
+                    layer.msg(res.message, {time: 1500}, function () {
+                        location.reload();
+                    })
+                } else {
+                    layer.msg(res.message);
+                }
+            }, 'json')
+    }
+</script>
+
+<script>
+    var is = '<?=$cao?>';
+    // 调用身份识别
+    function identification(){
+        if(is==2){ //苹果操作系统
+            // alert('苹果')
+            window.webkit.messageHandlers.identification.postMessage(null);
+        }
+        if(window.app){
+            window.app.identification();
+        }else{
+            // alert("非官方APP，不支持身份识别");
+        }
+    }
+    // app回调接口，该方法不能改名
+    function identification_callback(result){
+        $.post('{:U("certification/idcer")}',{result:result},function (data) {
+            if (data.result === 200) {
+                $("#front_pic").attr('src',data.des.url_frontcard);
+                $("#bank_pic").attr('src',data.des.url_backcard);
+                $('input[name="name"]').val(data.des.id_name);
+                $('input[name="id_card"]').val(data.des.id_no);
+                $('.id_cer_m_top').removeAttr('onclick');
+                layer.msg(data.message, {time: 1500}, function () {
+                    location.reload();
+                })
+            } else {
+                layer.msg(data.message);
+                // alert(data.message);
+                // layer.msg(res.message);
+            }
+        },'json')
+    }
+
+
+</script>
+
+</body>
+</html>

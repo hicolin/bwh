@@ -1,0 +1,51 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" method="post">
+        <div id="tools" class="tools">
+        {:W('RolePerm/RolePermTop')}
+        </div>
+        <div id="tabelContent" class="tabelContent">
+            <table id="DataList"></table>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#DataList').treegrid({
+                rownumbers: true,
+                animate: true,
+                border: false,
+                url: 'DataList',
+                lines: true,
+                idField: 'ID',
+                treeField: 'Name',
+                columns: [[
+                    { field: 'Name', title: '分类名称', width: '300' },
+                    { field: 'IsRec', title: '是否推荐', width: 80, formatter:Common.DoFormatter},
+                    { field: 'ColumnType', title: '栏目类型', width: 80, sortable: true},
+                    { field: 'AllowDelete', title: '允许删除', width: 80, sortable: true },
+                    { field: 'Status', title: '状态', width: 60, sortable: true ,formatter: Common.StatusFormatter},
+                    { field: 'Sort', title: '排序', width: 60, sortable: true, formatter: $.XB.JSSortInt }
+                ]],
+                onLoadSuccess: function () {
+                    $(this).treegrid('resize', {
+                        height: $(window).height() - $('#tools').height() - 5
+                    });
+                },
+                onDblClickCell: function (field, row) {
+                    OpenWin('edit');
+                }
+            });
+        });
+        function PageSave(data) {
+            if (data.result) {
+                top.$.XB.success({ "message": data.message, "fn": function () {$.XB.findiframe().$.XB.reloadtreegrid(); top.$("#D1").dialog('close'); } });
+            }
+            else {
+                $.XB.warning({ "message": data.message });
+            }
+        }
+    </script>
+{:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />

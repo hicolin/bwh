@@ -1,0 +1,101 @@
+<div title="基本信息" style="padding: 20px; background-color: #f4f4f4">
+    <fieldset style="border: 1px solid #ccc;margin:5px; ">
+        <legend  style="color: #0092DC">认证结果</legend>
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+            <tbody>
+            <tr>
+                <td width="120" align="right">芝麻分：</td>
+                <td width="200">
+                    {$zhimainfos['Zmf']}
+                </td>
+                <td width="120" align="right">状态：</td>
+                <td width="200">
+                    <?php
+                          if($zhimainfos['Status']=='0'){
+                             echo '待审核';
+                          }elseif($zhimainfos['Status']=='1'){
+                             echo '<span style="color:green;">已认证</span>';
+                    }elseif($zhimainfos['Status']=='2'){
+                    echo '<span style="color:red;">认证失败</span>';
+                    }
+                    ?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </fieldset>
+</div>
+
+<div title="行业关注名单"  style="padding: 20px; background-color: #f4f4f4">
+    <div class="TabelContent">
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">行业关注名单</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td width="120" align="right">查询结果：</td>
+                    <td width="200">
+                        <?php
+                        if($zhimainfos['Hygz']){
+                                 echo '<span style="color:green;">查询成功</span>';
+                        }else{
+                        echo '<span style="color:red;">查询失败</span>';
+                        }
+                        ?>
+                    </td>
+                    <td width="120" align="right"></td>
+                    <td width="200"></td>
+                </tr>
+                <?php if($zhimainfos['Hygz']):?>
+                <tr>
+                    <td width="120" align="right">是否命中：</td>
+                    <td width="200">
+                        <?php
+                               if($zhimainfos['Hygz']['data']['is_matched']){
+                                 echo '命中';
+                               }else{
+                                 echo '未命中';
+                               }
+                            ?>
+                    </td>
+                    <td width="120" align="right">业务号：</td>
+                    <td width="200">{$zhimainfos['Hygz']['data']['biz_no']}</td>
+                </tr>
+                <?php endif;?>
+                </tbody>
+            </table>
+        </fieldset>
+        <?php if($zhimainfos['Hygz']['data']['details']):?>
+        <fieldset style="border: 1px solid #ccc;margin:5px; ">
+            <legend  style="color: #0092DC">关注名单详细</legend>
+            <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable EditTableMax">
+                <tbody>
+                <tr>
+                    <td>行业编码</td>
+                    <td>风险等级</td>
+                    <td>风险类型</td>
+                    <td>风险编码</td>
+                    <td>刷新时间</td>
+                    <td>结清状态</td>
+                    <!--<td>异议状态</td>-->
+                    <!--<td>数据刷新时间</td>-->
+                    <!--  <td>扩展信息</td> -->
+                </tr>
+                <?php foreach($zhimainfos['Hygz']['data']['details'] as $k=>$v):?>
+                <tr>
+                    <td>{$v.biz_code}</td>
+                    <td>{$v.level}</td>
+                    <td>{$v.type}</td>
+                    <td>{$v.code}</td>
+                    <td>{$v.refresh_time}</td>
+                    <td><?=$v['settlement']==1 ?'已结清':'<b style=color:red>未结清</b>'?></td>
+                    <!--<td>{$v.status}</td>-->
+                    <!--<td><?=date('Y-m-d H:i:s', $v['refresh_time']/1000)?></td>-->
+                </tr>
+                <?php endforeach;?>
+                </tbody>
+            </table>
+        </fieldset>
+        <?php endif;?>
+    </div>
+</div>

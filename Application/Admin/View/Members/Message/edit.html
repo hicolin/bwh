@@ -1,0 +1,71 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+        <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+            <thead>
+                <tr>
+                    <td colspan="2">说明：带<span class="Red">*</span>必填</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr >
+                    <td width="120" align="right"><span class="Red">*</span> 发送的对象：</td>
+                    <td>
+                        <select  name="Obj" id="Obj">
+                            <option value="1">所有</option>
+                            <option value="2">单独</option>
+                        </select>
+                       <!-- <input id="ObjectID" name="ObjectID" type="text" class="required:true,easyui-validatebox" />-->
+                    </td>
+                </tr>
+                <tr id="objec"></tr>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span> 消息接收模式：</td>
+                    <td width="100">
+                        <select id="Type" name="Type">
+                            <option value="-5">选择接收模式</option>
+                            <option value="0">手机短信</option>
+                            <option value="1">通知</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr id="objed"></tr>
+                <tr>
+                    <td width="120" align="right"><span class="Red">*</span> 发送的内容：</td>
+                    <td>
+                        <textarea id="Contents" name="Contents" style="width:400px;height:100px;"></textarea>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+    </form>
+
+
+    <script>
+    
+        $(function(){
+            $("#Obj").change(function(){
+                var objs=$(this).val();
+                    if(objs==2){
+                        var html='<td width="120" align="right"><span class="Red">*</span>手机号码</td><td><input id="Mobile" name="Mobile" type="text" class="required:true,easyui-validatebox" /></td>';
+                        $("#objec").prepend(html);
+                    }else{
+                        $("#objec").html('');
+                    }
+            });
+            $("#Type").change(function(){
+                var objs=$(this).val();
+                    if(objs==1){
+                        var html='<td width="120" align="right"><span class="Red">*</span>通知标题</td><td><input id="Title" name="Title" type="text" class="required:true,easyui-validatebox" /></td>';
+                        $("#objed").prepend(html);
+                    }else{
+                        $("#objed").html('');
+                    }
+            });
+
+        });
+    </script>
+
+</body>
+<include file="Shared:Footer" />

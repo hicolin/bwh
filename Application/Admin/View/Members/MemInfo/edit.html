@@ -1,0 +1,103 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+        <thead>
+        <tr>
+            <td colspan="2">说明：会员资料只能修改基本信息，有关账号及资金部分不可修改！</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+            <td width="120" align="right"> 会员账号：</td>
+            <td>
+                <input id="MemAccount" name="MemAccount" type="text" class="easyui-textbox" data-options="disabled:true"/>
+                <span class="Hui">注册时产生的账号，唯一且不可更改！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">手机号码：</td>
+            <td>
+                <input id="Mobile" name="Mobile" type="text" class="easyui-textbox" data-options="disabled:true" />
+                <span class="Hui">绑定的手机号码，只能重新绑定进行更换！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">真实姓名：</td>
+            <td>
+                <input id="TrueName" name="TrueName" type="text"  class="easyui-textbox"  data-options="disabled:true" />
+                <span class="Hui">会员认证的真实姓名,不允许修改！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">借款额度：</td>
+            <td>
+                <input id="LimitBalcance" name="LimitBalcance" type="text" class="easyui-numberbox" data-options="precision:2"/>
+                <span class="Hui">会员借款的额度限制！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">会员昵称：</td>
+            <td>
+                <input id="NickName" name="NickName" type="text" />
+                <span class="Hui">会员的显示名称,允许修改！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">性别：</td>
+            <td>
+                <select id="Sex" name="Sex" style="width:108px;">
+                    <option value="0">保密</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                </select>
+                <span class="Hui">会员的性别，允许修改！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">出生日期：</td>
+            <td>
+                <input id="BorthDate" name="BorthDate" type="text" class="easyui-datebox" style="width:158px;" />
+                <span class="Hui">会员的生日，允许修改！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">借款限制：</td>
+            <td>
+                <input id="Limitdays" name="Limitdays" value="{$Limitdays}" type="text" class="easyui-numberbox" data-options=""/>
+                <span class="Hui">借款限制天数！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">会员状态：</td>
+            <td>
+                <select id="Status" name="Status" style="width:108px;">
+                    <option value="1">待审核</option>
+                    <option value="2">审核通过</option>
+                    <option value="3">禁用</option>
+                    <option value="4">黑名单</option>
+                </select>
+                <span class="Hui">被禁用的会员，无法登录！被拉黑的会员，无法借贷！</span>
+            </td>
+        </tr>
+        <tr >
+            <td width="120" align="right">类型：</td>
+            <td>
+                <select id="Mtype" name="Mtype" style="width:108px;">
+                    <option value="0">正常</option>
+                    <option value="1">测试</option>
+                </select>
+                <span class="Hui">改成测试账号，则可删除此会员在本站的所有内容信息，请慎重！</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$ID}"/>
+</form>
+<script>
+    $(function () {
+        $('#FF').form('load', '../shows?ID='+{$ID}+'&_=' + Math.random() + '');
+    });
+</script>
+</body>
+<include file="Shared:Footer" />

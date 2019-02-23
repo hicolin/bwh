@@ -1,0 +1,70 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+        <form id="FF" method="post">
+        <div id="tools" class="tools">
+            {:W('RolePerm/RolePermTop')}
+        </div>
+        <div id="search" class="search">
+            <table border="0" class="SearchTable" cellpadding="3">
+                <thead>
+                    <tr>
+
+                        <td align="right"><span class="Red">*</span> 客户端：</td>
+                        <td>
+                            <select id="Client" name="Client">
+                                <option value="-1">全部</option>
+                                <foreach name="Client" item="vo" key="k" >
+                                    <if condition="$vo">
+                                        <option value="{$k}">{$vo}</option>
+                                    </if>
+                                </foreach>
+                            </select>
+                        </td>
+
+                        <td align="right">包名：</td>
+                        <td >
+                            <input id="Package" Name="Package" type="text" />
+                        </td>
+                        <td>
+                            <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 询">
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+
+        <div id="tabelContent" class="tabelContent">
+            <table id="DataList"></table>
+        </div>
+    </form>
+    <script type="text/javascript">
+
+        $(function () {
+
+            var frozenColumns = [
+                 { field: 'ID', checkbox: true },
+                 { field: 'Client', title: '客户端', width: 120 },
+                { field: 'Package', title: '包名', width: 180},
+            ];
+            var columns = [
+                { field: 'Ver', title: '版本号', width: 120 },
+                { field: 'Size', title: '包大小', width: 70 ,align:'center'},
+                { field: 'isForced', title: '更新状态', width: 120 ,align:'center'},
+
+                { field: 'Status', title: '状态', width: 80 ,sortable: true,align:'center'},
+                { field: 'IsDefault', title: '默认', width: 80 ,sortable: true,align:'center'},
+                { field: 'Url', title: '地址', width: 250 },
+
+                { field: 'OperatorID', title: '操作者', width: 100,sortable: true,align:'center'},
+                { field: 'Addtime', title: '更新时间', width: 140,sortable: true,align:'center'}
+            ];
+            $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns });
+            $.XB.enter();
+        });
+    </script>
+        {:W('RolePerm/RolePermBottom')}
+	</body>
+<include file="Shared:Footer" />
+
+
+

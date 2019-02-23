@@ -1,0 +1,148 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+
+<form id="FF">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">真实姓名：</td>
+                    <td width="175">
+                        <input id="TrueName" name="TrueName" type="text" />
+                    </td>
+                    <td width="70" align="right">手机号码：</td>
+                    <td width="175">
+                        <input id="Mobile" name="Mobile" type="text" />
+                    </td>
+                    <td width="70" align="right">状态：</td>
+                    <td width="180">
+                        <select id="LoanStatus" name="LoanStatus">
+                            <option value="-5">全部</option>
+                          <?php foreach($LoanStatus as $k=>$v):?>
+                            <option value="{$k}">{$v}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                    <td >
+                        <input id="MoreSearch" onclick="$.XB.moresearch()" type="button" value="更多条件">
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="stbody">
+                <tr>
+                    <td width="70" align="right">申请号：</td>
+                    <td width="175">
+                        <input id="LoanNo" name="LoanNo" type="text" />
+                    </td>
+                    <td width="70" align="right">订单号：</td>
+                    <td width="175">
+                        <input id="OrderSn" name="OrderSn" type="text" />
+                    </td>
+                    <td width="70" align="right">审核状态：</td>
+                    <td width="180">
+                        <select id="Status" name="Status">
+                            <option value="-5">全部</option>
+                          <?php foreach($Status as $k=>$v):?>
+                            <option value="{$k}">{$v}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="70" align="right">申请类型：</td>
+                    <td width="180">
+                        <select id="LoanType" name="LoanType">
+                            <option value="-5">全部</option>
+                            <option value="0">普通</option>
+                            <option value="1">续借</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                <?php if($RoleID=='2'):?>
+                    <td width="70" align="right">专属客服：</td>
+                    <td width="180">
+                        <select id="SqAdminID" name="SqAdminID">
+                            <option value="-5">全部</option>
+                          <?php foreach($kefuArr as $k=>$v):?>
+                            <option value="{$v.ID}">{$v.TrueName}</option>
+                          <?php endforeach;?>
+                        </select>
+                    </td>
+                <?php endif;?>
+                    <td width="70" align="right">审核时间：</td>
+                    <td width="200">
+                        <input id="shStartTime" name="shStartTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                        -
+                        <input id="shEndTime" name="shEndTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                    </td>
+                    <td width="70" align="right">申请时间：</td>
+                    <td width="200">
+                        <input id="sqStartTime" name="sqStartTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                        -
+                        <input id="sqEndTime" name="sqEndTime" type="text" class="easyui-datebox" data-options="width:93,editable:false" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'ID', checkbox: true },
+        { field: 'MemAccount', title: '会员账号', width:60},
+        { field: 'TgAdmin', title: '注册渠道', width:80},
+        { field: 'TrueName', title: '真实姓名', width:80},
+    ];
+    var columns = [
+        { field: 'Mobile', title: '手机号码', width:90},
+        { field: 'ApplyMoney', title: '申请金额', width: 70  },
+        { field: 'Interest', title: '息费', width: 60  },
+        { field: 'AdoptMoney', title: '快速申请费', width: 80  },
+        { field: 'FJMoney', title: '用户管理费', width: 80  },
+        // { field: 'CoMoney', title: '优惠劵金额', width: 80  },
+        { field: 'ApplyDay', title: '申请天数', width: 60  },
+        { field: 'ApplyTime', title: '申请时间', width: 130  },
+        { field: 'LoanStatus', title: '申请状态', width: 70 },
+
+        { field: 'LoanType', title: '申请类型', width: 70  },
+
+        { field: 'BackM', title: '到期应还', width: 70  },
+        { field: 'OrderSn', title: '订单号', width: 150  },
+        { field: 'LoanNo', title: '申请号', width: 150  },
+        { field: 'YyFkTime', title: '预约还款时间', width: 130  },
+        { field: 'RealFkTime', title: '实际还款时间', width: 130  },
+        // { field: 'LoanNumbs', title: '借款次数', width: 70  },
+        { field: 'SqAdminID', title: '专属客服', width: 70  },
+        // { field: 'LoanType', title: '申请类型', width: 70  },
+        { field: 'ServiceID', title: '审核人', width: 70  },
+        { field: 'ShTime', title: '审核时间', width: 130  },
+        { field: 'Status', title: '审核状态', width: 200  },
+        { field: 'usefor', title: '申请用途', width: 200  },
+        { field: 'ShReason', title: '审核原因', width: 200  },
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+<script>
+
+    $(function () {
+        var status = $('.datagrid-cell-c1-LoanStatus');
+        console.log(status.length);
+    });
+
+</script>
+{:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

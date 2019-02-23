@@ -1,0 +1,82 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+    
+<form id="form1">
+    <div class="tools" id="tools">
+        {:W('RolePerm/RolePermTop')}
+    </div>
+    <div class="search" id="search">
+        <table border="0" id="SearchTable" class="SearchTable" cellpadding="3">
+            <thead>
+                <tr>
+                    <td width="70" align="right">会员账号：</td>
+                    <td width="180">
+                        <input id="MemAccount" name="MemAccount" type="text" />
+                    </td>
+                    <td width="70" align="right">身份证号：</td>
+                    <td width="180">
+                        <input id="IDCard" name="IDCard" type="text" />
+                    </td>
+                    <td width="70" align="right">真实姓名：</td>
+                    <td width="180">
+                        <input id="TrueName" name="TrueName" type="text" />
+                    </td>
+                    <td>
+                        <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 看">
+                    </td>
+                    <td>
+                        <input id="MoreSearch" onclick="$.XB.moresearch()" type="button" value="更多条件">
+                    </td>
+                </tr>
+            </thead>
+            <tbody id="stbody">
+                    <tr>
+                        <td width="70" align="right">银行卡号：</td>
+                        <td width="180">
+                            <input id="BankNo" name="BankNo" type="text" />
+                        </td>
+                        <td width="70" align="right">预留手机：</td>
+                        <td width="180">
+                            <input id="YMobile" name="YMobile" type="text" />
+                        </td>
+                        <td width="70" align="right">状态：</td>
+                        <td width="180">
+                            <select name="Status" id="Status">
+                                <option value="-5">全部</option>
+                                <option value="0">待审核</option>
+                                <option value="1">已认证</option>
+                                <option value="2">认证失败</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+        </table>
+    </div>
+    <div id="TabelContent" class="TabelContent">
+        <table id="DataList"></table>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var frozenColumns = [
+        { field: 'ID', checkbox: true },
+        { field: 'MemAccount', title: '会员账号', width: 90  },
+        { field: 'TrueName', title: '真实姓名', width: 80},
+    ];
+    var columns = [
+        { field: 'IDCard', title: '身份证号', width: 170},
+        { field: 'BankNo', title: '银行卡号', width: 170},
+       // { field: 'BankName', title: '开户银行', width: 100},
+        { field: 'OpenBankName', title: '开户行名称', width: 180},
+        { field: 'Address', title: '开户行地址', width: 200},
+        { field: 'YMobile', title: '预留号码', width: 100},
+        { field: 'RenzTime', title: '认证时间', width: 150 ,sortable:true},
+        { field: 'Status', title: '状态', width: 80},
+    ];
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns});
+    $.XB.enter();
+</script>
+    {:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />
+

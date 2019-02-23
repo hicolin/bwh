@@ -1,0 +1,55 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+ <form id="FF" method="post">
+<div id="tools" class="tools">
+    {:W('RolePerm/RolePermTop')}
+</div>
+<div id="search" class="search">
+    <table border="0" class="SearchTable" cellpadding="3">
+        <thead>
+            <tr>
+                <td width="70" align="right">用户：</td>
+                <td width="180">
+                    <input id="UserName" name="UserName" type="text" />
+                </td>
+                <td align="right">日期：</td>
+                <td>
+                    <input type="text" id="StartTime" name="StartTime" class="easyui-datebox" data-options="width:92,min:0,editable:false" /> -
+                    <input type="text" id="EndTime" name="EndTime" class="easyui-datebox" data-options="width:92,min:0,editable:false" />
+                </td>
+                <td>
+                    <input id="btnSearch" onclick="$.XB.search();" type="button" value="查 询">
+                </td>
+            </tr>
+        </thead>
+    </table>
+</div>
+<div id="tabelContent" class="tabelContent">
+    <table id="DataList"></table>
+</div>
+</form>
+
+<script type="text/javascript">
+$(function () {
+    var frozenColumns = [
+        { field: 'ID', checkbox: true },
+         { field: 'UserName', title: '用户名', width: 100 }
+    ];
+    var columns = [
+            { field: 'TrueName', title: '用户姓名', width: 100 },
+            { field: 'URL', title: '访问地址', width: 300 },
+            { field: 'DateTime', title: '操作时间', width: 150, sortable: true},
+            { field: 'IP', title: '操作IP', width: 100 },
+            { field: 'IPCity', title: 'IP城市', width: 100 },
+            { field: 'AreaName', title: '区域名称', width: 80 },
+            { field: 'ControllerName', title: '控制器', width: 150 },
+            { field: 'ActionName', title: '行为名称', width: 100 }
+    ];
+
+    $.XB.datagrid({ "frozenColumns": frozenColumns, "columns": columns });
+    $.XB.enter();
+});
+</script>
+{:W('RolePerm/RolePermBottom')}
+</body>
+<include file="Shared:Footer" />

@@ -1,0 +1,80 @@
+<include file="Shared:Header" />
+<body class="Bodybg">
+<?php if($res['LoanStatus']=='2'):?>
+<form id="FF" class="easyui-form" method="post" data-options="novalidate:true">
+    <table width="100%" border="0" cellpadding="3" cellspacing="0" class="EditTable">
+    	<thead>
+        <tr>
+            <td colspan="2">说明：带<span style="color:red;">*</span>必填!</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        	<td align="right"><span class="Red">*</span>订单号：</td>
+            <td>{$res.OrderSn}</td>
+        </tr>
+
+        <tr>
+        	<td align="right"><span class="Red">*</span>姓名：</td>
+            <td>{$res.TrueName}</td>
+        </tr>
+        <tr>
+        	<td align="right"><span class="Red">*</span>代扣银行卡：</td>
+            <td>{$res.BankNo}</td>
+        </tr>
+        <tr>
+            <td align="right"><span class="Red">*</span>代扣金额：</td>
+            <td>
+                <input id="ApplyMoney" name="ApplyMoney" type="number" value="{$res.ApplyMoney}" class="easyui-textbox" />
+            </td>
+
+        </tr>
+        <!--<tr>-->
+            <!--<td align="right"><span class="Red">*</span>银行卡号：</td>-->
+            <!--<td>-->
+                <!--<input id="P6_bankAccountNo" name="P6_bankAccountNo" type="text" value="{$bankinfos.BankNo}" class="easyui-textbox" />-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td align="right"><span class="Red">*</span>银行编码：</td>-->
+            <!--<td>-->
+                <!--<input id="P5_bankCode" name="P5_bankCode" type="text" value="{$bankinfos.BankName}" class="easyui-textbox" />-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td align="right"><span class="Red">*</span>业务类型：</td>-->
+            <!--<td>-->
+                <!--<select id="P8_biz" name="P8_biz">-->
+                    <!--<option value="B2C">对私</option>-->
+                    <!--<option value="B2B">对公</option>-->
+                <!--</select>-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td align="right"><span class="Red">*</span>手续费收取方式：</td>-->
+            <!--<td>-->
+                <!--<select id="P10_feeType" name="P10_feeType">-->
+                    <!--<option value="PAYER">付款方收取手续费</option>-->
+                    <!--<option value="RECEIVER">收款方收取手续费</option>-->
+                <!--</select>-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td align="right"></td>-->
+            <!--<td></td>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<td align="right"><span class="Red">*</span>代付操作密码：</td>-->
+            <!--<td>-->
+                <!--<input id="dfpassword" name="dfpassword" type="password" class="easyui-textbox"  data-options="required:true,validType:['length[1,100]']"/>-->
+            <!--</td>-->
+        <!--</tr>-->
+        </tbody>
+    </table>
+    <input type="hidden" id="ID" name="ID" value="{$res['ID']}"/>
+</form>
+<?php else:?>
+    <div style="font-size:20px;color:red;text-align: center;padding-top:80px;">此单尚未放款，或者已经结单!</div>
+<?php endif;?>
+</body>
+<include file="Shared:Footer" />

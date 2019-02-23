@@ -1,0 +1,141 @@
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+html{
+	font-size:9.25926vw;
+}
+@media only screen and (min-width: 1080px){
+	html{font-size:100px;}
+}
+body{
+	background: #3e3477;
+}
+.container{
+	width: 10.8rem;
+	margin: 0 auto;
+	padding-bottom: 0.58rem;
+}
+.fl{
+	float:left;
+}
+.fr{
+	float:right;
+}
+.clearfix{
+	zoom:1;
+}
+.clearfix:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+a{
+	text-decoration:none;
+}
+header{
+	height: 1.32rem;
+	background: #fff;
+	text-align: center;
+	line-height: 1.32rem;
+	position: relative;
+}
+header .title{
+	height: 1.32rem;
+	background: url(../images/nav_title.png) no-repeat scroll center center;
+	background-size: 1.52rem 0.44rem;
+}
+header a{
+	display: block;
+	width: 1.2rem;
+	height: 1.32rem;
+	position: absolute;
+	top: 0;
+	left: 0;background: url(../images/arrow_back.png) no-repeat scroll center center;
+	background-size: 0.52rem;
+}
+.apply1{
+	width: 9.87rem;
+	height: 2.22rem;
+	padding:0.45rem 0.4rem 0.45rem 0.45rem;
+	background: white;
+	margin: 0 auto;
+	border-radius: 0.35rem;
+	margin-bottom: 0.45rem;
+}
+.apply1 .icon{
+	width: 1.32rem;
+	margin-right: 0.4rem;
+}
+.apply1 .p1{
+	font-size: 0.46rem;
+	color: #333;
+	margin-bottom: 0.12rem;
+}
+.apply1 .p2{
+	font-size: 0.3rem;
+	color: #999;
+}
+.apply1 a{
+	display: block;
+	width: 1.97rem;
+	height: 0.7rem;
+	background: #f6dc03;
+	font-size: 0.4rem;
+	color: #333333;
+	border-radius: 0.35rem;
+	text-align: center;
+	line-height: 0.7rem;
+	margin-top: 0.31rem;
+}
+.rules{
+	width: 9.87rem;
+	/*height: 3.62rem;*/
+	background: #2a2062;
+	margin: 0 auto;
+	border-radius: 0.3rem;
+	font-size: 0.36rem;
+	color: white;
+	padding-left: 0.58rem;
+	padding-right: 0.4rem;
+	padding-top: 0.56rem;
+	padding-bottom: 0.56rem;
+	line-height: 1.8;
+	margin-bottom: 0.75rem;
+	box-shadow: 0 0 0.5rem rgba(255,255,255,.3);
+}
+.payment{
+	width: 9.87rem;
+	height: 1.7rem;
+	margin: 0 auto;
+	border-radius: 0.85rem;
+    background: -webkit-gradient(linear, 100% 0, 0 0, from(#f6dc03), to(#f6b403));
+    background: -webkit-linear-gradient(to right, #f6dc03, #f6b403);
+    background: -moz-linear-gradient(to right, #f6dc03, #f6b403);
+    background: -o-linear-gradient(to right, #f6dc03, #f6b403);
+    background: linear-gradient(to right, #f6dc03, #f6b403);
+    position: relative;
+    font-size: 0.6rem;
+    color: #333;
+	padding-left: 2.52rem;
+    line-height: 1.7rem;
+}
+.payment img{
+	width: 2.16rem;
+	position: absolute;
+	left: 0.18rem;
+	top: -0.55rem;
+}
+.payment a{
+	display: block;
+	width: 1.58rem;
+	height: 1.58rem;
+	border-radius: 50%;
+	background: url(../images/go.png) no-repeat;
+	background-size: cover;
+	position: absolute;
+	top: 0.06rem;
+	right: 0.06rem;
+}
