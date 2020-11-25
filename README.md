@@ -14,5 +14,3 @@ WeTouch + ThinkPHP
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0223/134306_c73d0f83_1804453.png "user_bwh.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0223/134319_b2a69e9c_1804453.png "admin_bwh.png")
 
-#### 线上地址
-http://m.j9ct.cn/#/pages/index
